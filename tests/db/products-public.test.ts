@@ -16,10 +16,12 @@ describe('public catalog RLS', () => {
     const a = await admin.from('products')
       .insert({ code: 'PUB-ACTIVE', name: 'Active', category: 'Recovery & Repair', active: true })
       .select().single()
+    if (a.error) throw a.error
     activeId = a.data!.id
     const i = await admin.from('products')
       .insert({ code: 'PUB-INACTIVE', name: 'Inactive', category: 'Recovery & Repair', active: false })
       .select().single()
+    if (i.error) throw i.error
     inactiveId = i.data!.id
   })
 

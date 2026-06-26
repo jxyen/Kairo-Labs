@@ -12,8 +12,10 @@ export default defineConfig({
     environment: 'node',
     include: ['tests/**/*.test.ts'],
     fileParallelism: false,
-    // Route all DB tests to the local Supabase instance so migrations applied
-    // via `npm run db:reset` are immediately testable without pushing to remote.
+    // Route all DB tests to the LOCAL Supabase instance. .env.local points at
+    // the remote/prod project; without this override `npm test` would insert
+    // and delete against production. Requires local Supabase running
+    // (`supabase start`). These are the well-known public local-dev keys.
     env: {
       NEXT_PUBLIC_SUPABASE_URL: 'http://127.0.0.1:54321',
       NEXT_PUBLIC_SUPABASE_ANON_KEY:
