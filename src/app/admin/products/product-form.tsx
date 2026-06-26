@@ -86,14 +86,7 @@ export function ProductForm({
     setSizes((prev) => {
       const next = prev.map((row, i) => {
         if (i !== index) return row
-        const updated = { ...row, [field]: value }
-        // Auto-suggest SKU when mg or code changes and sku is still empty
-        if ((field === 'mg' || field === 'sku') && field !== 'sku') {
-          if (!updated.sku) {
-            updated.sku = autoSku(code, updated.mg)
-          }
-        }
-        return updated
+        return { ...row, [field]: value }
       })
       return next
     })

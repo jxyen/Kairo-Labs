@@ -62,6 +62,23 @@ describe('product actions', () => {
     await admin.from('products').delete().eq('code', 'ADM-UPD')
   })
 
+  it('deletes a size that was removed during update', async () => {
+    await createProduct({ code: 'ADM-RM', name: 'Rm', category: 'Recovery & Repair', sizes: [
+      { mg: '5 mg', price: 10, sku: 'ADM-RM-5MG' },
+      { mg: '10 mg', price: 18, sku: 'ADM-RM-10MG' },
+    ] })
+    const { data: created } = await admin.from('products').select('id, product_sizes(id, sku)').eq('code', 'ADM-RM').single()
+    const keep = created!.product_sizes.find((s: { sku: string }) => s.sku === 'ADM-RM-5MG')!
+    const r = await updateProduct(created!.id, { code: 'ADM-RM', name: 'Rm', category: 'Recovery & Repair', sizes: [
+      { id: keep.id, mg: '5 mg', price: 10, sku: 'ADM-RM-5MG' },
+    ] })
+    expect(r.ok).toBe(true)
+    const { data: after } = await admin.from('product_sizes').select('sku').eq('product_id', created!.id)
+    expect(after).toHaveLength(1)
+    expect(after![0].sku).toBe('ADM-RM-5MG')
+    await admin.from('products').delete().eq('code', 'ADM-RM')
+  })
+
   it('leaves no orphan product when a size insert fails', async () => {
     // two sizes with the SAME sku violate the unique constraint on the batch insert
     const r = await createProduct({ code: 'ADM-ORPH', name: 'Orph', category: 'Recovery & Repair', sizes: [{ mg: '5 mg', price: 10, sku: 'ADM-ORPH-DUP' }, { mg: '10 mg', price: 18, sku: 'ADM-ORPH-DUP' }] })

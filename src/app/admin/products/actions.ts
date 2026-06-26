@@ -36,6 +36,7 @@ export async function updateProduct(id: string, input: ProductInput): Promise<Ac
   if (!parsed.success) return { ok: false, error: parsed.error.issues[0].message }
   const v = parsed.data
   const supabase = await createClient()
+  const { data: originalSizes } = await supabase.from('product_sizes').select('id').eq('product_id', id)
   const { error } = await supabase.from('products').update({
     code: v.code, name: v.name, sub: v.sub, category: v.category, image: v.image,
     mechanism: v.mechanism, tagline: v.tagline, purity: v.purity, blurb: v.blurb,
@@ -51,6 +52,12 @@ export async function updateProduct(id: string, input: ProductInput): Promise<Ac
       const { error: iErr } = await supabase.from('product_sizes').insert({ product_id: id, mg: s.mg, price: s.price, sku: s.sku })
       if (iErr) return { ok: false, error: iErr.message }
     }
+  }
+  const keptIds = v.sizes.filter((s) => s.id).map((s) => s.id)
+  const removed = (originalSizes ?? []).filter((o) => !keptIds.includes(o.id)).map((o) => o.id)
+  if (removed.length) {
+    const { error: dErr } = await supabase.from('product_sizes').delete().in('id', removed)
+    if (dErr) return { ok: false, error: dErr.message }
   }
   revalidateTag('catalog', 'max')
   return { ok: true }
