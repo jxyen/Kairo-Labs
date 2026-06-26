@@ -6,8 +6,9 @@ import { Logo } from "@/components/logo";
 import { useCart } from "@/components/cart-context";
 
 const NAV_LINKS = [
-  { label: "Catalog", href: "/catalog" },
-  { label: "Quality", href: "/#quality" },
+  { label: "Shop", href: "/catalog" },
+  { label: "Categories", href: "/#categories" },
+  { label: "COA", href: "/#quality" },
   { label: "Reviews", href: "/#reviews" },
   { label: "FAQ", href: "/#faq" },
 ];
@@ -41,9 +42,9 @@ export function SiteHeader() {
         position: "sticky",
         top: 0,
         zIndex: 50,
-        background: "rgba(13,15,17,0.82)",
-        backdropFilter: "blur(14px)",
-        WebkitBackdropFilter: "blur(14px)",
+        background: "rgba(0,0,0,0.6)",
+        backdropFilter: "blur(18px) saturate(140%)",
+        WebkitBackdropFilter: "blur(18px) saturate(140%)",
         borderBottom: "1px solid rgba(255,255,255,0.07)",
       }}
     >
@@ -95,7 +96,7 @@ export function SiteHeader() {
                   height: 18,
                   padding: "0 4px",
                   borderRadius: 9,
-                  background: "var(--coral)",
+                  background: "var(--accent)",
                   color: "#06181b",
                   fontSize: 11,
                   fontWeight: 600,
@@ -144,7 +145,7 @@ export function SiteHeader() {
           style={{
             borderTop: "1px solid rgba(255,255,255,0.07)",
             padding: "10px 20px 22px",
-            background: "rgba(13,15,17,0.97)",
+            background: "rgba(0,0,0,0.97)",
           }}
         >
           {NAV_LINKS.map((l) => (

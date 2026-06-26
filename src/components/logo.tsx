@@ -1,33 +1,25 @@
 import Link from "next/link";
+import { KairoMark } from "@/components/kairo-mark";
 
-export function Logo({ size = 17 }: { size?: number }) {
+/** Kairo Labs lockup — the K mark + wordmark. */
+export function Logo({ size = 18 }: { size?: number }) {
   return (
     <Link
       href="/"
-      style={{ display: "flex", alignItems: "center", gap: 10 }}
-      aria-label="Covalent Labs home"
+      style={{ display: "flex", alignItems: "center", gap: 11 }}
+      aria-label="Kairo Labs home"
     >
+      <KairoMark size={26} style={{ color: "var(--accent)", flex: "none" }} />
       <span
-        className="font-mono"
         style={{
-          width: 26,
-          height: 26,
-          borderRadius: 7,
-          background: "var(--grad-logo)",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          fontWeight: 600,
-          fontSize: 14,
-          color: "#06181b",
-          flex: "none",
+          fontSize: size,
+          fontWeight: 800,
+          letterSpacing: "-0.02em",
+          textTransform: "uppercase",
         }}
       >
-        C
-      </span>
-      <span style={{ fontSize: size, fontWeight: 600, letterSpacing: "-0.01em" }}>
-        Covalent
-        <span style={{ color: "var(--text-faint)", fontWeight: 400 }}> Labs</span>
+        Kairo
+        <span style={{ color: "var(--text-faint)", fontWeight: 500 }}> Labs</span>
       </span>
     </Link>
   );

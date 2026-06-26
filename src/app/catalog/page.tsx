@@ -1,14 +1,62 @@
 "use client";
 
-import { useState } from "react";
-import { CATEGORIES, PRODUCTS, type FilterCategory } from "@/lib/products";
+import { Suspense, useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
+import {
+  CATEGORIES,
+  PRODUCTS,
+  fromPrice,
+  type FilterCategory,
+} from "@/lib/products";
 import { ProductCard } from "@/components/product-card";
 
-export default function CatalogPage() {
-  const [category, setCategory] = useState<FilterCategory>("All");
+type SortKey = "popular" | "rating" | "price-asc" | "price-desc" | "name";
 
-  const filtered =
-    category === "All" ? PRODUCTS : PRODUCTS.filter((p) => p.category === category);
+const SORT_OPTIONS: { key: SortKey; label: string }[] = [
+  { key: "popular", label: "Most popular" },
+  { key: "rating", label: "Top rated" },
+  { key: "price-asc", label: "Price: low to high" },
+  { key: "price-desc", label: "Price: high to low" },
+  { key: "name", label: "Alphabetical" },
+];
+
+function isCategory(value: string | null): value is FilterCategory {
+  return value !== null && (CATEGORIES as string[]).includes(value);
+}
+
+function CatalogInner() {
+  const searchParams = useSearchParams();
+  const initialCat = searchParams.get("cat");
+
+  const [category, setCategory] = useState<FilterCategory>(
+    isCategory(initialCat) ? initialCat : "All"
+  );
+  const [sort, setSort] = useState<SortKey>("popular");
+
+  const products = useMemo(() => {
+    const filtered =
+      category === "All" ? PRODUCTS : PRODUCTS.filter((p) => p.category === category);
+
+    const sorted = [...filtered];
+    switch (sort) {
+      case "popular":
+        sorted.sort((a, b) => b.reviews - a.reviews);
+        break;
+      case "rating":
+        sorted.sort((a, b) => b.rating - a.rating || b.reviews - a.reviews);
+        break;
+      case "price-asc":
+        sorted.sort((a, b) => fromPrice(a) - fromPrice(b));
+        break;
+      case "price-desc":
+        sorted.sort((a, b) => fromPrice(b) - fromPrice(a));
+        break;
+      case "name":
+        sorted.sort((a, b) => a.name.localeCompare(b.name));
+        break;
+    }
+    return sorted;
+  }, [category, sort]);
 
   return (
     <main
@@ -26,7 +74,7 @@ export default function CatalogPage() {
 
       <div
         style={{
-          margin: "28px 0 26px",
+          margin: "28px 0 22px",
           display: "flex",
           gap: 10,
           overflowX: "auto",
@@ -48,15 +96,55 @@ export default function CatalogPage() {
 
       <div
         style={{
+          display: "flex",
+          flexWrap: "wrap",
+          alignItems: "center",
+          justifyContent: "space-between",
+          gap: 14,
+          marginBottom: 22,
+        }}
+      >
+        <span style={{ fontSize: 13.5, color: "var(--text-dim)" }}>
+          {products.length} {products.length === 1 ? "product" : "products"}
+          {category !== "All" ? ` in ${category}` : ""}
+        </span>
+        <label style={{ display: "flex", alignItems: "center", gap: 9 }}>
+          <span className="font-mono" style={{ fontSize: 11, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--text-faint)" }}>
+            Sort
+          </span>
+          <select
+            className="sort-select"
+            value={sort}
+            onChange={(e) => setSort(e.target.value as SortKey)}
+          >
+            {SORT_OPTIONS.map((o) => (
+              <option key={o.key} value={o.key}>
+                {o.label}
+              </option>
+            ))}
+          </select>
+        </label>
+      </div>
+
+      <div
+        style={{
           display: "grid",
           gridTemplateColumns: "repeat(auto-fill, minmax(244px, 1fr))",
           gap: 18,
         }}
       >
-        {filtered.map((p) => (
+        {products.map((p) => (
           <ProductCard key={p.code} product={p} variant="catalog" />
         ))}
       </div>
     </main>
+  );
+}
+
+export default function CatalogPage() {
+  return (
+    <Suspense fallback={null}>
+      <CatalogInner />
+    </Suspense>
   );
 }

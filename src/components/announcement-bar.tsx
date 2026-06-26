@@ -19,13 +19,17 @@ export function AnnouncementBar() {
           width: 6,
           height: 6,
           borderRadius: "50%",
-          background: "var(--coral)",
-          boxShadow: "0 0 8px var(--coral)",
+          background: "var(--accent)",
+          boxShadow: "0 0 8px var(--accent)",
           flex: "none",
         }}
       />
       <span style={{ fontSize: 12.5, color: "#b9c0c6", letterSpacing: "0.01em" }}>
-        Free same-day US shipping on orders over $150 — tracked &amp; discreet
+        Save 10% on your first order with code{" "}
+        <span className="font-mono" style={{ color: "var(--accent-light)", fontWeight: 600 }}>
+          RESEARCH10
+        </span>{" "}
+        — free same-day US shipping over $150
       </span>
     </div>
   );

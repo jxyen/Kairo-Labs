@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Kairo Labs — Product Images</title>
+<style>
+  :root { --emerald:#35E0A0; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:#000; color:#fff; font-family:-apple-system,Segoe UI,Roboto,sans-serif; padding:48px 24px; }
+  h1 { font-weight:800; letter-spacing:-.02em; font-size:28px; margin:0 0 6px; text-align:center; }
+  .sub { color:#888; margin:0 0 28px; font-size:14px; text-align:center; }
+  .logo { display:block; height:96px; margin:0 auto 36px; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:24px; max-width:1200px; margin:0 auto; }
+  .card { background:#0a0a0a; border:1px solid #1a1a1a; border-radius:16px; overflow:hidden; }
+  .card img { width:100%; display:block; }
+  .card .meta { padding:14px 16px; }
+  .card .name { font-weight:700; font-size:16px; }
+  .card .tag { color:var(--emerald); font-size:11px; text-transform:uppercase; letter-spacing:.08em; }
+</style>
+</head>
+<body>
+  <h1>Kairo Labs — Full Product Line</h1>
+  <p class="sub">New molecule+K logo · zoomed · brand-font ALL-CAPS · emerald dose</p>
+  <img class="logo" src="/kairo-logo-stacked.png" alt="Kairo Labs logo" />
+  <div class="grid" id="grid"></div>
+  <script>
+    const V = 6;
+    const items = [
+      ["bpc-157","BPC-157 · 10MG","Recovery & Repair"],
+      ["tb-500","TB-500 · 10MG","Recovery & Repair"],
+      ["tirzepatide","Tirzepatide · 10MG","Metabolic & Weight"],
+      ["retatrutide","Retatrutide · 10MG","Metabolic & Weight"],
+      ["mots-c","MOTS-c · 10MG","Metabolic & Weight"],
+      ["cjc-1295","CJC-1295 · 10MG","Growth Hormone"],
+      ["ipamorelin","Ipamorelin · 10MG","Growth Hormone"],
+      ["igf-1-lr3","IGF-1 LR3 · 1MG","Growth Hormone"],
+      ["ghk-cu","GHK-Cu · 50MG","Skin & Cosmetic"],
+      ["mt-2","MT-2 · 10MG","Skin & Cosmetic"],
+    ];
+    document.getElementById('grid').innerHTML = items.map(([slug,name,tag]) =>
+      `<div class="card"><img src="/products/${slug}.png?v=${V}" alt="${name}"><div class="meta"><div class="tag">${tag}</div><div class="name">${name}</div></div></div>`
+    ).join('');
+  </script>
+</body>
+</html>

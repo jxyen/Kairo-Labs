@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Kairo Labs — Vectorized Mark</title>
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=switzer@400,500,600,700,800,900&display=swap" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root{--bg:#050606;--card:rgba(255,255,255,.028);--line:rgba(255,255,255,.09);
+    --text:#F4F6F5;--muted:#99A1A0;--faint:#5b6664;--em:#35E0A0;}
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:"Switzer","Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased;padding:56px 24px 120px;}
+  .wrap{max-width:1080px;margin:0 auto;}
+  .kick{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--em);}
+  h1{font-size:30px;font-weight:800;letter-spacing:-.02em;margin:12px 0 8px;text-transform:uppercase;}
+  .lede{color:var(--muted);font-size:15px;line-height:1.6;max-width:680px;margin:0 0 36px;}
+  .lede b{color:var(--text);font-weight:600;}
+  .row{display:flex;align-items:center;gap:40px;flex-wrap:wrap;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:40px;margin-bottom:18px;}
+  .ct{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);width:100%;margin-bottom:-12px;}
+  .word{font-size:42px;font-weight:800;letter-spacing:-.02em;text-transform:uppercase;}
+  .word .l{color:var(--faint);font-weight:500;}
+  .sizes{display:flex;align-items:flex-end;gap:34px;flex-wrap:wrap;}
+  .s{display:flex;flex-direction:column;align-items:center;gap:9px;}
+  .s .lab{font-family:"IBM Plex Mono",monospace;font-size:10px;color:var(--faint);}
+  .chip{width:80px;height:80px;border-radius:19px;display:flex;align-items:center;justify-content:center;
+    background:linear-gradient(150deg,#7CFFC9,#35E0A0 55%,#16b67e);box-shadow:0 0 0 1px rgba(53,224,160,.4),0 16px 34px -12px rgba(53,224,160,.6);}
+  .label{display:flex;align-items:center;gap:11px;background:#f3f1ec;border-radius:10px;padding:12px 16px;}
+  .label .lw{font-family:"Switzer";font-size:15px;font-weight:800;letter-spacing:.01em;color:#0c0e0d;text-transform:uppercase;}
+  .label .lw span{color:#7d837f;font-weight:500;}
+  .foot{margin-top:40px;padding-top:24px;border-top:1px solid var(--line);color:var(--muted);font-size:14px;line-height:1.65;}
+  .foot b{color:var(--text);font-weight:600;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="kick">Kairo Labs · Vectorized from your PNG</div>
+  <h1>The real mark — now vector</h1>
+  <p class="lede">Your exact logo, color-isolated and traced to a clean SVG (the outlined arms are preserved as true cut-outs, so it stays sharp at any size and recolors cleanly). This is the file that goes everywhere. Confirm it looks right and I'll wire it in.</p>
+
+  <div class="row">
+    <div class="ct">Primary lockup</div>
+    <img src="/kairo-mark.svg" alt="Kairo mark" style="height:96px;width:auto;" />
+    <span class="word">Kairo<span class="l"> Labs</span></span>
+  </div>
+
+  <div class="row">
+    <div class="ct">Scale test · emerald on black</div>
+    <div class="sizes">
+      <div class="s"><img src="/kairo-mark.svg" style="height:64px;width:auto;" /><span class="lab">64</span></div>
+      <div class="s"><img src="/kairo-mark.svg" style="height:32px;width:auto;" /><span class="lab">32</span></div>
+      <div class="s"><img src="/kairo-mark.svg" style="height:24px;width:auto;" /><span class="lab">24</span></div>
+      <div class="s"><img src="/kairo-mark.svg" style="height:16px;width:auto;" /><span class="lab">16</span></div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="ct">App icon · &amp; stamped on a vial label</div>
+    <div class="sizes" style="gap:40px;align-items:center;">
+      <div class="s"><span class="chip"><img src="/kairo-mark-ink.svg" style="height:44px;width:auto;" /></span><span class="lab">app icon</span></div>
+      <div class="s"><div class="label"><img src="/kairo-mark-ink.svg" style="height:22px;width:auto;" /><span class="lw">Kairo<span> Labs</span></span></div><span class="lab">dark ink on label</span></div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <b>If this matches your logo</b>, say go and I'll: set it as the favicon (16/32/180/512), drop it into the header + footer, stamp the ink version on every vial/kit label, and roll the full <b>Signal</b> palette (black + #35E0A0 + Switzer) + the Kairo name across the live site. Then — product renders.
+  </div>
+</div>
+</body>
+</html>

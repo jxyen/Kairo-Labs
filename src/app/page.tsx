@@ -1,49 +1,110 @@
 import Link from "next/link";
-import { FEATURED } from "@/lib/products";
+import { FEATURED, CATEGORY_META, categoryCount, type Category } from "@/lib/products";
 import { ProductCard } from "@/components/product-card";
-import { VialPlaceholder } from "@/components/vial-placeholder";
 
 const sectionPad = { padding: "clamp(56px, 8vw, 96px) 20px" };
+
+const PILLARS: { title: string; desc: string; icon: React.ReactNode }[] = [
+  {
+    title: "Lab-proven purity",
+    desc: "Third-party COA on every batch",
+    icon: (
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M9 3h6" />
+        <path d="M10 3v6.5L5.5 17a2 2 0 0 0 1.7 3h9.6a2 2 0 0 0 1.7-3L14 9.5V3" />
+        <path d="M8 14h8" />
+      </svg>
+    ),
+  },
+  {
+    title: "Best pricing",
+    desc: "Premium peptides, fair prices",
+    icon: (
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0l-7.2-7.2a2 2 0 0 1-.6-1.4V5a2 2 0 0 1 2-2h7a2 2 0 0 1 1.4.6l7.4 7.4a2 2 0 0 1 0 2.8z" />
+        <circle cx="7.5" cy="7.5" r="1.2" />
+      </svg>
+    ),
+  },
+  {
+    title: "Fast US shipping",
+    desc: "Same-day dispatch, tracked",
+    icon: (
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M3 7h11v8H3z" />
+        <path d="M14 10h4l3 3v2h-7z" />
+        <circle cx="7" cy="17" r="1.6" />
+        <circle cx="17.5" cy="17" r="1.6" />
+      </svg>
+    ),
+  },
+  {
+    title: "Discreet packaging",
+    desc: "Plain, unmarked, private",
+    icon: (
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M21 16V8a2 2 0 0 0-1-1.7l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.7l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+        <path d="M3.3 7 12 12l8.7-5" />
+        <path d="M12 22V12" />
+      </svg>
+    ),
+  },
+];
+
+const CATEGORY_ICONS: Record<Category, React.ReactNode> = {
+  "Recovery & Repair": (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 21s-7-4.35-9.3-8.5C1.2 9.7 2.6 6 6 6c2 0 3 1.2 6 4 3-2.8 4-4 6-4 3.4 0 4.8 3.7 3.3 6.5C19 16.65 12 21 12 21z" />
+      <path d="M3.5 12h4l1.5-3 2.5 6 1.5-3h4" />
+    </svg>
+  ),
+  "Metabolic & Weight": (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 3c0 3-4 4-4 8a4 4 0 0 0 8 0c0-1.5-1-2.5-1.5-3.5" />
+      <path d="M12 21a6 6 0 0 0 6-6c0-1.2-.3-2.2-.8-3.2" />
+    </svg>
+  ),
+  "Growth Hormone": (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M5 19l5-5 3 3 6-7" />
+      <path d="M17 7h4v4" />
+    </svg>
+  ),
+  "Skin & Cosmetic": (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z" />
+    </svg>
+  ),
+  "Blends & Stacks": (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 3l9 5-9 5-9-5 9-5z" />
+      <path d="M3 12l9 5 9-5" />
+      <path d="M3 16l9 5 9-5" />
+    </svg>
+  ),
+};
 
 export default function HomePage() {
   return (
     <main>
       {/* ===================== HERO ===================== */}
       <section style={{ position: "relative", overflow: "hidden" }}>
-        <div style={{ position: "absolute", inset: 0, overflow: "hidden", pointerEvents: "none" }}>
-          <div
-            style={{
-              position: "absolute",
-              inset: 0,
-              backgroundImage: "url('/hero-bg4.png')",
-              backgroundSize: "cover",
-              backgroundPosition: "62% center",
-              opacity: 0.85,
-            }}
-          />
-          <div
-            style={{
-              position: "absolute",
-              inset: 0,
-              background:
-                "linear-gradient(180deg, rgba(13,15,17,0.5) 0%, transparent 20%, transparent 60%, rgba(13,15,17,0.6) 84%, #0d0f11 100%)",
-            }}
-          />
-          <div
-            style={{
-              position: "absolute",
-              inset: 0,
-              background:
-                "linear-gradient(100deg, rgba(13,15,17,0.5) 0%, rgba(13,15,17,0.12) 38%, transparent 56%)",
-            }}
-          />
+        <div className="hero-bg" aria-hidden="true">
+          <div className="beam beam-1" />
+          <div className="beam beam-2" />
+          <div className="beam beam-3" />
+          <div className="ray ray-1" />
+          <div className="ray ray-2" />
+          <div className="hero-grid" />
+          <div className="hero-noise" />
+          <div className="hero-fade" />
         </div>
 
         <div
           className="container"
           style={{
             position: "relative",
-            padding: "clamp(48px,8vw,92px) 20px clamp(40px,6vw,64px)",
+            padding: "clamp(56px,9vw,108px) 24px clamp(48px,7vw,80px)",
             display: "flex",
             flexWrap: "wrap",
             alignItems: "center",
@@ -53,36 +114,37 @@ export default function HomePage() {
           <div style={{ flex: 1, minWidth: 300 }}>
             <span className="glass-pill">
               <span className="dot" />
-              Independently lab-tested
+              Research-grade compounds · USA
             </span>
             <h1
+              className="h-hero"
               style={{
-                margin: "22px 0 0",
-                fontSize: "clamp(33px,6.6vw,56px)",
-                lineHeight: 1.04,
-                letterSpacing: "-0.03em",
-                fontWeight: 600,
+                margin: "26px 0 0",
+                fontSize: "clamp(42px,8vw,84px)",
               }}
             >
-              Research-grade peptides, shipped same day from the USA.
+              Engineered for
+              <br />
+              <span className="dim">your peak.</span>
             </h1>
             <p
               style={{
-                margin: "20px 0 0",
+                margin: "24px 0 0",
                 fontSize: "clamp(15px,2.4vw,18px)",
-                lineHeight: 1.55,
+                lineHeight: 1.6,
                 color: "var(--text-muted)",
                 maxWidth: 520,
               }}
             >
-              Every batch is independently lab-tested for ≥99% purity, with a certificate of analysis
-              you can verify by lot number. Discreet packaging. Fast, tracked domestic delivery.
+              Every batch is independently lab-tested to ≥99% purity, with a certificate of analysis
+              you can verify by lot number. Shipped same day from the USA in discreet, unmarked
+              packaging.
             </p>
-            <div style={{ margin: "30px 0 0", display: "flex", flexWrap: "wrap", gap: 12 }}>
-              <Link href="/catalog" className="btn btn-white" style={{ fontSize: 15, padding: "14px 26px" }}>
-                Shop the catalog →
+            <div style={{ margin: "32px 0 0", display: "flex", flexWrap: "wrap", gap: 12 }}>
+              <Link href="/catalog" className="btn btn-accent" style={{ fontSize: 15, padding: "15px 28px" }}>
+                Enter the catalog →
               </Link>
-              <Link href="/#quality" className="btn btn-ghost" style={{ fontSize: 15, padding: "14px 24px" }}>
+              <Link href="/#quality" className="btn btn-glass" style={{ fontSize: 15, padding: "15px 26px" }}>
                 View certificates
               </Link>
             </div>
@@ -98,13 +160,16 @@ export default function HomePage() {
               }}
             >
               <span style={{ display: "flex", alignItems: "center", gap: 7 }}>
-                <span style={{ color: "var(--coral)" }}>✓</span> ≥99% HPLC purity
+                <span style={{ color: "var(--accent)" }}>✓</span> ≥99% lab-tested purity
               </span>
               <span style={{ display: "flex", alignItems: "center", gap: 7 }}>
-                <span style={{ color: "var(--coral)" }}>✓</span> COA per batch
+                <span style={{ color: "var(--accent)" }}>✓</span> Honest pricing
               </span>
               <span style={{ display: "flex", alignItems: "center", gap: 7 }}>
-                <span style={{ color: "var(--coral)" }}>✓</span> US-based fulfillment
+                <span style={{ color: "var(--accent)" }}>✓</span> Same-day US shipping
+              </span>
+              <span style={{ display: "flex", alignItems: "center", gap: 7 }}>
+                <span style={{ color: "var(--accent)" }}>✓</span> Discreet packaging
               </span>
             </div>
           </div>
@@ -124,10 +189,11 @@ export default function HomePage() {
             <div
               style={{
                 position: "absolute",
-                width: 360,
-                height: 360,
+                width: 420,
+                height: 420,
                 borderRadius: "50%",
-                background: "radial-gradient(circle, rgba(236,138,94,0.18), transparent 62%)",
+                background: "radial-gradient(circle, rgba(53, 224, 160,0.16), transparent 64%)",
+                filter: "blur(8px)",
               }}
             />
             <div
@@ -137,66 +203,17 @@ export default function HomePage() {
                 maxWidth: 380,
                 borderRadius: 24,
                 overflow: "hidden",
-                border: "1px solid rgba(255,255,255,0.1)",
-                boxShadow: "0 50px 90px -45px rgba(0,0,0,0.95), 0 0 0 1px rgba(255,255,255,0.04)",
+                border: "1px solid rgba(255,255,255,0.12)",
+                boxShadow:
+                  "0 60px 110px -50px rgba(0,0,0,0.95), 0 0 0 1px rgba(255,255,255,0.04), 0 0 80px -40px rgba(53, 224, 160,0.45)",
               }}
             >
-              <div style={{ background: "radial-gradient(120% 95% at 50% 12%, #fdfcfb, #e6e3df)" }}>
-                <VialPlaceholder height={380} />
-              </div>
-              <span
-                className="font-mono"
-                style={{
-                  position: "absolute",
-                  top: 14,
-                  left: 14,
-                  pointerEvents: "none",
-                  fontSize: 10,
-                  letterSpacing: "0.07em",
-                  textTransform: "uppercase",
-                  color: "var(--text-warm)",
-                  background: "rgba(255,255,255,0.72)",
-                  backdropFilter: "blur(4px)",
-                  border: "1px solid rgba(0,0,0,0.07)",
-                  padding: "5px 10px",
-                  borderRadius: 999,
-                }}
-              >
-                Research use only
-              </span>
-              <div
-                style={{
-                  position: "absolute",
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  gap: 10,
-                  padding: 16,
-                  background: "linear-gradient(180deg, transparent, rgba(13,15,17,0.78))",
-                  pointerEvents: "none",
-                }}
-              >
-                <span className="font-mono" style={{ fontSize: 12, color: "#eef1f2", fontWeight: 500 }}>
-                  BPC-157 · 5 mg
-                </span>
-                <span
-                  className="font-mono"
-                  style={{
-                    fontSize: 11,
-                    fontWeight: 600,
-                    color: "var(--coral)",
-                    background: "rgba(13,15,17,0.55)",
-                    backdropFilter: "blur(6px)",
-                    padding: "5px 10px",
-                    borderRadius: 999,
-                  }}
-                >
-                  99.2% pure
-                </span>
-              </div>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={FEATURED[0].image}
+                alt={`${FEATURED[0].name} research vial`}
+                style={{ display: "block", width: "100%", height: "auto" }}
+              />
             </div>
           </div>
         </div>
@@ -213,36 +230,50 @@ export default function HomePage() {
         <div
           className="container"
           style={{
-            padding: "clamp(28px,4vw,40px) 20px",
+            padding: "clamp(26px,4vw,38px) 20px",
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))",
-            gap: 8,
+            gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+            gap: "20px 8px",
           }}
         >
-          {[
-            { stat: "≥99%", label: "HPLC-verified purity", divider: true },
-            { stat: "100%", label: "Third-party batch tested", divider: true },
-            { stat: "Same-day", label: "US-based shipping", divider: true },
-            { stat: "256-bit", label: "Encrypted checkout", divider: false },
-          ].map((item) => (
+          {PILLARS.map((item, i) => (
             <div
-              key={item.label}
+              key={item.title}
               style={{
-                padding: "8px 18px",
-                borderRight: item.divider ? "1px solid var(--hairline-soft)" : undefined,
+                display: "flex",
+                alignItems: "center",
+                gap: 14,
+                padding: "0 22px",
+                borderRight: i < PILLARS.length - 1 ? "1px solid var(--hairline-soft)" : undefined,
               }}
             >
-              <div style={{ fontSize: "clamp(24px,4vw,30px)", fontWeight: 600, letterSpacing: "-0.02em" }}>
-                {item.stat}
+              <span
+                style={{
+                  flex: "none",
+                  width: 38,
+                  height: 38,
+                  borderRadius: "var(--r-md)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  background: "var(--accent-soft)",
+                  border: "1px solid var(--accent-line)",
+                  color: "var(--accent)",
+                }}
+              >
+                {item.icon}
+              </span>
+              <div>
+                <div style={{ fontSize: 14.5, fontWeight: 600, letterSpacing: "-0.01em" }}>{item.title}</div>
+                <div style={{ marginTop: 2, fontSize: 12.5, color: "var(--text-dim)" }}>{item.desc}</div>
               </div>
-              <div style={{ marginTop: 5, fontSize: 13, color: "var(--text-dim)" }}>{item.label}</div>
             </div>
           ))}
         </div>
       </section>
 
-      {/* ===================== FEATURED PRODUCTS ===================== */}
-      <section className="container" style={sectionPad}>
+      {/* ===================== BESTSELLERS ===================== */}
+      <section id="bestsellers" className="container" style={sectionPad}>
         <div
           style={{
             display: "flex",
@@ -254,7 +285,7 @@ export default function HomePage() {
           }}
         >
           <div>
-            <div className="eyebrow">Catalog</div>
+            <div className="eyebrow">Bestsellers</div>
             <h2 style={{ margin: "12px 0 0", fontSize: "clamp(26px,4.4vw,38px)", fontWeight: 600, letterSpacing: "-0.025em" }}>
               Most-ordered compounds
             </h2>
@@ -282,6 +313,50 @@ export default function HomePage() {
         >
           {FEATURED.map((p) => (
             <ProductCard key={p.code} product={p} variant="featured" />
+          ))}
+        </div>
+      </section>
+
+      {/* ===================== SHOP BY CATEGORY ===================== */}
+      <section id="categories" className="container" style={sectionPad}>
+        <div style={{ marginBottom: 34 }}>
+          <div className="eyebrow">Shop by research category</div>
+          <h2 style={{ margin: "12px 0 0", fontSize: "clamp(26px,4.4vw,38px)", fontWeight: 600, letterSpacing: "-0.025em" }}>
+            Find peptides by research goal
+          </h2>
+        </div>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
+            gap: 16,
+          }}
+        >
+          {CATEGORY_META.map((c) => (
+            <Link
+              key={c.name}
+              href={`/catalog?cat=${encodeURIComponent(c.name)}`}
+              className="cat-card"
+            >
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  gap: 12,
+                }}
+              >
+                <span className="cat-icon">{CATEGORY_ICONS[c.name]}</span>
+                <span className="font-mono" style={{ fontSize: 11.5, color: "var(--text-faint)" }}>
+                  {categoryCount(c.name)} products
+                </span>
+              </div>
+              <div style={{ fontSize: 17, fontWeight: 600, letterSpacing: "-0.01em" }}>{c.name}</div>
+              <div style={{ fontSize: 13.5, lineHeight: 1.5, color: "var(--text-muted)" }}>{c.blurb}</div>
+              <span style={{ marginTop: 4, fontSize: 13.5, fontWeight: 500, color: "var(--accent)" }}>
+                Browse →
+              </span>
+            </Link>
           ))}
         </div>
       </section>
@@ -323,7 +398,7 @@ export default function HomePage() {
                 ["Traceable by batch number", "Look up the exact COA that matches your vial."],
               ].map(([title, body]) => (
                 <div key={title} style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
-                  <span style={{ flex: "none", marginTop: 1, color: "var(--coral)" }}>✓</span>
+                  <span style={{ flex: "none", marginTop: 1, color: "var(--accent)" }}>✓</span>
                   <div>
                     <div style={{ fontSize: 15, fontWeight: 500 }}>{title}</div>
                     <div style={{ fontSize: 13.5, color: "var(--text-dim)" }}>{body}</div>
@@ -389,7 +464,7 @@ export default function HomePage() {
                       className="font-mono"
                       style={{
                         fontSize: 13,
-                        color: coral ? "var(--coral)" : "#e6e9eb",
+                        color: coral ? "var(--accent)" : "#e6e9eb",
                         fontWeight: coral ? 500 : 400,
                       }}
                     >
@@ -410,7 +485,7 @@ export default function HomePage() {
                   background: "rgba(255,255,255,0.03)",
                   fontSize: 13.5,
                   fontWeight: 500,
-                  color: "var(--coral)",
+                  color: "var(--accent)",
                 }}
               >
                 View full COA (PDF) →
@@ -442,7 +517,7 @@ export default function HomePage() {
                 padding: 22,
               }}
             >
-              <div className="font-mono" style={{ fontSize: 13, color: "var(--coral)" }}>
+              <div className="font-mono" style={{ fontSize: 13, color: "var(--accent)" }}>
                 {num}
               </div>
               <div style={{ margin: "14px 0 7px", fontSize: 16, fontWeight: 600 }}>{title}</div>
@@ -472,7 +547,7 @@ export default function HomePage() {
               </h2>
             </div>
             <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-              <span style={{ color: "var(--coral)", fontSize: 16, letterSpacing: "2px" }}>★★★★★</span>
+              <span style={{ color: "var(--accent)", fontSize: 16, letterSpacing: "2px" }}>★★★★★</span>
               <span style={{ fontSize: 14, color: "var(--text-muted)" }}>4.9 / 5 · 1,200+ orders</span>
             </div>
           </div>
@@ -506,7 +581,7 @@ export default function HomePage() {
                   padding: 24,
                 }}
               >
-                <div style={{ color: "var(--coral)", letterSpacing: "2px", marginBottom: 14 }}>★★★★★</div>
+                <div style={{ color: "var(--accent)", letterSpacing: "2px", marginBottom: 14 }}>★★★★★</div>
                 <p style={{ margin: 0, fontSize: 15, lineHeight: 1.6, color: "#dfe3e5" }}>&ldquo;{r.quote}&rdquo;</p>
                 <div style={{ marginTop: 18, display: "flex", alignItems: "center", gap: 10 }}>
                   <div
@@ -527,7 +602,7 @@ export default function HomePage() {
                   </div>
                   <div>
                     <div style={{ fontSize: 14, fontWeight: 500 }}>{r.name}</div>
-                    <div className="font-mono" style={{ fontSize: 11, color: "var(--coral)" }}>
+                    <div className="font-mono" style={{ fontSize: 11, color: "var(--accent)" }}>
                       Verified buyer
                     </div>
                   </div>
@@ -555,7 +630,7 @@ export default function HomePage() {
         >
           <div style={{ flex: 1, minWidth: 260 }}>
             <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 14 }}>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ec8a5e" strokeWidth="1.6">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="1.6">
                 <rect x="5" y="11" width="14" height="9" rx="2" />
                 <path d="M8 11V8a4 4 0 0 1 8 0v3" />
               </svg>
@@ -592,7 +667,7 @@ export default function HomePage() {
           {[
             [
               "Are these products for human use?",
-              "No. All Covalent Labs products are sold strictly for laboratory and research use only — not for human or veterinary consumption.",
+              "No. All Kairo Labs products are sold strictly for laboratory and research use only — not for human or veterinary consumption.",
             ],
             [
               "Do you provide a certificate of analysis?",
@@ -630,7 +705,7 @@ export default function HomePage() {
               position: "absolute",
               inset: "-40%",
               background:
-                "radial-gradient(34% 70% at 10% 50%, rgba(236,138,94,0.22), transparent 60%), radial-gradient(36% 80% at 92% 50%, rgba(151,118,236,0.24), transparent 60%), radial-gradient(40% 90% at 55% 120%, rgba(236,150,104,0.2), transparent 60%)",
+                "radial-gradient(40% 80% at 50% 120%, rgba(53, 224, 160,0.1), transparent 60%)",
             }}
           />
         </div>
@@ -648,7 +723,8 @@ export default function HomePage() {
             Reliable peptides, backed by paperwork you can verify.
           </h2>
           <p style={{ margin: "16px auto 0", maxWidth: 480, fontSize: 16, color: "var(--text-muted)" }}>
-            ≥99% purity, third-party tested, shipped same day from the USA.
+            ≥99% purity, third-party tested, honest pricing — shipped same day from the USA in
+            discreet packaging.
           </p>
           <Link
             href="/catalog"
