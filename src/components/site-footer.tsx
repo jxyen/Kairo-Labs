@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { KairoMark } from "@/components/kairo-mark";
 
 function FooterCol({
   title,
@@ -59,9 +58,8 @@ export function SiteFooter() {
       >
         <div style={{ gridColumn: "1 / -1", maxWidth: 300 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-            <span style={{ display: "flex", alignItems: "center", justifyContent: "center", color: "var(--accent)" }}>
-              <KairoMark size={26} />
-            </span>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/kairo-mark-new.png" alt="" aria-hidden="true" style={{ height: 28, width: "auto", display: "block" }} />
             <span style={{ fontSize: 16, fontWeight: 800, letterSpacing: "-0.02em", textTransform: "uppercase" }}>
               Kairo
               <span style={{ color: "var(--text-faint)", fontWeight: 500 }}> Labs</span>
@@ -69,7 +67,7 @@ export function SiteFooter() {
           </div>
           <p style={{ margin: "14px 0 0", fontSize: 13.5, lineHeight: 1.6, color: "var(--text-dim)" }}>
             Research-grade peptides — independently lab-tested to verified purity and shipped same
-            day from the USA in discreet, unmarked packaging. Reach your peak.
+            day from the USA in discreet, unmarked packaging. For laboratory research use only.
           </p>
         </div>
 

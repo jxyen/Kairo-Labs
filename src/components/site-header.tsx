@@ -118,26 +118,67 @@ export function SiteHeader() {
           </Link>
         </div>
 
-        <button
-          className="show-mobile"
-          onClick={() => setNavOpen((o) => !o)}
-          aria-label="Menu"
-          aria-expanded={navOpen}
-          style={{
-            alignItems: "center",
-            justifyContent: "center",
-            width: 40,
-            height: 40,
-            borderRadius: 10,
-            border: "1px solid rgba(255,255,255,0.1)",
-            background: "none",
-            cursor: "pointer",
-          }}
-        >
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#f2f4f5" strokeWidth="1.6" strokeLinecap="round">
-            <path d="M4 7h16M4 12h16M4 17h16" />
-          </svg>
-        </button>
+        <div className="show-mobile" style={{ alignItems: "center", gap: 10 }}>
+          <Link
+            href="/catalog"
+            aria-label="Cart"
+            style={{
+              position: "relative",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              width: 40,
+              height: 40,
+              borderRadius: 10,
+              border: "1px solid rgba(255,255,255,0.1)",
+            }}
+          >
+            <CartIcon />
+            {cart > 0 && (
+              <span
+                className="font-mono"
+                style={{
+                  position: "absolute",
+                  top: -6,
+                  right: -6,
+                  minWidth: 18,
+                  height: 18,
+                  padding: "0 4px",
+                  borderRadius: 9,
+                  background: "var(--accent)",
+                  color: "#06181b",
+                  fontSize: 11,
+                  fontWeight: 600,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                {cart}
+              </span>
+            )}
+          </Link>
+          <button
+            onClick={() => setNavOpen((o) => !o)}
+            aria-label="Menu"
+            aria-expanded={navOpen}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              width: 40,
+              height: 40,
+              borderRadius: 10,
+              border: "1px solid rgba(255,255,255,0.1)",
+              background: "none",
+              cursor: "pointer",
+            }}
+          >
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#f2f4f5" strokeWidth="1.6" strokeLinecap="round">
+              <path d="M4 7h16M4 12h16M4 17h16" />
+            </svg>
+          </button>
+        </div>
       </div>
 
       {navOpen && (

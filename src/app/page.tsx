@@ -1,6 +1,7 @@
 import Link from "next/link";
-import { FEATURED, CATEGORY_META, categoryCount, type Category } from "@/lib/products";
+import { BESTSELLERS, CATEGORY_META, categoryCount, type Category } from "@/lib/products";
 import { ProductCard } from "@/components/product-card";
+import { Hero } from "@/components/hero";
 
 const sectionPad = { padding: "clamp(56px, 8vw, 96px) 20px" };
 
@@ -88,136 +89,7 @@ export default function HomePage() {
   return (
     <main>
       {/* ===================== HERO ===================== */}
-      <section style={{ position: "relative", overflow: "hidden" }}>
-        <div className="hero-bg" aria-hidden="true">
-          <div className="beam beam-1" />
-          <div className="beam beam-2" />
-          <div className="beam beam-3" />
-          <div className="ray ray-1" />
-          <div className="ray ray-2" />
-          <div className="hero-grid" />
-          <div className="hero-noise" />
-          <div className="hero-fade" />
-        </div>
-
-        <div
-          className="container"
-          style={{
-            position: "relative",
-            padding: "clamp(56px,9vw,108px) 24px clamp(48px,7vw,80px)",
-            display: "flex",
-            flexWrap: "wrap",
-            alignItems: "center",
-            gap: "clamp(28px,5vw,56px)",
-          }}
-        >
-          <div style={{ flex: 1, minWidth: 300 }}>
-            <span className="glass-pill">
-              <span className="dot" />
-              Research-grade compounds · USA
-            </span>
-            <h1
-              className="h-hero"
-              style={{
-                margin: "26px 0 0",
-                fontSize: "clamp(42px,8vw,84px)",
-              }}
-            >
-              Engineered for
-              <br />
-              <span className="dim">your peak.</span>
-            </h1>
-            <p
-              style={{
-                margin: "24px 0 0",
-                fontSize: "clamp(15px,2.4vw,18px)",
-                lineHeight: 1.6,
-                color: "var(--text-muted)",
-                maxWidth: 520,
-              }}
-            >
-              Every batch is independently lab-tested to ≥99% purity, with a certificate of analysis
-              you can verify by lot number. Shipped same day from the USA in discreet, unmarked
-              packaging.
-            </p>
-            <div style={{ margin: "32px 0 0", display: "flex", flexWrap: "wrap", gap: 12 }}>
-              <Link href="/catalog" className="btn btn-accent" style={{ fontSize: 15, padding: "15px 28px" }}>
-                Enter the catalog →
-              </Link>
-              <Link href="/#quality" className="btn btn-glass" style={{ fontSize: 15, padding: "15px 26px" }}>
-                View certificates
-              </Link>
-            </div>
-            <div
-              className="font-mono"
-              style={{
-                margin: "26px 0 0",
-                display: "flex",
-                flexWrap: "wrap",
-                gap: "18px 22px",
-                fontSize: 12,
-                color: "var(--text-faint)",
-              }}
-            >
-              <span style={{ display: "flex", alignItems: "center", gap: 7 }}>
-                <span style={{ color: "var(--accent)" }}>✓</span> ≥99% lab-tested purity
-              </span>
-              <span style={{ display: "flex", alignItems: "center", gap: 7 }}>
-                <span style={{ color: "var(--accent)" }}>✓</span> Honest pricing
-              </span>
-              <span style={{ display: "flex", alignItems: "center", gap: 7 }}>
-                <span style={{ color: "var(--accent)" }}>✓</span> Same-day US shipping
-              </span>
-              <span style={{ display: "flex", alignItems: "center", gap: 7 }}>
-                <span style={{ color: "var(--accent)" }}>✓</span> Discreet packaging
-              </span>
-            </div>
-          </div>
-
-          {/* hero visual */}
-          <div
-            style={{
-              position: "relative",
-              flex: 1,
-              minWidth: 280,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              minHeight: 340,
-            }}
-          >
-            <div
-              style={{
-                position: "absolute",
-                width: 420,
-                height: 420,
-                borderRadius: "50%",
-                background: "radial-gradient(circle, rgba(53, 224, 160,0.16), transparent 64%)",
-                filter: "blur(8px)",
-              }}
-            />
-            <div
-              style={{
-                position: "relative",
-                width: "100%",
-                maxWidth: 380,
-                borderRadius: 24,
-                overflow: "hidden",
-                border: "1px solid rgba(255,255,255,0.12)",
-                boxShadow:
-                  "0 60px 110px -50px rgba(0,0,0,0.95), 0 0 0 1px rgba(255,255,255,0.04), 0 0 80px -40px rgba(53, 224, 160,0.45)",
-              }}
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={FEATURED[0].image}
-                alt={`${FEATURED[0].name} research vial`}
-                style={{ display: "block", width: "100%", height: "auto" }}
-              />
-            </div>
-          </div>
-        </div>
-      </section>
+      <Hero />
 
       {/* ===================== TRUST STRIP ===================== */}
       <section
@@ -281,7 +153,7 @@ export default function HomePage() {
             alignItems: "flex-end",
             justifyContent: "space-between",
             gap: 16,
-            marginBottom: 34,
+            marginBottom: 26,
           }}
         >
           <div>
@@ -289,6 +161,12 @@ export default function HomePage() {
             <h2 style={{ margin: "12px 0 0", fontSize: "clamp(26px,4.4vw,38px)", fontWeight: 600, letterSpacing: "-0.025em" }}>
               Most-ordered compounds
             </h2>
+            <div style={{ marginTop: 11, display: "flex", alignItems: "center", gap: 9, flexWrap: "wrap" }}>
+              <span style={{ color: "var(--accent)", letterSpacing: "2px", fontSize: 14 }}>★★★★★</span>
+              <span className="font-mono" style={{ fontSize: 12.5, color: "var(--text-muted)" }}>
+                4.9 average · 1,200+ orders shipped from the USA
+              </span>
+            </div>
           </div>
           <Link
             href="/catalog"
@@ -304,61 +182,16 @@ export default function HomePage() {
             View all →
           </Link>
         </div>
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))",
-            gap: 18,
-          }}
-        >
-          {FEATURED.map((p) => (
-            <ProductCard key={p.code} product={p} variant="featured" />
-          ))}
-        </div>
-      </section>
-
-      {/* ===================== SHOP BY CATEGORY ===================== */}
-      <section id="categories" className="container" style={sectionPad}>
-        <div style={{ marginBottom: 34 }}>
-          <div className="eyebrow">Shop by research category</div>
-          <h2 style={{ margin: "12px 0 0", fontSize: "clamp(26px,4.4vw,38px)", fontWeight: 600, letterSpacing: "-0.025em" }}>
-            Find peptides by research goal
-          </h2>
-        </div>
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
-            gap: 16,
-          }}
-        >
-          {CATEGORY_META.map((c) => (
-            <Link
-              key={c.name}
-              href={`/catalog?cat=${encodeURIComponent(c.name)}`}
-              className="cat-card"
-            >
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  gap: 12,
-                }}
-              >
-                <span className="cat-icon">{CATEGORY_ICONS[c.name]}</span>
-                <span className="font-mono" style={{ fontSize: 11.5, color: "var(--text-faint)" }}>
-                  {categoryCount(c.name)} products
-                </span>
+        <div className="h-slider">
+          {[...BESTSELLERS]
+            .sort((a, b) => b.reviews - a.reviews)
+            .map((p) => (
+              <div className="h-slide" key={p.code}>
+                <ProductCard product={p} variant="featured" />
               </div>
-              <div style={{ fontSize: 17, fontWeight: 600, letterSpacing: "-0.01em" }}>{c.name}</div>
-              <div style={{ fontSize: 13.5, lineHeight: 1.5, color: "var(--text-muted)" }}>{c.blurb}</div>
-              <span style={{ marginTop: 4, fontSize: 13.5, fontWeight: 500, color: "var(--accent)" }}>
-                Browse →
-              </span>
-            </Link>
-          ))}
+            ))}
         </div>
+        <div className="h-slider-hint font-mono">← swipe for more →</div>
       </section>
 
       {/* ===================== QUALITY / COA ===================== */}
@@ -495,38 +328,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ===================== PROCESS ===================== */}
-      <section className="container" style={sectionPad}>
-        <div className="eyebrow">How it works</div>
-        <h2 style={{ margin: "12px 0 36px", fontSize: "clamp(26px,4.4vw,38px)", fontWeight: 600, letterSpacing: "-0.025em" }}>
-          From synthesis to your bench
-        </h2>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(210px, 1fr))", gap: 16 }}>
-          {[
-            ["01", "Synthesized to spec", "Produced and lyophilized in controlled, ISO-grade facilities."],
-            ["02", "Independently tested", "Every lot sent to a third-party lab for purity and identity."],
-            ["03", "COA published", "Results posted per batch and matched to your vial's lot number."],
-            ["04", "Shipped same day", "Cold-packed, tracked and discreetly packaged — from the USA."],
-          ].map(([num, title, body]) => (
-            <div
-              key={num}
-              style={{
-                background: "var(--surface-panel)",
-                border: "1px solid var(--hairline)",
-                borderRadius: 14,
-                padding: 22,
-              }}
-            >
-              <div className="font-mono" style={{ fontSize: 13, color: "var(--accent)" }}>
-                {num}
-              </div>
-              <div style={{ margin: "14px 0 7px", fontSize: 16, fontWeight: 600 }}>{title}</div>
-              <div style={{ fontSize: 13.5, lineHeight: 1.5, color: "var(--text-muted)" }}>{body}</div>
-            </div>
-          ))}
-        </div>
-      </section>
-
       {/* ===================== REVIEWS ===================== */}
       <section id="reviews" className="band">
         <div className="container" style={sectionPad}>
@@ -610,6 +411,82 @@ export default function HomePage() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ===================== SHOP BY CATEGORY ===================== */}
+      <section id="categories" className="container" style={sectionPad}>
+        <div style={{ marginBottom: 34 }}>
+          <div className="eyebrow">Shop by research category</div>
+          <h2 style={{ margin: "12px 0 0", fontSize: "clamp(26px,4.4vw,38px)", fontWeight: 600, letterSpacing: "-0.025em" }}>
+            Find peptides by research goal
+          </h2>
+        </div>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
+            gap: 16,
+          }}
+        >
+          {CATEGORY_META.map((c) => (
+            <Link
+              key={c.name}
+              href={`/catalog?cat=${encodeURIComponent(c.name)}`}
+              className="cat-card"
+            >
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  gap: 12,
+                }}
+              >
+                <span className="cat-icon">{CATEGORY_ICONS[c.name]}</span>
+                <span className="font-mono" style={{ fontSize: 11.5, color: "var(--text-faint)" }}>
+                  {categoryCount(c.name)} products
+                </span>
+              </div>
+              <div style={{ fontSize: 17, fontWeight: 600, letterSpacing: "-0.01em" }}>{c.name}</div>
+              <div style={{ fontSize: 13.5, lineHeight: 1.5, color: "var(--text-muted)" }}>{c.blurb}</div>
+              <span style={{ marginTop: 4, fontSize: 13.5, fontWeight: 500, color: "var(--accent)" }}>
+                Browse →
+              </span>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* ===================== PROCESS ===================== */}
+      <section className="container" style={sectionPad}>
+        <div className="eyebrow">How it works</div>
+        <h2 style={{ margin: "12px 0 36px", fontSize: "clamp(26px,4.4vw,38px)", fontWeight: 600, letterSpacing: "-0.025em" }}>
+          From synthesis to your bench
+        </h2>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(210px, 1fr))", gap: 16 }}>
+          {[
+            ["01", "Synthesized to spec", "Produced and lyophilized in controlled, ISO-grade facilities."],
+            ["02", "Independently tested", "Every lot sent to a third-party lab for purity and identity."],
+            ["03", "COA published", "Results posted per batch and matched to your vial's lot number."],
+            ["04", "Shipped same day", "Cold-packed, tracked and discreetly packaged — from the USA."],
+          ].map(([num, title, body]) => (
+            <div
+              key={num}
+              style={{
+                background: "var(--surface-panel)",
+                border: "1px solid var(--hairline)",
+                borderRadius: 14,
+                padding: 22,
+              }}
+            >
+              <div className="font-mono" style={{ fontSize: 13, color: "var(--accent)" }}>
+                {num}
+              </div>
+              <div style={{ margin: "14px 0 7px", fontSize: 16, fontWeight: 600 }}>{title}</div>
+              <div style={{ fontSize: 13.5, lineHeight: 1.5, color: "var(--text-muted)" }}>{body}</div>
+            </div>
+          ))}
         </div>
       </section>
 

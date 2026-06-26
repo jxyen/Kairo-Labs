@@ -5,6 +5,7 @@ import { CartProvider } from "@/components/cart-context";
 import { AnnouncementBar } from "@/components/announcement-bar";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { MobileCtaBar } from "@/components/mobile-cta-bar";
 
 // Switzer (display + body) is loaded via globals.css @import (Fontshare).
 // IBM Plex Mono powers the technical eyebrows / labels.
@@ -16,7 +17,7 @@ const mono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Kairo Labs — Research-grade peptides. Reach your peak.",
+  title: "Kairo Labs — Research peptides, shipped fast from the USA.",
   description:
     "Kairo Labs supplies research-grade peptides independently lab-tested to ≥99% purity, each with a certificate of analysis you can verify by lot number. Same-day US shipping, discreet, unmarked packaging. For research use only.",
 };
@@ -46,6 +47,7 @@ export default function RootLayout({
             {children}
             <SiteFooter />
           </div>
+          <MobileCtaBar />
         </CartProvider>
       </body>
     </html>

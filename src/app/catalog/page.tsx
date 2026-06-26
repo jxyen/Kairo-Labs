@@ -127,6 +127,7 @@ function CatalogInner() {
       </div>
 
       <div
+        className="product-grid"
         style={{
           display: "grid",
           gridTemplateColumns: "repeat(auto-fill, minmax(244px, 1fr))",

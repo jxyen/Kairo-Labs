@@ -180,52 +180,63 @@ h2 {
   opacity: 0.8;
   animation: drift2 28s ease-in-out infinite alternate;
 }
-.beam-3 {
-  width: 46vw;
-  height: 46vw;
-  max-width: 680px;
-  max-height: 680px;
-  top: -14%;
-  left: -6%;
-  background: radial-gradient(circle at 50% 50%, rgba(124, 112, 255, 0.18), rgba(124, 112, 255, 0) 62%);
-  opacity: 0.7;
-  animation: drift3 34s ease-in-out infinite alternate;
+/* Slow-rotating aurora glow centered behind the headline */
+.aurora {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 130vw;
+  height: 130vw;
+  max-width: 1500px;
+  max-height: 1500px;
+  transform: translate(-50%, -54%);
+  border-radius: 50%;
+  filter: blur(70px);
+  mix-blend-mode: screen;
+  opacity: 0.55;
+  background:
+    conic-gradient(
+      from 0deg at 50% 50%,
+      rgba(var(--accent-rgb), 0) 0deg,
+      rgba(var(--accent-rgb), 0.42) 70deg,
+      rgba(45, 212, 191, 0.18) 150deg,
+      rgba(var(--accent-rgb), 0) 220deg,
+      rgba(var(--accent-rgb), 0.34) 300deg,
+      rgba(var(--accent-rgb), 0) 360deg
+    );
+  -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 12%, transparent 60%);
+  mask-image: radial-gradient(circle at 50% 50%, #000 12%, transparent 60%);
+  animation: auroraSpin 40s linear infinite;
+  will-change: transform;
 }
 
-/* Diagonal light rays (lens-flare streaks) */
-.ray {
+/* Horizontal light sweep that scans across the hero */
+.hero-sweep {
   position: absolute;
-  left: -25%;
-  width: 150%;
-  height: 200px;
-  filter: blur(26px);
+  top: -20%;
+  left: -40%;
+  width: 40%;
+  height: 140%;
+  transform: skewX(-14deg);
+  filter: blur(40px);
   mix-blend-mode: screen;
-  will-change: opacity, transform;
-}
-.ray-1 {
-  top: 30%;
-  transform: rotate(-22deg);
-  background: linear-gradient(90deg, transparent, rgba(var(--accent-rgb), 0.16) 45%, rgba(124, 112, 255, 0.08) 60%, transparent);
-  animation: shimmer 9s ease-in-out infinite alternate;
-}
-.ray-2 {
-  top: 62%;
-  transform: rotate(-22deg);
-  height: 130px;
-  background: linear-gradient(90deg, transparent, rgba(45, 212, 191, 0.12) 55%, transparent);
-  animation: shimmer 12s ease-in-out infinite alternate-reverse;
+  background: linear-gradient(90deg, transparent, rgba(var(--accent-rgb), 0.14), transparent);
+  animation: heroSweep 11s ease-in-out infinite;
+  will-change: transform, opacity;
 }
 
 .hero-grid {
   position: absolute;
-  inset: 0;
+  inset: -60px;
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.028) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.028) 1px, transparent 1px);
-  background-size: 58px 58px;
-  background-position: center top;
-  -webkit-mask-image: radial-gradient(80% 74% at 64% 32%, #000 18%, transparent 72%);
-  mask-image: radial-gradient(80% 74% at 64% 32%, #000 18%, transparent 72%);
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  background-position: center center;
+  -webkit-mask-image: radial-gradient(70% 70% at 50% 42%, #000 8%, transparent 68%);
+  mask-image: radial-gradient(70% 70% at 50% 42%, #000 8%, transparent 68%);
+  animation: gridFloat 24s ease-in-out infinite alternate;
+  will-change: transform;
 }
 
 .hero-noise {
@@ -236,12 +247,12 @@ h2 {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-.hero-fade {
+.hero-vignette {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(180deg, rgba(0, 0, 0, 0.5) 0%, transparent 20%, transparent 58%, var(--bg-base) 100%),
-    linear-gradient(90deg, var(--bg-base) 0%, rgba(0, 0, 0, 0.42) 15%, transparent 44%);
+    radial-gradient(120% 90% at 50% 36%, transparent 40%, rgba(0, 0, 0, 0.55) 100%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.45) 0%, transparent 22%, transparent 62%, var(--bg-base) 100%);
 }
 
 @keyframes drift1 {
@@ -260,12 +271,45 @@ h2 {
   from { opacity: 0.35; }
   to   { opacity: 0.8; }
 }
+@keyframes auroraSpin {
+  from { transform: translate(-50%, -54%) rotate(0deg); }
+  to   { transform: translate(-50%, -54%) rotate(360deg); }
+}
+@keyframes heroSweep {
+  0%   { transform: translateX(0) skewX(-14deg); opacity: 0; }
+  35%  { opacity: 1; }
+  65%  { opacity: 1; }
+  100% { transform: translateX(360%) skewX(-14deg); opacity: 0; }
+}
+@keyframes gridFloat {
+  from { transform: translateY(-10px); }
+  to   { transform: translateY(10px); }
+}
 
 @media (prefers-reduced-motion: reduce) {
   .beam,
-  .ray {
+  .ray,
+  .aurora,
+  .hero-sweep,
+  .hero-grid {
     animation: none !important;
   }
+}
+
+/* Hero trust chips */
+.hero-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 11.5px;
+  letter-spacing: 0.04em;
+  color: #cdd4d9;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--accent-line);
+  background: rgba(var(--accent-rgb), 0.05);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .band {
@@ -430,7 +474,8 @@ h2 {
 
 .studio-tile {
   position: relative;
-  background: var(--tile);
+  aspect-ratio: 1 / 1;
+  background: #000;
 }
 
 .chip-category,
@@ -619,4 +664,115 @@ h2 {
   .show-mobile {
     display: flex;
   }
+}
+
+/* ============================================================
+   MOBILE ECOM OPTIMIZATIONS
+   ============================================================ */
+
+/* Sticky bottom conversion bar (phones only) */
+.mcta {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 60;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px 14px calc(12px + env(safe-area-inset-bottom));
+  background: rgba(8, 9, 10, 0.92);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  transform: translateY(120%);
+  transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.mcta[data-show="true"] { transform: translateY(0); }
+.mcta-trust {
+  font-size: 10.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  text-align: center;
+}
+.mcta-row { display: flex; align-items: stretch; gap: 10px; }
+.mcta-shop {
+  flex: 1;
+  font-size: 15px;
+  padding: 14px 18px;
+  border-radius: var(--r-md);
+}
+.mcta-cart {
+  position: relative;
+  flex: none;
+  width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--r-md);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.03);
+}
+.mcta-badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 4px;
+  border-radius: 9px;
+  background: var(--accent);
+  color: #06181b;
+  font-size: 11px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Product grid → 2-up on phones */
+@media (max-width: 560px) {
+  .product-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important; gap: 12px !important; }
+  .pc-blurb { display: none; }
+  .pc-sub { display: none; }
+  .pc-body { padding: 13px !important; gap: 7px !important; }
+  .pc-foot { flex-direction: column; align-items: stretch !important; gap: 10px !important; padding-top: 11px !important; }
+  .pc-foot .add-btn { width: 100%; justify-content: center; padding: 11px !important; }
+  .studio-tile { height: 150px !important; }
+}
+
+/* Keep the sticky bar from covering footer content on phones */
+@media (max-width: 880px) {
+  .page-wash { padding-bottom: 116px; }
+}
+
+/* ---------- Horizontal product slider (bestsellers) ---------- */
+.h-slider {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scroll-padding-left: 2px;
+  padding: 2px 2px 14px;
+  scrollbar-width: none;
+}
+.h-slider::-webkit-scrollbar { display: none; }
+.h-slide {
+  flex: 0 0 300px;
+  max-width: 86vw;
+  scroll-snap-align: start;
+}
+.h-slider-hint {
+  display: none;
+  margin-top: 4px;
+  font-size: 10.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  text-align: center;
+}
+@media (max-width: 880px) {
+  .h-slide { flex-basis: 80%; }
+  .h-slider-hint { display: block; }
 }

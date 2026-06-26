@@ -102,7 +102,7 @@ export const PRODUCTS: Product[] = [
       { mg: "60 mg", price: 151.99 },
     ],
     rating: 4.9,
-    reviews: 287,
+    reviews: 428,
     bestseller: true,
     featured: true,
     blurb: "Triple incretin agonist studied across weight and metabolic endpoints.",

@@ -38,7 +38,6 @@ export function ProductCard({
   const { justAdded, add } = useCart();
   const added = justAdded === product.code;
 
-  const tileHeight = variant === "featured" ? 214 : 200;
   const nameSize = variant === "featured" ? 18 : 17;
   const subSize = variant === "featured" ? 11.5 : 11;
   const blurbSize = variant === "featured" ? 13.5 : 13;
@@ -49,13 +48,13 @@ export function ProductCard({
 
   return (
     <div className="product-card">
-      <div className="studio-tile" style={{ height: tileHeight }}>
+      <div className="studio-tile">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={product.image}
           alt={`${product.name} research vial`}
           loading="lazy"
-          style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+          style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }}
         />
         {product.bestseller ? (
           <span className="chip-bestseller">Bestseller</span>
@@ -66,6 +65,7 @@ export function ProductCard({
       </div>
 
       <div
+        className="pc-body"
         style={{
           padding: 18,
           display: "flex",
@@ -101,7 +101,7 @@ export function ProductCard({
         </div>
 
         <div
-          className="font-mono"
+          className="font-mono pc-sub"
           style={{ fontSize: subSize, letterSpacing: "0.04em", color: "var(--text-faint)" }}
         >
           {product.sub}
@@ -114,11 +114,12 @@ export function ProductCard({
           </span>
         </div>
 
-        <p style={{ margin: "2px 0 0", fontSize: blurbSize, lineHeight: 1.5, color: "var(--text-muted)" }}>
+        <p className="pc-blurb" style={{ margin: "2px 0 0", fontSize: blurbSize, lineHeight: 1.5, color: "var(--text-muted)" }}>
           {product.blurb}
         </p>
 
         <div
+          className="pc-foot"
           style={{
             marginTop: "auto",
             display: "flex",
