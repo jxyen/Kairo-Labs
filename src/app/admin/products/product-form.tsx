@@ -1,5 +1,5 @@
 'use client'
-import { useState, useTransition } from 'react'
+import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { CATEGORIES } from '@/lib/products'
 import { createProduct, updateProduct, uploadProductImage } from './actions'
@@ -43,7 +43,7 @@ export function ProductForm({
   initial?: InitialProduct
 }) {
   const router = useRouter()
-  const [isPending, startTransition] = useTransition()
+  const [saving, setSaving] = useState(false)
 
   const [code, setCode] = useState(initial?.code ?? '')
   const [name, setName] = useState(initial?.name ?? '')
@@ -175,18 +175,27 @@ export function ProductForm({
       })),
     }
 
-    startTransition(async () => {
-      const result =
-        mode === 'create'
-          ? await createProduct(input)
-          : await updateProduct(productId!, input)
-      if (!result.ok) {
-        setSubmitError(result.error)
-      } else {
+    setSaving(true)
+    ;(async () => {
+      try {
+        const result =
+          mode === 'create'
+            ? await createProduct(input)
+            : await updateProduct(productId!, input)
+        if (!result.ok) {
+          setSubmitError(result.error)
+          setSaving(false)
+          return
+        }
+        // Success — go back to the list. The list is a dynamic server page, so it
+        // renders fresh on navigation (no router.refresh needed). We intentionally
+        // leave `saving` true because this component unmounts on navigation.
         router.push('/admin/products')
-        router.refresh()
+      } catch (err) {
+        setSubmitError(err instanceof Error ? err.message : 'Something went wrong while saving.')
+        setSaving(false)
       }
-    })
+    })()
   }
 
   const inputCls = 'rounded-md border border-black/15 px-3 py-2 text-sm w-full'
@@ -466,10 +475,10 @@ export function ProductForm({
 
       <button
         type="submit"
-        disabled={isPending || sizes.length === 0}
+        disabled={saving || sizes.length === 0}
         className="rounded-md bg-black px-4 py-2 text-white disabled:opacity-50"
       >
-        {isPending
+        {saving
           ? mode === 'create'
             ? 'Creating…'
             : 'Saving…'
