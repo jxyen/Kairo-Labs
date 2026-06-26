@@ -8,7 +8,7 @@ describe('product seed', () => {
     execSync('npm run db:seed', { stdio: 'inherit' })
   })
 
-  it('seeds every product from products.ts', async () => {
+  it('seeds every product from seed-data.ts', async () => {
     const admin = createAdminClient()
     const { count } = await admin.from('products').select('*', { count: 'exact', head: true })
     expect(count).toBe(SEED_PRODUCTS.length)

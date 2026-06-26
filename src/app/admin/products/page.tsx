@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { requireStaff } from '@/lib/auth/dal'
 import { createClient } from '@/lib/supabase/server'
+import { ActiveToggle } from './active-toggle'
 
 export default async function ProductsPage() {
   await requireStaff()
@@ -31,7 +32,7 @@ export default async function ProductsPage() {
                 <td>{p.product_sizes.length}</td>
                 <td>{range}</td>
                 <td>{p.active ? <span className="text-emerald-600">Active</span> : <span className="text-black/40">Inactive</span>}</td>
-                <td className="text-right"><Link href={`/admin/products/${p.id}/edit`} className="text-blue-600">Edit</Link></td>
+                <td className="text-right"><ActiveToggle id={p.id} active={p.active} /> <Link href={`/admin/products/${p.id}/edit`} className="text-blue-600">Edit</Link></td>
               </tr>
             )
           })}

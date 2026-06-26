@@ -83,9 +83,9 @@ export function sizeDisplay(p: Product): string {
 }
 
 /* ---------- Slugs / lookup (for product detail pages) ---------- */
-/** URL slug derived from the cutout filename, e.g. "/products/cutout/bpc-157.png" -> "bpc-157". */
+/** URL slug derived from the product code, e.g. "BPC-157" -> "bpc-157". */
 export function productSlug(p: Product): string {
-  return p.image.split("/").pop()!.replace(/\.png$/, "");
+  return p.code.toLowerCase().replace(/\s+/g, "-");
 }
 export function productHref(p: Product): string {
   return `/product/${productSlug(p)}`;

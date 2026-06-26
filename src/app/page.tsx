@@ -51,15 +51,17 @@ const PILLARS: { title: string; desc: string; icon: React.ReactNode }[] = [
 export default async function HomePage() {
   const products = await getCatalog();
   const bestsellers = await getBestsellers();
-  const feature = products.find((p) => p.code === "Retatrutide")!;
+  const feature = products.find((p) => p.code === "Retatrutide") ?? products[0];
   return (
     <main>
       <Hero />
 
       {/* ===================== FEATURED PRODUCT ===================== */}
-      <section className="container" style={{ padding: "0 20px clamp(40px,6vw,72px)" }}>
-        <FeatureCard product={feature} />
-      </section>
+      {feature && (
+        <section className="container" style={{ padding: "0 20px clamp(40px,6vw,72px)" }}>
+          <FeatureCard product={feature} />
+        </section>
+      )}
 
       {/* ===================== TRUST STRIP ===================== */}
       <section className="band">

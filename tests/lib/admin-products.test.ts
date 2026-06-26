@@ -37,6 +37,7 @@ describe('product actions', () => {
   it('rejects duplicate code', async () => {
     const r = await createProduct(base)
     expect(r.ok).toBe(false)
+    if (!r.ok) expect(r.error).toMatch(/already exists/i)
   })
   it('soft-deletes (deactivates)', async () => {
     const r = await setProductActive(id, false)

@@ -6,6 +6,15 @@ import { productSchema, type ProductInput } from './schema'
 
 export type ActionResult = { ok: true; id?: string } | { ok: false; error: string }
 
+function friendlyError(error: { code?: string; message: string }): string {
+  if (error.code === '23505') {
+    if (/sku/i.test(error.message)) return 'That SKU is already in use.'
+    if (/code/i.test(error.message)) return 'A product with this code already exists.'
+    return 'That value must be unique.'
+  }
+  return error.message
+}
+
 export async function createProduct(input: ProductInput): Promise<ActionResult> {
   await requireStaff()
   const parsed = productSchema.safeParse(input)
@@ -18,13 +27,13 @@ export async function createProduct(input: ProductInput): Promise<ActionResult> 
     rating: v.rating, reviews: v.reviews, bestseller: v.bestseller, featured: v.featured,
     compare_at: v.compareAt ?? null,
   }).select('id').single()
-  if (error) return { ok: false, error: error.message }
+  if (error) return { ok: false, error: friendlyError(error) }
   const { error: sErr } = await supabase.from('product_sizes').insert(
     v.sizes.map((s) => ({ product_id: product.id, mg: s.mg, price: s.price, sku: s.sku })),
   )
   if (sErr) {
     await supabase.from('products').delete().eq('id', product.id)
-    return { ok: false, error: sErr.message }
+    return { ok: false, error: friendlyError(sErr) }
   }
   revalidateTag('catalog', 'max')
   return { ok: true, id: product.id }
@@ -43,14 +52,14 @@ export async function updateProduct(id: string, input: ProductInput): Promise<Ac
     rating: v.rating, reviews: v.reviews, bestseller: v.bestseller, featured: v.featured,
     compare_at: v.compareAt ?? null, updated_at: new Date().toISOString(),
   }).eq('id', id)
-  if (error) return { ok: false, error: error.message }
+  if (error) return { ok: false, error: friendlyError(error) }
   for (const s of v.sizes) {
     if (s.id) {
       const { error: uErr } = await supabase.from('product_sizes').update({ mg: s.mg, price: s.price, sku: s.sku }).eq('id', s.id)
-      if (uErr) return { ok: false, error: uErr.message }
+      if (uErr) return { ok: false, error: friendlyError(uErr) }
     } else {
       const { error: iErr } = await supabase.from('product_sizes').insert({ product_id: id, mg: s.mg, price: s.price, sku: s.sku })
-      if (iErr) return { ok: false, error: iErr.message }
+      if (iErr) return { ok: false, error: friendlyError(iErr) }
     }
   }
   const keptIds = v.sizes.filter((s) => s.id).map((s) => s.id)
