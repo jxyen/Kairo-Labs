@@ -23,7 +23,7 @@ function toProduct(r: Row): Product {
     code: r.code, name: r.name, sub: r.sub ?? '', category,
     image: r.image ?? '', mechanism: r.mechanism ?? '', tagline: r.tagline ?? '',
     purity: r.purity ?? '', sizes,
-    rating: Number(r.rating ?? 0), reviews: r.reviews ?? 0,
+    rating: Number(r.rating ?? 0), reviews: Number(r.reviews ?? 0),
     bestseller: r.bestseller, featured: r.featured, blurb: r.blurb ?? '',
     compareAt: r.compare_at ?? undefined,
   }

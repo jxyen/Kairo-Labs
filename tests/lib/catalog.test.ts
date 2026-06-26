@@ -22,6 +22,8 @@ describe('catalog read layer', () => {
     const list = await getCatalog()
     const blend = list.find((p) => p.category === 'Blends & Stacks')
     expect(blend).toBeDefined()
+    expect(typeof blend!.compareAt).toBe('number')
+    expect(blend!.compareAt!).toBeGreaterThan(0)
   })
 
   it('looks up a product by slug', async () => {
