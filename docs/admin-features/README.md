@@ -4,6 +4,22 @@ Each feature below is built by one terminal against the shared foundation
 (Supabase schema + `/admin` shell + DAL). Read your brief, then replace the
 matching `src/app/admin/<slug>/page.tsx` stub.
 
+## Who logs in (two populations)
+
+There are two completely separate user types:
+
+- **Admins** — the small core team (currently 3), who control everything. They
+  live in the `staff` table; all of them have the `owner` role and see all data
+  including revenue. The `staff` role (non-owner) exists for a possible future
+  limited-access hire (e.g. fulfillment) and is otherwise unused today. Admins
+  are invited manually, not via open sign-up.
+- **Affiliates** — external marketers who only have a referral code and bring in
+  buyers. They live in the `affiliates` table, **never** in `staff`, and never
+  reach `/admin`. Their own minimal portal (code, referrals, earnings) is a
+  separate later surface — see `affiliates.md` for the auth-separation warning.
+
+Because all admins are `owner`, there is no revenue gating between admins today.
+
 ## Rules of the road
 
 - **Do not edit migrations 0001–0005.** Add new migrations (`0006_…`) if your
