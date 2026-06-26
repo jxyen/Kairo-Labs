@@ -4,6 +4,7 @@ export default defineConfig({
   resolve: {
     alias: {
       'server-only': new URL('./node_modules/server-only/empty.js', import.meta.url).pathname,
+      '@': new URL('./src', import.meta.url).pathname,
     },
   },
   test: {
