@@ -17,9 +17,9 @@ const mono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Kairo Labs — Research peptides, shipped fast from the USA.",
+  title: "Kairo Labs — Research peptides supplied for laboratory use.",
   description:
-    "Kairo Labs supplies research-grade peptides independently lab-tested to ≥99% purity, each with a certificate of analysis you can verify by lot number. Same-day US shipping, discreet, unmarked packaging. For research use only.",
+    "Kairo Labs supplies research-grade peptides to qualified researchers and laboratories — independently lab-tested to ≥99% purity, each with a certificate of analysis verifiable by lot number. Same-day US shipping in plain, tracked packaging. For research use only; not for human or animal consumption.",
 };
 
 export default function RootLayout({
