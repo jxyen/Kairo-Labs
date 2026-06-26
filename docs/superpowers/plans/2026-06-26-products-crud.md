@@ -80,7 +80,7 @@ Expected: reset completes, `database.types.ts` now shows `compare_at` on `produc
 
 ```ts
 // tests/db/products-public.test.ts
-import { describe, it, expect, beforeAll } from 'vitest'
+import { describe, it, expect, beforeAll, afterAll } from 'vitest'
 import { createClient } from '@supabase/supabase-js'
 
 const url = process.env.NEXT_PUBLIC_SUPABASE_URL!
@@ -120,16 +120,10 @@ describe('public catalog RLS', () => {
     expect(error).not.toBeNull()
   })
 
-  afterAll: // cleanup
-})
-```
-
-Replace the `afterAll:` placeholder line with:
-
-```ts
-  it('cleanup', async () => {
+  afterAll(async () => {
     await admin.from('products').delete().in('code', ['PUB-ACTIVE', 'PUB-INACTIVE'])
   })
+})
 ```
 
 - [ ] **Step 4: Run the test**
@@ -292,7 +286,7 @@ import { unstable_cache } from 'next/cache'
 import { createPublicClient } from './client'
 import {
   type Product, type Category, type SizeOption,
-  CATEGORIES, productSlug,
+  productSlug,
 } from '@/lib/products'
 
 type Row = {
@@ -305,8 +299,7 @@ type Row = {
 }
 
 function toProduct(r: Row): Product {
-  const category = (CATEGORIES.includes(r.category as Category)
-    ? r.category : r.category) as Category
+  const category = r.category as Category
   const sizes: SizeOption[] = [...r.product_sizes]
     .sort((a, b) => a.price - b.price)
     .map((s) => ({ mg: s.mg, price: Number(s.price) }))
