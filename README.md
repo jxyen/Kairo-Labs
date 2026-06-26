@@ -49,3 +49,16 @@ src/
   vial photos (clean/light backgrounds) or a CDN/product image field.
 - **Cart** tracks a count only — no cart drawer or checkout in this scope.
 - **COA "View full COA (PDF)"** is a non-functional affordance; hook to real certificates.
+
+## Admin foundation (setup)
+
+1. Install Docker Desktop (for local Supabase) **or** create a cloud Supabase project.
+2. `npm install`
+3. `npx supabase start` (local) or `npx supabase link` + `npx supabase db push` (cloud)
+4. Copy keys into `.env.local` (see `.env.example`).
+5. `npm run db:reset` — apply migrations.
+6. `npm run db:seed` — seed the product catalog.
+7. Create a first owner (see `docs/admin-features/staff.md`).
+8. `npm run dev` → visit `/admin`.
+
+Tests: `npm test`. Regenerate DB types after schema changes: `npm run db:types`.
