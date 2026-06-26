@@ -1,15 +1,16 @@
 "use client";
 
 import Link from "next/link";
-import type { Product } from "@/lib/products";
+import { productHref, type Product } from "@/lib/products";
 
 /**
  * Big hero product card — the Kairo vial cutout floating on a baked emerald
  * gradient. Responsive: desktop = vial right / copy left; mobile = vial top /
  * copy bottom. (Reference: the Sermorelin / GLP-1 hero cards, in emerald.)
  */
-export function FeatureCard({ product, href = "/catalog" }: { product: Product; href?: string }) {
+export function FeatureCard({ product, href }: { product: Product; href?: string }) {
   const lines = product.tagline.split("\n");
+  const target = href ?? productHref(product);
   return (
     <div className="feature">
       {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -26,7 +27,7 @@ export function FeatureCard({ product, href = "/catalog" }: { product: Product; 
           ))}
         </h3>
         <p className="feat-sub">{product.blurb}</p>
-        <Link href={href} className="btn btn-white feat-cta">
+        <Link href={target} className="btn btn-white feat-cta">
           View Product
         </Link>
       </div>

@@ -1,20 +1,27 @@
 "use client";
 
-import { priceDisplay, sizeDisplay, type Product } from "@/lib/products";
+import Link from "next/link";
+import { priceDisplay, sizeDisplay, productHref, bundleSavings, type Product } from "@/lib/products";
 import { useCart } from "@/components/cart-context";
 
 /**
  * Compact product tile — vial cutout on the emerald gradient with mechanism
- * pill, name, rating, price and add-to-cart. Used in the bestsellers slider
- * and the catalog grid.
+ * pill, name, rating, price and add-to-cart. The whole tile links to the
+ * product page; the add button adds to cart without navigating.
  */
 export function ProductCard({ product }: { product: Product; variant?: "featured" | "catalog" }) {
   const { justAdded, add } = useCart();
   const added = justAdded === product.code;
   const multi = product.sizes.length > 1;
+  const bundle = bundleSavings(product);
 
   return (
-    <div className="tile">
+    <Link href={productHref(product)} className="tile">
+      {bundle ? (
+        <span className="tile-badge tile-badge-save">Save {bundle.pct}%</span>
+      ) : product.bestseller ? (
+        <span className="tile-badge">Bestseller</span>
+      ) : null}
       <span className="tile-purity font-mono">{product.purity}</span>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img className="tile-vial" src={product.image} alt={`${product.name} research vial`} loading="lazy" />
@@ -39,13 +46,17 @@ export function ProductCard({ product }: { product: Product; variant?: "featured
           </span>
           <button
             className="tile-add"
-            onClick={() => add(product.code)}
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              add(product.code);
+            }}
             aria-label={`Add ${product.name} to cart`}
           >
             {added ? "✓ Added" : "Add to cart"}
           </button>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }

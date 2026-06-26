@@ -22,8 +22,21 @@ function FooterCol({ title, links }: { title: string; links: { label: string; hr
 export function SiteFooter() {
   return (
     <footer style={{ borderTop: "1px solid var(--hair)", background: "var(--paper-2)" }}>
-      <div className="container" style={{ paddingTop: "clamp(40px, 6vw, 64px)", paddingBottom: 32, display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: 32 }}>
-        <div style={{ gridColumn: "1 / -1", maxWidth: 300 }}>
+      {/* Prominent research-use disclaimer banner */}
+      <div className="container" style={{ paddingTop: "clamp(32px, 5vw, 48px)" }}>
+        <div style={{ border: "1px solid var(--hair)", borderRadius: "var(--r-lg)", background: "var(--surface-card)", padding: "20px 24px", textAlign: "center" }}>
+          <div style={{ fontSize: 14.5, fontWeight: 700, letterSpacing: "-0.01em", color: "var(--ink)" }}>
+            For research and laboratory use only. Not for human or animal consumption.
+          </div>
+          <div style={{ marginTop: 7, fontSize: 12.5, lineHeight: 1.6, color: "var(--ink-faint)", maxWidth: 720, marginLeft: "auto", marginRight: "auto" }}>
+            Products are not drugs, foods, cosmetics, or dietary supplements and are not intended to diagnose, cure,
+            mitigate, treat, or prevent any disease.
+          </div>
+        </div>
+      </div>
+
+      <div className="container" style={{ paddingTop: "clamp(36px, 5vw, 56px)", paddingBottom: 32, display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: 32 }}>
+        <div style={{ gridColumn: "1 / -1", maxWidth: 320 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/kairo-mark-new.png" alt="" aria-hidden="true" style={{ height: 28, width: "auto", display: "block" }} />
@@ -32,9 +45,16 @@ export function SiteFooter() {
             </span>
           </div>
           <p style={{ margin: "14px 0 0", fontSize: 13.5, lineHeight: 1.6, color: "var(--ink-faint)" }}>
-            Research-grade peptides — independently lab-tested to verified purity and shipped same day from the USA in
-            discreet, unmarked packaging. For laboratory research use only.
+            A research supply company. We provide research-grade peptides to qualified researchers and laboratories —
+            independently lab-tested to verified purity and shipped same day from the USA in plain, tracked packaging.
+            For laboratory research use only.
           </p>
+          <div style={{ margin: "14px 0 0", fontSize: 12.5, lineHeight: 1.7, color: "var(--ink-ghost)" }}>
+            {/* TODO: replace with real registered entity + address + phone before launch */}
+            Kairo Labs · Research Supply Co.<br />
+            [Registered address — to be added]<br />
+            <a href="mailto:support@kairolabs.co" className="footer-link">support@kairolabs.co</a>
+          </div>
         </div>
 
         <FooterCol title="Products" links={[
@@ -45,28 +65,33 @@ export function SiteFooter() {
           { label: "Best sellers", href: "/#bestsellers" },
           { label: "Certificates (COA)", href: "/#quality" },
         ]} />
-        <FooterCol title="Company" links={[
-          { label: "About" },
-          { label: "Quality standards", href: "/#quality" },
-          { label: "Lab partners" },
-          { label: "Contact" },
-        ]} />
-        <FooterCol title="Support" links={[
-          { label: "Shipping" },
-          { label: "Returns" },
+        <FooterCol title="Policies" links={[
+          { label: "Terms & Conditions" },
+          { label: "Privacy Policy" },
+          { label: "Shipping Policy" },
+          { label: "Refund Policy" },
           { label: "FAQ", href: "/#faq" },
-          { label: "Track order" },
         ]} />
+        <div>
+          <div className="font-mono" style={{ fontSize: 11, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--ink-ghost)", marginBottom: 14 }}>
+            Eligibility
+          </div>
+          <p style={{ margin: 0, fontSize: 13, lineHeight: 1.6, color: "var(--ink-muted)" }}>
+            Sales are restricted to purchasers age 21 or older acting on behalf of a qualified laboratory, institution,
+            or business entity engaged in lawful research. All orders are subject to verification and screening.
+          </p>
+        </div>
       </div>
 
       <div className="container" style={{ paddingTop: 24, paddingBottom: 40, borderTop: "1px solid var(--hair-soft)" }}>
         <p style={{ margin: "0 0 14px", fontSize: 11.5, lineHeight: 1.7, color: "var(--ink-ghost)", maxWidth: 880 }}>
-          Kairo Labs products are intended for laboratory and research use only. They are not drugs, foods, cosmetics,
-          or dietary supplements, and are not intended to diagnose, treat, cure, or prevent any disease. Not for human
-          or veterinary use. By purchasing, you confirm that you are a qualified researcher and agree to handle and
-          dispose of all materials in accordance with applicable laws and regulations.
+          All materials supplied by Kairo Labs are intended solely for lawful laboratory and research use by qualified
+          professionals. They are not drugs, foods, cosmetics, or dietary supplements, and are not intended to diagnose,
+          treat, cure, mitigate, or prevent any disease. Not for human or veterinary use. By purchasing, you confirm that
+          you are a qualified researcher acting on behalf of an eligible entity and agree to handle, store, and dispose of
+          all materials in accordance with applicable laws and regulations.
         </p>
-        <div style={{ fontSize: 12, color: "var(--ink-ghost)" }}>© 2026 Kairo Labs. All rights reserved.</div>
+        <div style={{ fontSize: 12, color: "var(--ink-ghost)" }}>© 2026 Kairo Labs. All rights reserved. Research use only.</div>
       </div>
     </footer>
   );
