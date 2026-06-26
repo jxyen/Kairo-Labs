@@ -24,7 +24,7 @@ export function Logo({ size = 18 }: { size?: number }) {
         }}
       >
         Kairo
-        <span style={{ color: "var(--text-faint)", fontWeight: 500 }}> Labs</span>
+        <span style={{ color: "var(--ink-faint)", fontWeight: 500 }}> Labs</span>
       </span>
     </Link>
   );

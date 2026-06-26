@@ -23,14 +23,14 @@ export function MobileCtaBar() {
   return (
     <div className="mcta show-mobile" data-show={show} aria-hidden={!show}>
       <div className="mcta-trust font-mono">
-        <span style={{ color: "var(--accent)" }}>✓</span> Lab-tested · Ships from the USA
+        <b>✓</b> Lab-tested · Ships from the USA
       </div>
       <div className="mcta-row">
-        <Link href="/catalog" className="btn btn-accent mcta-shop">
+        <Link href="/catalog" className="btn btn-emerald mcta-shop">
           Shop the catalog →
         </Link>
-        <Link href="/catalog" aria-label="Cart" className="mcta-cart">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#f2f4f5" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <Link href="/catalog" aria-label="Cart" className="mcta-cart" style={{ color: "var(--ink)" }}>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
             <circle cx="9" cy="20" r="1.3" />
             <circle cx="18" cy="20" r="1.3" />
             <path d="M2 3h3l2.4 12.4a1.5 1.5 0 0 0 1.5 1.2h8.1a1.5 1.5 0 0 0 1.5-1.2L22 7H6" />

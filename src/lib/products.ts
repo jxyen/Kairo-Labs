@@ -17,8 +17,12 @@ export interface Product {
   name: string;
   sub: string;
   category: Category;
-  /** Studio product photo (public/products/*.png). */
+  /** Transparent vial cutout (public/products/cutout/*.png) — sits on the emerald gradient. */
   image: string;
+  /** Short mechanism/category label shown in the card pill. */
+  mechanism: string;
+  /** Punchy benefit headline for hero/feature cards. Use \n for the line break. */
+  tagline: string;
   purity: string;
   sizes: SizeOption[];
   rating: number;
@@ -37,7 +41,9 @@ export const PRODUCTS: Product[] = [
     name: "BPC-157",
     sub: "Body Protection Compound",
     category: "Recovery & Repair",
-    image: "/products/bpc-157.png",
+    image: "/products/cutout/bpc-157.png",
+    mechanism: "Recovery · Repair",
+    tagline: "Heal faster,\ntrain sooner.",
     purity: "99.2%",
     sizes: [
       { mg: "5 mg", price: 23.99 },
@@ -47,14 +53,16 @@ export const PRODUCTS: Product[] = [
     reviews: 318,
     bestseller: true,
     featured: true,
-    blurb: "Stable gastric peptide studied in tissue repair and recovery models.",
+    blurb: "Stable gastric peptide studied for tissue repair and recovery.",
   },
   {
     code: "TB-500",
     name: "TB-500",
     sub: "Thymosin Beta-4 Fragment",
     category: "Recovery & Repair",
-    image: "/products/tb-500.png",
+    image: "/products/cutout/tb-500.png",
+    mechanism: "Recovery · Mobility",
+    tagline: "Bounce back\nfrom the strain.",
     purity: "99.4%",
     sizes: [
       { mg: "5 mg", price: 37.99 },
@@ -64,7 +72,7 @@ export const PRODUCTS: Product[] = [
     reviews: 241,
     bestseller: true,
     featured: true,
-    blurb: "Actin-binding peptide used in regeneration and angiogenesis research.",
+    blurb: "Actin-binding peptide studied in regeneration and angiogenesis research.",
   },
 
   // ----- Metabolic & Weight -----
@@ -73,7 +81,9 @@ export const PRODUCTS: Product[] = [
     name: "Tirzepatide",
     sub: "GLP-1 / GIP Co-Agonist",
     category: "Metabolic & Weight",
-    image: "/products/tirzepatide.png",
+    image: "/products/cutout/tirzepatide.png",
+    mechanism: "GLP-1 · GIP",
+    tagline: "Appetite,\ndialed down.",
     purity: "99.3%",
     sizes: [
       { mg: "5 mg", price: 23.99 },
@@ -93,7 +103,9 @@ export const PRODUCTS: Product[] = [
     name: "Retatrutide",
     sub: "GLP-1 / GIP / Glucagon Tri-Agonist",
     category: "Metabolic & Weight",
-    image: "/products/retatrutide.png",
+    image: "/products/cutout/retatrutide.png",
+    mechanism: "GLP-1 · GIP · GCG",
+    tagline: "The weight,\non its way down.",
     purity: "99.1%",
     sizes: [
       { mg: "10 mg", price: 51.99 },
@@ -112,7 +124,9 @@ export const PRODUCTS: Product[] = [
     name: "MOTS-c",
     sub: "Mitochondrial-Derived Peptide",
     category: "Metabolic & Weight",
-    image: "/products/mots-c.png",
+    image: "/products/cutout/mots-c.png",
+    mechanism: "Mitochondrial",
+    tagline: "Energy,\nat the source.",
     purity: "99.2%",
     sizes: [
       { mg: "10 mg", price: 31.99 },
@@ -131,7 +145,9 @@ export const PRODUCTS: Product[] = [
     name: "CJC-1295",
     sub: "GHRH Analog (No DAC)",
     category: "Growth Hormone",
-    image: "/products/cjc-1295.png",
+    image: "/products/cutout/cjc-1295.png",
+    mechanism: "GHRH Analog",
+    tagline: "Prime\nthe GH pulse.",
     purity: "99.3%",
     sizes: [{ mg: "10 mg", price: 59.99 }],
     rating: 4.7,
@@ -145,7 +161,9 @@ export const PRODUCTS: Product[] = [
     name: "Ipamorelin",
     sub: "GH Secretagogue",
     category: "Growth Hormone",
-    image: "/products/ipamorelin.png",
+    image: "/products/cutout/ipamorelin.png",
+    mechanism: "GH Secretagogue",
+    tagline: "A cleaner\nGH signal.",
     purity: "99.0%",
     sizes: [
       { mg: "5 mg", price: 19.99 },
@@ -162,7 +180,9 @@ export const PRODUCTS: Product[] = [
     name: "IGF-1 LR3",
     sub: "Long-Acting IGF-1 Analog",
     category: "Growth Hormone",
-    image: "/products/igf-1-lr3.png",
+    image: "/products/cutout/igf-1-lr3.png",
+    mechanism: "IGF-1 Analog",
+    tagline: "Growth signal,\nextended.",
     purity: "98.9%",
     sizes: [{ mg: "1 mg", price: 91.99 }],
     rating: 4.7,
@@ -178,7 +198,9 @@ export const PRODUCTS: Product[] = [
     name: "GHK-Cu",
     sub: "Copper Tripeptide",
     category: "Skin & Cosmetic",
-    image: "/products/ghk-cu.png",
+    image: "/products/cutout/ghk-cu.png",
+    mechanism: "Copper Peptide",
+    tagline: "Slow what the\nmirror notices.",
     purity: "99.5%",
     sizes: [
       { mg: "50 mg", price: 15.99 },
@@ -195,7 +217,9 @@ export const PRODUCTS: Product[] = [
     name: "MT-2",
     sub: "Melanotan II",
     category: "Skin & Cosmetic",
-    image: "/products/mt-2.png",
+    image: "/products/cutout/mt-2.png",
+    mechanism: "Melanocortin",
+    tagline: "Color,\nwithout the sun.",
     purity: "98.9%",
     sizes: [{ mg: "10 mg", price: 23.99 }],
     rating: 4.6,
@@ -211,21 +235,25 @@ export const PRODUCTS: Product[] = [
     name: "BPC-157 + TB-500",
     sub: "Recovery Stack",
     category: "Blends & Stacks",
-    image: "/products/bpc-tb-blend.png",
+    image: "/products/cutout/bpc-tb-blend.png",
+    mechanism: "Recovery Stack",
+    tagline: "Recovery,\nstacked.",
     purity: "99.2%",
     sizes: [{ mg: "20 mg", price: 79.99 }],
     rating: 4.9,
     reviews: 188,
     bestseller: true,
     featured: false,
-    blurb: "Co-formulated recovery stack studied in repair and regeneration models.",
+    blurb: "Co-formulated BPC-157 + TB-500 recovery stack studied in repair and regeneration models.",
   },
   {
     code: "CJC-Ipa-Blend",
     name: "CJC-1295 + Ipamorelin",
     sub: "Growth-Hormone Stack",
     category: "Blends & Stacks",
-    image: "/products/cjc-ipa-blend.png",
+    image: "/products/cutout/cjc-ipa-blend.png",
+    mechanism: "GH Stack",
+    tagline: "The GH stack,\nin one vial.",
     purity: "99.1%",
     sizes: [{ mg: "10 mg", price: 47.99 }],
     rating: 4.8,
@@ -239,7 +267,9 @@ export const PRODUCTS: Product[] = [
     name: "GLOW Stack",
     sub: "GHK-Cu + TB-500 + BPC-157",
     category: "Blends & Stacks",
-    image: "/products/glow.png",
+    image: "/products/cutout/glow.png",
+    mechanism: "Skin + Recovery",
+    tagline: "Skin, recovery,\nrepair — in one.",
     purity: "99.2%",
     sizes: [{ mg: "70 mg", price: 87.99 }],
     rating: 4.9,

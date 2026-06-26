@@ -67,7 +67,7 @@ function CatalogInner() {
       <h1 style={{ margin: "12px 0 0", fontSize: "clamp(28px,5vw,42px)", fontWeight: 600, letterSpacing: "-0.03em" }}>
         Research peptides
       </h1>
-      <p style={{ margin: "12px 0 0", fontSize: 16, lineHeight: 1.6, color: "var(--text-muted)", maxWidth: 560 }}>
+      <p style={{ margin: "12px 0 0", fontSize: 16, lineHeight: 1.6, color: "var(--ink-muted)", maxWidth: 560 }}>
         Every compound is independently lab-tested with a verifiable certificate of analysis. All
         products are for research use only.
       </p>
@@ -104,12 +104,12 @@ function CatalogInner() {
           marginBottom: 22,
         }}
       >
-        <span style={{ fontSize: 13.5, color: "var(--text-dim)" }}>
+        <span style={{ fontSize: 13.5, color: "var(--ink-faint)" }}>
           {products.length} {products.length === 1 ? "product" : "products"}
           {category !== "All" ? ` in ${category}` : ""}
         </span>
         <label style={{ display: "flex", alignItems: "center", gap: 9 }}>
-          <span className="font-mono" style={{ fontSize: 11, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--text-faint)" }}>
+          <span className="font-mono" style={{ fontSize: 11, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--ink-ghost)" }}>
             Sort
           </span>
           <select
