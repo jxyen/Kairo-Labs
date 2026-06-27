@@ -14,6 +14,8 @@ import {
   VOLUME_TIERS,
   FREE_SHIP_THRESHOLD,
   ACCESSORIES,
+  cartLineFromProduct,
+  cartLineFromAccessory,
   type Accessory,
   type Product,
   type ProductDetail,
@@ -137,7 +139,7 @@ export function ProductDetailView({
               <span>{qty}</span>
               <button aria-label="Increase quantity" onClick={() => setQty((q) => Math.min(99, q + 1))}>+</button>
             </div>
-            <button className="btn btn-emerald pdp-add" style={{ fontSize: 15.5, padding: "15px 18px" }} onClick={() => add(product.code, size.mg, qty)}>
+            <button className="btn btn-emerald pdp-add" style={{ fontSize: 15.5, padding: "15px 18px" }} onClick={() => add(cartLineFromProduct(product, size.mg, qty))}>
               {added ? "✓ Added to cart" : (
                 <span style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>
                   Add to cart
@@ -258,7 +260,7 @@ export function ProductDetailView({
               </div>
               <div className="pdp-acc-buy">
                 <span className="pr">{formatUSD(a.price)}</span>
-                <button className="pdp-acc-add" onClick={() => add(a.code)}>
+                <button className="pdp-acc-add" onClick={() => add(cartLineFromAccessory(a))}>
                   {justAdded === a.code ? "✓ Added" : "+ Add"}
                 </button>
               </div>
@@ -311,7 +313,7 @@ export function ProductDetailView({
             ))}
           </div>
           <div style={{ marginTop: 18 }}>
-            <button className="btn btn-dark" style={{ fontSize: 14.5, padding: "13px 22px" }} onClick={() => related.forEach((r) => add(r.code))}>
+            <button className="btn btn-dark" style={{ fontSize: 14.5, padding: "13px 22px" }} onClick={() => related.forEach((r) => add(cartLineFromProduct(r, r.sizes[0].mg, 1)))}>
               + Add all {related.length} to cart
             </button>
           </div>

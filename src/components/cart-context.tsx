@@ -11,7 +11,6 @@ import {
 } from "react";
 import {
   computeCartTotals,
-  resolveCartLine,
   type CartLineInput,
   type CartTotals,
 } from "@/lib/products";
@@ -34,10 +33,10 @@ interface CartContextValue {
   openCart: () => void;
   closeCart: () => void;
   /**
-   * Add to cart. `sizeMg` defaults to the product's first size (or null for
-   * accessories — resolution normalizes it). Invalid codes are ignored.
+   * Add a line snapshot to the cart. Build it with `cartLineFromProduct` /
+   * `cartLineFromAccessory` from the product data already on screen.
    */
-  add: (code: string, sizeMg?: string | null, qty?: number) => void;
+  add: (line: CartLineInput) => void;
   updateQty: (code: string, sizeMg: string | null, qty: number) => void;
   remove: (code: string, sizeMg: string | null) => void;
   clear: () => void;
@@ -84,23 +83,22 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   const openCart = useCallback(() => setOpen(true), []);
   const closeCart = useCallback(() => setOpen(false), []);
 
-  const add = useCallback((code: string, sizeMg: string | null = null, qty = 1) => {
-    // Normalize through the catalog: fills default size, validates the code,
-    // collapses accessories to sizeMg=null. Unknown codes are dropped.
-    const resolved = resolveCartLine({ code, sizeMg, qty });
-    if (!resolved) return;
+  const add = useCallback((line: CartLineInput) => {
+    if (!line?.code) return;
+    const qty = Math.max(1, Math.floor(line.qty || 1));
 
     setItems((prev) => {
-      const i = prev.findIndex((l) => sameLine(l, resolved.code, resolved.sizeMg));
+      const i = prev.findIndex((l) => sameLine(l, line.code, line.sizeMg));
       if (i >= 0) {
         const next = [...prev];
-        next[i] = { ...next[i], qty: next[i].qty + resolved.qty };
+        // Merge quantity; refresh the snapshot to the latest price/labels.
+        next[i] = { ...line, qty: next[i].qty + qty };
         return next;
       }
-      return [...prev, { code: resolved.code, sizeMg: resolved.sizeMg, qty: resolved.qty }];
+      return [...prev, { ...line, qty }];
     });
 
-    setJustAdded(code);
+    setJustAdded(line.code);
     setOpen(true);
     if (timer.current) clearTimeout(timer.current);
     timer.current = setTimeout(() => setJustAdded(null), 1300);

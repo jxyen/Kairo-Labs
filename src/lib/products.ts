@@ -34,261 +34,6 @@ export interface Product {
   compareAt?: number;
 }
 
-// Pricing: per-vial cost = supplier (WWB) kit price / 10 vials; retail ≈ 4× cost
-// rounded to .99 (consistent ~75% margin, ~$15 under competitor where comparable).
-export const PRODUCTS: Product[] = [
-  // ----- Recovery & Repair -----
-  {
-    code: "BPC-157",
-    name: "BPC-157",
-    sub: "Body Protection Compound",
-    category: "Recovery & Repair",
-    image: "/products/cutout/bpc-157.png",
-    mechanism: "Recovery · Repair",
-    tagline: "Studied for\ntissue repair.",
-    purity: "99.2%",
-    sizes: [
-      { mg: "5 mg", price: 23.99 },
-      { mg: "20 mg", price: 47.99 },
-    ],
-    rating: 4.9,
-    reviews: 318,
-    bestseller: true,
-    featured: true,
-    blurb: "Stable gastric peptide studied for tissue repair and recovery.",
-  },
-  {
-    code: "TB-500",
-    name: "TB-500",
-    sub: "Thymosin Beta-4 Fragment",
-    category: "Recovery & Repair",
-    image: "/products/cutout/tb-500.png",
-    mechanism: "Recovery · Mobility",
-    tagline: "Studied for\nregeneration.",
-    purity: "99.4%",
-    sizes: [
-      { mg: "5 mg", price: 37.99 },
-      { mg: "10 mg", price: 63.99 },
-    ],
-    rating: 4.8,
-    reviews: 241,
-    bestseller: true,
-    featured: true,
-    blurb: "Actin-binding peptide studied in regeneration and angiogenesis research.",
-  },
-
-  // ----- Metabolic & Weight -----
-  {
-    code: "Tirzepatide",
-    name: "Tirzepatide",
-    sub: "GLP-1 / GIP Co-Agonist",
-    category: "Metabolic & Weight",
-    image: "/products/cutout/tirzepatide.png",
-    mechanism: "GLP-1 · GIP",
-    tagline: "Dual incretin\nco-agonist.",
-    purity: "99.3%",
-    sizes: [
-      { mg: "5 mg", price: 23.99 },
-      { mg: "10 mg", price: 35.99 },
-      { mg: "20 mg", price: 49.99 },
-      { mg: "30 mg", price: 59.99 },
-      { mg: "60 mg", price: 91.99 },
-    ],
-    rating: 4.9,
-    reviews: 356,
-    bestseller: true,
-    featured: true,
-    blurb: "Dual incretin co-agonist studied across metabolic and glucose endpoints.",
-  },
-  {
-    code: "Retatrutide",
-    name: "Retatrutide",
-    sub: "GLP-1 / GIP / Glucagon Tri-Agonist",
-    category: "Metabolic & Weight",
-    image: "/products/cutout/retatrutide.png",
-    mechanism: "GLP-1 · GIP · GCG",
-    tagline: "Triple incretin\nagonist.",
-    purity: "99.1%",
-    sizes: [
-      { mg: "10 mg", price: 51.99 },
-      { mg: "20 mg", price: 79.99 },
-      { mg: "30 mg", price: 99.99 },
-      { mg: "60 mg", price: 151.99 },
-    ],
-    rating: 4.9,
-    reviews: 428,
-    bestseller: true,
-    featured: true,
-    blurb: "Triple incretin agonist studied across weight and metabolic endpoints.",
-  },
-  {
-    code: "MOTS-c",
-    name: "MOTS-c",
-    sub: "Mitochondrial-Derived Peptide",
-    category: "Metabolic & Weight",
-    image: "/products/cutout/mots-c.png",
-    mechanism: "Mitochondrial",
-    tagline: "Mitochondrial-\nderived peptide.",
-    purity: "99.2%",
-    sizes: [
-      { mg: "10 mg", price: 31.99 },
-      { mg: "40 mg", price: 87.99 },
-    ],
-    rating: 4.8,
-    reviews: 97,
-    bestseller: true,
-    featured: false,
-    blurb: "Mitochondrial peptide studied in metabolic regulation and energy research.",
-  },
-
-  // ----- Growth Hormone -----
-  {
-    code: "CJC-1295",
-    name: "CJC-1295",
-    sub: "GHRH Analog (No DAC)",
-    category: "Growth Hormone",
-    image: "/products/cutout/cjc-1295.png",
-    mechanism: "GHRH Analog",
-    tagline: "GHRH analog\nfor GH studies.",
-    purity: "99.3%",
-    sizes: [{ mg: "10 mg", price: 59.99 }],
-    rating: 4.7,
-    reviews: 132,
-    bestseller: false,
-    featured: false,
-    blurb: "GHRH analog frequently studied alongside GH secretagogues.",
-  },
-  {
-    code: "Ipamorelin",
-    name: "Ipamorelin",
-    sub: "GH Secretagogue",
-    category: "Growth Hormone",
-    image: "/products/cutout/ipamorelin.png",
-    mechanism: "GH Secretagogue",
-    tagline: "Selective GH\nsecretagogue.",
-    purity: "99.0%",
-    sizes: [
-      { mg: "5 mg", price: 19.99 },
-      { mg: "10 mg", price: 31.99 },
-    ],
-    rating: 4.8,
-    reviews: 176,
-    bestseller: true,
-    featured: false,
-    blurb: "Selective GHSR agonist used in growth-hormone release studies.",
-  },
-  {
-    code: "IGF-1-LR3",
-    name: "IGF-1 LR3",
-    sub: "Long-Acting IGF-1 Analog",
-    category: "Growth Hormone",
-    image: "/products/cutout/igf-1-lr3.png",
-    mechanism: "IGF-1 Analog",
-    tagline: "Long-acting\nIGF-1 analog.",
-    purity: "98.9%",
-    sizes: [{ mg: "1 mg", price: 91.99 }],
-    rating: 4.7,
-    reviews: 74,
-    bestseller: false,
-    featured: false,
-    blurb: "Long-acting IGF-1 analog studied in growth and cellular-signaling models.",
-  },
-
-  // ----- Skin & Cosmetic -----
-  {
-    code: "GHK-Cu",
-    name: "GHK-Cu",
-    sub: "Copper Tripeptide",
-    category: "Skin & Cosmetic",
-    image: "/products/cutout/ghk-cu.png",
-    mechanism: "Copper Peptide",
-    tagline: "Copper peptide\nfor skin models.",
-    purity: "99.5%",
-    sizes: [
-      { mg: "50 mg", price: 15.99 },
-      { mg: "100 mg", price: 23.99 },
-    ],
-    rating: 4.9,
-    reviews: 203,
-    bestseller: true,
-    featured: true,
-    blurb: "Copper tripeptide investigated in skin and collagen models.",
-  },
-  {
-    code: "MT-2",
-    name: "MT-2",
-    sub: "Melanotan II",
-    category: "Skin & Cosmetic",
-    image: "/products/cutout/mt-2.png",
-    mechanism: "Melanocortin",
-    tagline: "Melanocortin\nreceptor agonist.",
-    purity: "98.9%",
-    sizes: [{ mg: "10 mg", price: 23.99 }],
-    rating: 4.6,
-    reviews: 167,
-    bestseller: false,
-    featured: false,
-    blurb: "Melanocortin receptor agonist used in pigmentation research.",
-  },
-
-  // ----- Blends & Stacks -----
-  {
-    code: "BPC-TB-Blend",
-    name: "BPC-157 + TB-500",
-    sub: "Recovery Stack",
-    category: "Blends & Stacks",
-    image: "/products/cutout/bpc-tb-blend.png",
-    mechanism: "Recovery Stack",
-    tagline: "Co-formulated\nrepair stack.",
-    purity: "99.2%",
-    sizes: [{ mg: "20 mg", price: 79.99 }],
-    rating: 4.9,
-    reviews: 188,
-    bestseller: true,
-    featured: false,
-    compareAt: 103.99,
-    blurb: "Co-formulated BPC-157 + TB-500 recovery stack studied in repair and regeneration models.",
-  },
-  {
-    code: "CJC-Ipa-Blend",
-    name: "CJC-1295 + Ipamorelin",
-    sub: "Growth-Hormone Stack",
-    category: "Blends & Stacks",
-    image: "/products/cutout/cjc-ipa-blend.png",
-    mechanism: "GH Stack",
-    tagline: "GHRH + secretagogue\nresearch stack.",
-    purity: "99.1%",
-    sizes: [{ mg: "10 mg", price: 47.99 }],
-    rating: 4.8,
-    reviews: 156,
-    bestseller: true,
-    featured: false,
-    compareAt: 61.99,
-    blurb: "GHRH + secretagogue blend studied together in GH-release research.",
-  },
-  {
-    code: "GLOW",
-    name: "GLOW Stack",
-    sub: "GHK-Cu + TB-500 + BPC-157",
-    category: "Blends & Stacks",
-    image: "/products/cutout/glow.png",
-    mechanism: "Skin + Recovery",
-    tagline: "Skin & repair\nresearch stack.",
-    purity: "99.2%",
-    sizes: [{ mg: "70 mg", price: 87.99 }],
-    rating: 4.9,
-    reviews: 142,
-    bestseller: true,
-    featured: false,
-    compareAt: 114.99,
-    blurb: "Skin, recovery and repair stack co-formulated in a single research vial.",
-  },
-];
-
-/* ---------- Derived collections ---------- */
-export const FEATURED = PRODUCTS.filter((p) => p.featured);
-export const BESTSELLERS = PRODUCTS.filter((p) => p.bestseller);
-
 export const CATEGORIES: FilterCategory[] = [
   "All",
   "Recovery & Repair",
@@ -311,8 +56,8 @@ export const CATEGORY_META: CategoryMeta[] = [
   { name: "Blends & Stacks", blurb: "Co-formulated multi-peptide research stacks." },
 ];
 
-export function categoryCount(category: Category): number {
-  return PRODUCTS.filter((p) => p.category === category).length;
+export function categoryCount(list: Product[], category: Category): number {
+  return list.filter((p) => p.category === category).length;
 }
 
 /* ---------- Price / size helpers ---------- */
@@ -338,15 +83,15 @@ export function sizeDisplay(p: Product): string {
 }
 
 /* ---------- Slugs / lookup (for product detail pages) ---------- */
-/** URL slug derived from the cutout filename, e.g. "/products/cutout/bpc-157.png" -> "bpc-157". */
+/** URL slug derived from the product code, e.g. "BPC-157" -> "bpc-157". */
 export function productSlug(p: Product): string {
-  return p.image.split("/").pop()!.replace(/\.png$/, "");
+  return p.code.toLowerCase().replace(/\s+/g, "-");
 }
 export function productHref(p: Product): string {
   return `/product/${productSlug(p)}`;
 }
-export function productBySlug(slug: string): Product | undefined {
-  return PRODUCTS.find((p) => productSlug(p) === slug);
+export function productBySlug(list: Product[], slug: string): Product | undefined {
+  return list.find((p) => productSlug(p) === slug);
 }
 
 /* ---------- Per-product technical detail (for detail pages) ----------
@@ -518,10 +263,8 @@ export function productDetail(p: Product): ProductDetail | undefined {
 }
 
 /** A few related products to surface as "frequently bought together". */
-export function relatedProducts(p: Product, n = 3): Product[] {
-  const sameCat = PRODUCTS.filter((x) => x.code !== p.code && x.category === p.category);
-  const others = PRODUCTS.filter((x) => x.code !== p.code && x.category !== p.category);
-  return [...sameCat, ...others].slice(0, n);
+export function relatedProducts(list: Product[], p: Product, n = 3): Product[] {
+  return list.filter((x) => x.category === p.category && x.code !== p.code).slice(0, n);
 }
 
 /* ============================================================
@@ -607,15 +350,14 @@ export const ACCESSORIES: Accessory[] = [
 export function accessoryByCode(code: string): Accessory | undefined {
   return ACCESSORIES.find((a) => a.code === code);
 }
-export function productByCode(code: string): Product | undefined {
-  return PRODUCTS.find((p) => p.code === code);
-}
 
 /* ============================================================
-   CART ENGINE — resolution + cart-wide totals
-   Single source of truth for cart math. The client cart computes
-   these for DISPLAY; the server (placeOrder) recomputes the SAME
-   way so client-tampered prices can never become an order total.
+   CART ENGINE — line snapshots + cart-wide totals
+   The cart stores a DISPLAY SNAPSHOT per line (name/price/image
+   captured when the item is added) so the client never needs the
+   live catalog to render or price the cart. The server (placeOrder)
+   re-derives authoritative prices from the DB, so a tampered snapshot
+   price can never become an order total.
    ============================================================ */
 
 /** Flat US shipping when an order is below the free-shipping threshold. Adjustable. */
@@ -623,67 +365,65 @@ export const FLAT_SHIPPING = 8.99;
 
 export type LineKind = "product" | "accessory";
 
-/** Minimal cart line as persisted/transmitted — identity is (code, sizeMg). */
+/**
+ * A cart line as persisted/transmitted — carries a display snapshot.
+ * Identity is (code, sizeMg). `unitPrice` is display-only on the client;
+ * the server recomputes authoritative pricing from the DB.
+ */
 export interface CartLineInput {
   code: string;
   /** Size label e.g. "20 mg"; null for accessories. */
   sizeMg: string | null;
   qty: number;
-}
-
-/** A cart line resolved against the catalog with display + price data. */
-export interface ResolvedCartLine extends CartLineInput {
   kind: LineKind;
   name: string;
   /** Secondary label — size for products, descriptor for accessories. */
   sub: string;
   image: string | null;
   unitPrice: number;
+}
+
+/** A cart line with its computed line total. */
+export interface ResolvedCartLine extends CartLineInput {
   lineTotal: number;
 }
 
 const round2 = (n: number): number => Math.round(n * 100) / 100;
 
-/**
- * Resolve a stored/transmitted cart line against the catalog.
- * Returns null if the code no longer exists (stale localStorage / tampering).
- * Products with an unknown size fall back to their first size.
- */
+/** Build a cart line snapshot from a catalog product + chosen size. */
+export function cartLineFromProduct(p: Product, sizeMg: string, qty = 1): CartLineInput {
+  const size = p.sizes.find((s) => s.mg === sizeMg) ?? p.sizes[0];
+  return {
+    code: p.code,
+    sizeMg: size.mg,
+    qty: Math.max(1, Math.floor(qty || 1)),
+    kind: "product",
+    name: p.name,
+    sub: size.mg,
+    image: p.image || null,
+    unitPrice: size.price,
+  };
+}
+
+/** Build a cart line snapshot from an accessory. */
+export function cartLineFromAccessory(a: Accessory, qty = 1): CartLineInput {
+  return {
+    code: a.code,
+    sizeMg: null,
+    qty: Math.max(1, Math.floor(qty || 1)),
+    kind: "accessory",
+    name: a.name,
+    sub: a.sub,
+    image: null,
+    unitPrice: a.price,
+  };
+}
+
+/** Normalize a stored line and attach its line total. */
 export function resolveCartLine(line: CartLineInput): ResolvedCartLine | null {
+  if (!line || !line.code || typeof line.unitPrice !== "number") return null;
   const qty = Math.max(1, Math.floor(line.qty || 1));
-
-  const product = productByCode(line.code);
-  if (product) {
-    const size = product.sizes.find((s) => s.mg === line.sizeMg) ?? product.sizes[0];
-    return {
-      code: product.code,
-      sizeMg: size.mg,
-      qty,
-      kind: "product",
-      name: product.name,
-      sub: size.mg,
-      image: product.image,
-      unitPrice: size.price,
-      lineTotal: round2(size.price * qty),
-    };
-  }
-
-  const acc = accessoryByCode(line.code);
-  if (acc) {
-    return {
-      code: acc.code,
-      sizeMg: null,
-      qty,
-      kind: "accessory",
-      name: acc.name,
-      sub: acc.sub,
-      image: null,
-      unitPrice: acc.price,
-      lineTotal: round2(acc.price * qty),
-    };
-  }
-
-  return null;
+  return { ...line, qty, lineTotal: round2(line.unitPrice * qty) };
 }
 
 /**

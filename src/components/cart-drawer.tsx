@@ -8,6 +8,7 @@ import {
   ACCESSORIES,
   FREE_SHIP_THRESHOLD,
   accessoryByCode,
+  cartLineFromAccessory,
   formatUSD,
   nextVolumeTier,
 } from "@/lib/products";
@@ -130,7 +131,7 @@ export function CartDrawer() {
                       <div className="nm">{a.name}</div>
                       <div className="sb font-mono">{a.sub}</div>
                     </div>
-                    <button className="cd-cross-add" onClick={() => add(a.code)}>
+                    <button className="cd-cross-add" onClick={() => add(cartLineFromAccessory(a))}>
                       {formatUSD(a.price)} · Add
                     </button>
                   </div>

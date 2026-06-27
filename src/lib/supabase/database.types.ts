@@ -99,6 +99,7 @@ export type Database = {
           created_by: string | null
           delta: number
           id: string
+          note: string | null
           order_id: string | null
           reason: Database["public"]["Enums"]["inventory_reason"]
           size_id: string
@@ -108,6 +109,7 @@ export type Database = {
           created_by?: string | null
           delta: number
           id?: string
+          note?: string | null
           order_id?: string | null
           reason: Database["public"]["Enums"]["inventory_reason"]
           size_id: string
@@ -117,6 +119,7 @@ export type Database = {
           created_by?: string | null
           delta?: number
           id?: string
+          note?: string | null
           order_id?: string | null
           reason?: Database["public"]["Enums"]["inventory_reason"]
           size_id?: string
@@ -344,6 +347,7 @@ export type Database = {
           blurb: string | null
           category: string
           code: string
+          compare_at: number | null
           created_at: string
           featured: boolean
           id: string
@@ -363,6 +367,7 @@ export type Database = {
           blurb?: string | null
           category: string
           code: string
+          compare_at?: number | null
           created_at?: string
           featured?: boolean
           id?: string
@@ -382,6 +387,7 @@ export type Database = {
           blurb?: string | null
           category?: string
           code?: string
+          compare_at?: number | null
           created_at?: string
           featured?: boolean
           id?: string
@@ -473,6 +479,16 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      apply_inventory_movement: {
+        Args: {
+          p_created_by: string
+          p_delta: number
+          p_note: string
+          p_reason: Database["public"]["Enums"]["inventory_reason"]
+          p_size_id: string
+        }
+        Returns: undefined
+      }
       is_owner: { Args: never; Returns: boolean }
       is_staff: { Args: never; Returns: boolean }
     }

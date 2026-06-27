@@ -1,17 +1,17 @@
 import { describe, it, expect, beforeAll } from 'vitest'
 import { execSync } from 'node:child_process'
 import { createAdminClient } from '../../src/lib/supabase/admin'
-import { PRODUCTS } from '../../src/lib/products'
+import { SEED_PRODUCTS } from '../../scripts/seed-data'
 
 describe('product seed', () => {
   beforeAll(() => {
     execSync('npm run db:seed', { stdio: 'inherit' })
   })
 
-  it('seeds every product from products.ts', async () => {
+  it('seeds every product from seed-data.ts', async () => {
     const admin = createAdminClient()
     const { count } = await admin.from('products').select('*', { count: 'exact', head: true })
-    expect(count).toBe(PRODUCTS.length)
+    expect(count).toBe(SEED_PRODUCTS.length)
   })
 
   it('creates an inventory row for every size', async () => {

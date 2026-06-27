@@ -1,7 +1,7 @@
 "use server";
 
 import { createAdminClient } from "@/lib/supabase/admin";
-import { computeCartTotals } from "@/lib/products";
+import { computeCartTotals, accessoryByCode, type CartLineInput } from "@/lib/products";
 import { validateDraft, type CheckoutDraft, type PlaceOrderResult } from "@/lib/checkout";
 
 /* SKU convention must match scripts/seed-products.ts: `${code}-${mg-no-spaces-upper}`. */
@@ -40,26 +40,49 @@ export async function placeOrder(draft: CheckoutDraft): Promise<PlaceOrderResult
     return { ok: false, error: Object.values(errors)[0] ?? "Invalid order details." };
   }
 
-  // 2. Recompute every total from the catalog. Client-sent prices are ignored.
-  const totals = computeCartTotals(draft.items);
-  if (totals.lines.length === 0 || totals.total <= 0) {
-    return { ok: false, error: "Your cart is empty or contains unavailable items." };
-  }
-
   const admin = createAdminClient();
 
-  // 3. Resolve size_id for each product line via the SKU map (one query).
+  // 2. Pull AUTHORITATIVE prices from the DB. The client-sent snapshot prices
+  //    are never trusted — products price from product_sizes, accessories from
+  //    the static ACCESSORIES list.
   const { data: sizes, error: sizesErr } = await admin
     .from("product_sizes")
-    .select("id, sku");
+    .select("id, sku, price");
   if (sizesErr) {
     return { ok: false, error: "Could not verify product catalog. Please try again." };
   }
-  const skuToId = new Map((sizes ?? []).map((s) => [s.sku, s.id]));
+  const skuMap = new Map((sizes ?? []).map((s) => [s.sku, { id: s.id, price: Number(s.price) }]));
 
-  // 4. Build order_items from the SERVER-resolved lines.
-  const items = totals.lines.map((l) => ({
-    size_id: l.kind === "product" && l.sizeMg ? skuToId.get(skuFor(l.code, l.sizeMg)) ?? null : null,
+  // 3. Rebuild every line with the server price; reject anything we can't price.
+  const resolved: { line: CartLineInput; sizeId: string | null }[] = [];
+  for (const it of draft.items) {
+    const qty = Math.max(1, Math.floor(it.qty || 1));
+    if (it.kind === "accessory") {
+      const acc = accessoryByCode(it.code);
+      if (!acc) return { ok: false, error: `Unavailable item: ${it.name || it.code}.` };
+      resolved.push({
+        line: { code: acc.code, sizeMg: null, qty, kind: "accessory", name: acc.name, sub: acc.sub, image: null, unitPrice: acc.price },
+        sizeId: null,
+      });
+    } else {
+      if (!it.sizeMg) return { ok: false, error: `Missing size for ${it.name || it.code}.` };
+      const row = skuMap.get(skuFor(it.code, it.sizeMg));
+      if (!row) return { ok: false, error: `Unavailable item: ${it.name || it.code} ${it.sizeMg}.` };
+      resolved.push({
+        line: { ...it, qty, kind: "product", unitPrice: row.price },
+        sizeId: row.id,
+      });
+    }
+  }
+
+  // 4. Compute authoritative totals from the server-priced lines.
+  const totals = computeCartTotals(resolved.map((r) => r.line));
+  if (totals.lines.length === 0 || totals.lines.length !== resolved.length || totals.total <= 0) {
+    return { ok: false, error: "Your cart is empty or contains unavailable items." };
+  }
+
+  const items = totals.lines.map((l, i) => ({
+    size_id: resolved[i].sizeId,
     product_name: l.name,
     mg: l.sizeMg,
     unit_price: l.unitPrice,
