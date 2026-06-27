@@ -542,6 +542,15 @@ export function volumeDiscount(qty: number): number {
   return 0;
 }
 
+/** The next volume tier above the current unit count — drives "add N more, save X%". */
+export function nextVolumeTier(productUnits: number): { need: number; off: number } | null {
+  const ascending = [...VOLUME_TIERS].sort((a, b) => a.min - b.min);
+  for (const t of ascending) {
+    if (productUnits < t.min) return { need: t.min - productUnits, off: t.off };
+  }
+  return null;
+}
+
 /** Numeric mg from a size label like "20 mg" -> 20. */
 export function mgOf(s: SizeOption): number {
   const n = parseFloat(s.mg);
@@ -594,3 +603,149 @@ export const ACCESSORIES: Accessory[] = [
   { code: "SWABS", name: "Alcohol Prep Pads", sub: "Sterile · box of 100", price: 5.99, icon: "swab" },
   { code: "VIALS", name: "Sterile Empty Vials", sub: "10 mL · pack of 5", price: 12.99, icon: "vial" },
 ];
+
+export function accessoryByCode(code: string): Accessory | undefined {
+  return ACCESSORIES.find((a) => a.code === code);
+}
+export function productByCode(code: string): Product | undefined {
+  return PRODUCTS.find((p) => p.code === code);
+}
+
+/* ============================================================
+   CART ENGINE — resolution + cart-wide totals
+   Single source of truth for cart math. The client cart computes
+   these for DISPLAY; the server (placeOrder) recomputes the SAME
+   way so client-tampered prices can never become an order total.
+   ============================================================ */
+
+/** Flat US shipping when an order is below the free-shipping threshold. Adjustable. */
+export const FLAT_SHIPPING = 8.99;
+
+export type LineKind = "product" | "accessory";
+
+/** Minimal cart line as persisted/transmitted — identity is (code, sizeMg). */
+export interface CartLineInput {
+  code: string;
+  /** Size label e.g. "20 mg"; null for accessories. */
+  sizeMg: string | null;
+  qty: number;
+}
+
+/** A cart line resolved against the catalog with display + price data. */
+export interface ResolvedCartLine extends CartLineInput {
+  kind: LineKind;
+  name: string;
+  /** Secondary label — size for products, descriptor for accessories. */
+  sub: string;
+  image: string | null;
+  unitPrice: number;
+  lineTotal: number;
+}
+
+const round2 = (n: number): number => Math.round(n * 100) / 100;
+
+/**
+ * Resolve a stored/transmitted cart line against the catalog.
+ * Returns null if the code no longer exists (stale localStorage / tampering).
+ * Products with an unknown size fall back to their first size.
+ */
+export function resolveCartLine(line: CartLineInput): ResolvedCartLine | null {
+  const qty = Math.max(1, Math.floor(line.qty || 1));
+
+  const product = productByCode(line.code);
+  if (product) {
+    const size = product.sizes.find((s) => s.mg === line.sizeMg) ?? product.sizes[0];
+    return {
+      code: product.code,
+      sizeMg: size.mg,
+      qty,
+      kind: "product",
+      name: product.name,
+      sub: size.mg,
+      image: product.image,
+      unitPrice: size.price,
+      lineTotal: round2(size.price * qty),
+    };
+  }
+
+  const acc = accessoryByCode(line.code);
+  if (acc) {
+    return {
+      code: acc.code,
+      sizeMg: null,
+      qty,
+      kind: "accessory",
+      name: acc.name,
+      sub: acc.sub,
+      image: null,
+      unitPrice: acc.price,
+      lineTotal: round2(acc.price * qty),
+    };
+  }
+
+  return null;
+}
+
+/**
+ * Cart-wide volume discount. Tiers apply to TOTAL peptide (product) units —
+ * mix any 5 vials → 20% off. Accessories do not count toward the tier and
+ * are not discounted.
+ */
+export function cartVolumeDiscount(productUnits: number): number {
+  return volumeDiscount(productUnits);
+}
+
+export interface CartTotals {
+  lines: ResolvedCartLine[];
+  /** Total peptide units (drives the volume tier). */
+  productUnits: number;
+  /** Total units incl. accessories (header badge). */
+  count: number;
+  /** Subtotal of peptide lines (the discount base). */
+  productSubtotal: number;
+  /** Subtotal of everything. */
+  subtotal: number;
+  discountRate: number;
+  /** Volume discount, applied to the peptide subtotal only. */
+  discount: number;
+  shipping: number;
+  /** $ left to reach free shipping (0 once it qualifies). */
+  freeShipRemaining: number;
+  total: number;
+}
+
+/** Compute every cart number from raw line inputs. Pure — safe on client and server. */
+export function computeCartTotals(inputs: CartLineInput[]): CartTotals {
+  const lines = inputs
+    .map(resolveCartLine)
+    .filter((l): l is ResolvedCartLine => l !== null);
+
+  const productLines = lines.filter((l) => l.kind === "product");
+  const productUnits = productLines.reduce((n, l) => n + l.qty, 0);
+  const count = lines.reduce((n, l) => n + l.qty, 0);
+
+  const productSubtotal = round2(productLines.reduce((s, l) => s + l.lineTotal, 0));
+  const subtotal = round2(lines.reduce((s, l) => s + l.lineTotal, 0));
+
+  const discountRate = cartVolumeDiscount(productUnits);
+  const discount = round2(productSubtotal * discountRate);
+
+  const afterDiscount = round2(subtotal - discount);
+  const qualifies = afterDiscount >= FREE_SHIP_THRESHOLD;
+  const shipping = qualifies || subtotal === 0 ? 0 : FLAT_SHIPPING;
+  const freeShipRemaining = Math.max(0, round2(FREE_SHIP_THRESHOLD - afterDiscount));
+  const total = round2(afterDiscount + shipping);
+
+  return {
+    lines,
+    productUnits,
+    count,
+    productSubtotal,
+    subtotal,
+    discountRate,
+    discount,
+    shipping,
+    freeShipRemaining,
+    total,
+  };
+}

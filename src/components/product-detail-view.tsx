@@ -10,15 +10,17 @@ import {
   sizeSavingsPct,
   bundleSavings,
   volumeDiscount,
+  nextVolumeTier,
+  VOLUME_TIERS,
   FREE_SHIP_THRESHOLD,
   ACCESSORIES,
   type Accessory,
-  type AccessoryIcon,
   type Product,
   type ProductDetail,
 } from "@/lib/products";
 import { useCart } from "@/components/cart-context";
 import { ProductCard } from "@/components/product-card";
+import { AccIcon } from "@/components/accessory-icon";
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
@@ -28,20 +30,6 @@ function Section({ title, children }: { title: string; children: React.ReactNode
     </div>
   );
 }
-
-function AccIcon({ kind }: { kind: AccessoryIcon }) {
-  const common = { width: 20, height: 20, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 1.6, strokeLinecap: "round" as const, strokeLinejoin: "round" as const };
-  if (kind === "water") return <svg {...common}><path d="M12 3s6 7 6 11a6 6 0 0 1-12 0c0-4 6-11 6-11z" /></svg>;
-  if (kind === "syringe") return <svg {...common}><path d="M4 20l3-3" /><path d="M14 4l6 6" /><path d="M17 7l-9 9-3 .5.5-3 9-9 2.5 2.5z" /></svg>;
-  if (kind === "swab") return <svg {...common}><rect x="4" y="4" width="16" height="16" rx="3" /><path d="M9 12h6" /></svg>;
-  return <svg {...common}><path d="M9 3h6" /><path d="M10 3v5l-2.2 8.5A2 2 0 0 0 9.7 19h4.6a2 2 0 0 0 1.9-2.5L14 8V3" /><path d="M8.3 12h7.4" /></svg>;
-}
-
-const TIER_LABELS = [
-  { min: 2, off: 0.1 },
-  { min: 3, off: 0.15 },
-  { min: 5, off: 0.2 },
-];
 
 export function ProductDetailView({
   product,
@@ -62,6 +50,13 @@ export function ProductDetailView({
   const bundle = bundleSavings(product);
 
   const disc = volumeDiscount(qty);
+  const volNext = nextVolumeTier(qty);
+  // Volume meter: tiers sorted asc, evenly spaced as milestones; fill snaps to
+  // the highest reached tier (or a small nub at 1 vial to read as "started").
+  const volTiers = [...VOLUME_TIERS].sort((a, b) => a.min - b.min);
+  const VOL_MARK_POS = [10, 50, 90];
+  const volReached = volTiers.reduce((acc, t, i) => (qty >= t.min ? i : acc), -1);
+  const volFill = volReached >= 0 ? VOL_MARK_POS[volReached] : qty >= 1 ? 5 : 0;
   const subtotal = size.price * qty;
   const total = subtotal * (1 - disc);
   const qualifies = total >= FREE_SHIP_THRESHOLD;
@@ -135,17 +130,6 @@ export function ProductDetailView({
             </>
           )}
 
-          {/* volume / bulk pricing */}
-          <div className="pdp-label">Buy more, save more</div>
-          <div className="pdp-tiers">
-            {TIER_LABELS.map((t) => (
-              <div key={t.min} className="pdp-tier" data-active={disc === t.off}>
-                <span className="q font-mono">{t.min}+ vials</span>
-                <span className="o">−{Math.round(t.off * 100)}%</span>
-              </div>
-            ))}
-          </div>
-
           <div className="pdp-label">Quantity</div>
           <div className="pdp-buy">
             <div className="pdp-stepper">
@@ -153,7 +137,7 @@ export function ProductDetailView({
               <span>{qty}</span>
               <button aria-label="Increase quantity" onClick={() => setQty((q) => Math.min(99, q + 1))}>+</button>
             </div>
-            <button className="btn btn-emerald pdp-add" style={{ fontSize: 15.5, padding: "15px 18px" }} onClick={() => add(product.code, qty)}>
+            <button className="btn btn-emerald pdp-add" style={{ fontSize: 15.5, padding: "15px 18px" }} onClick={() => add(product.code, size.mg, qty)}>
               {added ? "✓ Added to cart" : (
                 <span style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>
                   Add to cart
@@ -164,9 +148,41 @@ export function ProductDetailView({
             </button>
           </div>
 
-          {disc > 0 && (
-            <div className="pdp-disc-note font-mono">✓ {Math.round(disc * 100)}% bulk discount applied — you save {formatUSD(subtotal - total)}</div>
-          )}
+          {/* volume meter — reacts to the quantity stepper; discount is cart-wide */}
+          <div className="pdp-vol">
+            <div className="pdp-vol-head">
+              {disc > 0 ? (
+                <span className="save">
+                  ✓ You&apos;re saving {formatUSD(subtotal - total)} ({Math.round(disc * 100)}% off)
+                  {volNext && (
+                    <span className="more"> — add {volNext.need} more for {Math.round(volNext.off * 100)}%</span>
+                  )}
+                </span>
+              ) : (
+                <span className="muted">
+                  Buy more, save up to 20%
+                  {volNext && <span className="more"> — add {volNext.need} more for {Math.round(volNext.off * 100)}%</span>}
+                </span>
+              )}
+            </div>
+            <div className="pdp-vol-track">
+              <div className="pdp-vol-fill" style={{ width: `${volFill}%` }} />
+              {volTiers.map((t, i) => (
+                <div key={t.min} className="pdp-vol-node" data-hit={qty >= t.min} style={{ left: `${VOL_MARK_POS[i]}%` }}>
+                  <span className="pdp-vol-dot" />
+                </div>
+              ))}
+            </div>
+            <div className="pdp-vol-labels">
+              {volTiers.map((t, i) => (
+                <div key={t.min} className="pdp-vol-lab" data-hit={qty >= t.min} style={{ left: `${VOL_MARK_POS[i]}%` }}>
+                  <b>−{Math.round(t.off * 100)}%</b>
+                  <span>{t.min} vials</span>
+                </div>
+              ))}
+            </div>
+            <div className="pdp-vol-foot">Applies to every peptide vial in your cart.</div>
+          </div>
 
           <div className="pdp-ship" data-ok={qualifies}>
             <span style={{ fontWeight: 700 }}>{qualifies ? "✓" : "🚚"}</span>
