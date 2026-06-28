@@ -8,6 +8,8 @@ export type Category =
 export type FilterCategory = "All" | Category;
 
 export interface SizeOption {
+  /** product_sizes.id — present for DB-backed catalog, absent for the static seed fixture. */
+  id?: string;
   mg: string;
   price: number;
 }
@@ -270,7 +272,7 @@ export function relatedProducts(list: Product[], p: Product, n = 3): Product[] {
    ============================================================ */
 
 /** Free US shipping above this order subtotal (USD). */
-export const FREE_SHIP_THRESHOLD = 99;
+export const FREE_SHIP_THRESHOLD = 150;
 
 /** "Buy more, save more" — fraction off by unit quantity. */
 export const VOLUME_TIERS: { min: number; off: number }[] = [
