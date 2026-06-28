@@ -4,6 +4,18 @@ import {
   type Product, type Category, type SizeOption,
   productSlug,
 } from '@/lib/products'
+import { SEED_PRODUCTS } from '../../../scripts/seed-data'
+
+/**
+ * Supabase is only wired in deployed envs (NEXT_PUBLIC_* are inlined at build
+ * time). When the keys are absent, or the DB is unreachable, we fall back to the
+ * static seed so the storefront stays up instead of 500ing on a hard dependency.
+ */
+function supabaseConfigured(): boolean {
+  return Boolean(
+    process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+  )
+}
 
 type Row = {
   code: string; name: string; sub: string | null; category: string
@@ -30,27 +42,39 @@ function toProduct(r: Row): Product {
 }
 
 async function fetchCatalog(): Promise<Product[]> {
-  const supabase = createPublicClient()
-  const { data, error } = await supabase
-    .from('products')
-    .select('code,name,sub,category,image,mechanism,tagline,purity,rating,reviews,bestseller,featured,blurb,compare_at,product_sizes(id,mg,price)')
-    .eq('active', true)
-    .eq('is_accessory', false)
-  if (error) throw error
-  return (data as Row[]).map(toProduct)
+  if (!supabaseConfigured()) return SEED_PRODUCTS
+  try {
+    const supabase = createPublicClient()
+    const { data, error } = await supabase
+      .from('products')
+      .select('code,name,sub,category,image,mechanism,tagline,purity,rating,reviews,bestseller,featured,blurb,compare_at,product_sizes(id,mg,price)')
+      .eq('active', true)
+      .eq('is_accessory', false)
+    if (error) throw error
+    return (data as Row[]).map(toProduct)
+  } catch (e) {
+    console.warn('[catalog] Supabase fetch failed, using seed data:', (e as Error).message)
+    return SEED_PRODUCTS
+  }
 }
 
 export const getCatalog = unstable_cache(fetchCatalog, ['catalog'], { tags: ['catalog'], revalidate: 3600 })
 
 async function fetchAccessories(): Promise<Product[]> {
-  const supabase = createPublicClient()
-  const { data, error } = await supabase
-    .from('products')
-    .select('code,name,sub,category,image,mechanism,tagline,purity,rating,reviews,bestseller,featured,blurb,compare_at,product_sizes(id,mg,price)')
-    .eq('active', true)
-    .eq('is_accessory', true)
-  if (error) throw error
-  return (data as Row[]).map(toProduct)
+  if (!supabaseConfigured()) return []
+  try {
+    const supabase = createPublicClient()
+    const { data, error } = await supabase
+      .from('products')
+      .select('code,name,sub,category,image,mechanism,tagline,purity,rating,reviews,bestseller,featured,blurb,compare_at,product_sizes(id,mg,price)')
+      .eq('active', true)
+      .eq('is_accessory', true)
+    if (error) throw error
+    return (data as Row[]).map(toProduct)
+  } catch (e) {
+    console.warn('[accessories] Supabase fetch failed, hiding add-ons:', (e as Error).message)
+    return []
+  }
 }
 export const getAccessories = unstable_cache(fetchAccessories, ['accessories'], { tags: ['catalog'], revalidate: 3600 })
 
