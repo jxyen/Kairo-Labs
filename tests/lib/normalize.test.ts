@@ -27,6 +27,7 @@ describe('buildDedupKey', () => {
   it('changes when any field changes', () => {
     expect(buildDedupKey(base)).not.toBe(buildDedupKey({ ...base, amount: 42.51 }))
     expect(buildDedupKey(base)).not.toBe(buildDedupKey({ ...base, receivedAt: '2026-06-28T12:00:01.000Z' }))
+    expect(buildDedupKey(base)).not.toBe(buildDedupKey({ ...base, externalId: 'tx-999' }))
   })
 })
 

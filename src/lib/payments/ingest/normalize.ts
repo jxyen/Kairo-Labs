@@ -25,7 +25,7 @@ export function extractOrderCode(text: string | null | undefined): string | null
 export function buildDedupKey(e: NormalizedPaymentEvent): string {
   const basis = [
     e.channel, e.method, e.amount.toFixed(2),
-    e.sender ?? '', e.note ?? '', e.rawText, e.receivedAt,
+    e.sender ?? '', e.note ?? '', e.rawText, e.externalId ?? '', e.receivedAt,
   ].join('|')
   return createHash('sha256').update(basis).digest('hex')
 }
