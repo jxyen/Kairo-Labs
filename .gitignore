@@ -46,3 +46,7 @@ next-env.d.ts
 
 # one-time bootstrap scripts
 /scripts/create-owner.ts
+
+# intermediate render/mockup artifacts (not shipped)
+/public/_regen/
+/public/mockups/

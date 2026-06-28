@@ -19,7 +19,7 @@ export interface Product {
   name: string;
   sub: string;
   category: Category;
-  /** Transparent vial cutout (public/products/cutout/*.png) — sits on the emerald gradient. */
+  /** White-studio vial render (public/products/*.png) — multiplied onto light panels. */
   image: string;
   /** Short mechanism/category label shown in the card pill. */
   mechanism: string;

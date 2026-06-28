@@ -126,14 +126,7 @@ function CatalogInner({ products }: { products: Product[] }) {
         </label>
       </div>
 
-      <div
-        className="product-grid"
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fill, minmax(244px, 1fr))",
-          gap: 18,
-        }}
-      >
+      <div className="product-grid">
         {sorted.map((p) => (
           <ProductCard key={p.code} product={p} variant="catalog" />
         ))}
