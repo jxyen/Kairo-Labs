@@ -77,3 +77,82 @@ end;
 $$;
 
 grant execute on function public.mark_order_paid(uuid, uuid) to service_role;
+
+-- Ingestion core: dedup → record → match (code, else amount+method+window) → maybe apply.
+create or replace function public.ingest_payment_event(p_payload jsonb)
+returns jsonb
+language plpgsql
+security definer
+set search_path = public
+as $$
+declare
+  v_method public.payment_method;
+  v_amount numeric(10,2);
+  v_dedup text;
+  v_event_id uuid;
+  v_existing uuid;
+  v_code text;
+  v_match uuid;
+  v_count int;
+  v_number text;
+  v_candidates text[];
+begin
+  v_method := (p_payload->>'method')::public.payment_method;
+  v_amount := (p_payload->>'amount')::numeric(10,2);
+  v_dedup  := p_payload->>'dedup_key';
+
+  insert into public.payment_events
+    (channel, method, amount, sender, note, raw_text, external_id, received_at, dedup_key, status)
+  values (
+    coalesce(p_payload->>'channel','push'), v_method, v_amount,
+    p_payload->>'sender', p_payload->>'note', p_payload->>'raw_text',
+    p_payload->>'external_id', (p_payload->>'received_at')::timestamptz,
+    v_dedup, 'unmatched'
+  )
+  on conflict (dedup_key) do nothing
+  returning id into v_event_id;
+
+  if v_event_id is null then
+    select id into v_existing from public.payment_events where dedup_key = v_dedup;
+    return jsonb_build_object('status','duplicate','order_number',null,'event_id',v_existing);
+  end if;
+
+  -- Code path: a KL code anywhere in raw_text that resolves to a matching unpaid order.
+  v_code := substring(upper(coalesce(p_payload->>'raw_text','')) from 'KL-[0-9]{8}-[A-Z0-9]{4}');
+  if v_code is not null then
+    select id, order_number into v_match, v_number
+      from public.orders
+      where order_number = v_code
+        and payment_status = 'unpaid'
+        and payment_method = v_method
+        and total = v_amount;
+    if v_match is not null then
+      perform public.mark_order_paid(v_match, v_event_id);
+      return jsonb_build_object('status','applied','order_number',v_number,'event_id',v_event_id);
+    end if;
+  end if;
+
+  -- Amount + method + recent-window path.
+  select count(*), min(id::text)::uuid, array_agg(order_number)
+    into v_count, v_match, v_candidates
+    from public.orders
+    where payment_status = 'unpaid'
+      and payment_method = v_method
+      and total = v_amount
+      and created_at >= now() - interval '30 days';
+
+  if v_count = 1 then
+    select order_number into v_number from public.orders where id = v_match;
+    perform public.mark_order_paid(v_match, v_event_id);
+    return jsonb_build_object('status','applied','order_number',v_number,'event_id',v_event_id);
+  elsif v_count >= 2 then
+    update public.payment_events
+      set status = 'ambiguous', candidate_orders = v_candidates where id = v_event_id;
+    return jsonb_build_object('status','ambiguous','order_number',null,'event_id',v_event_id);
+  else
+    return jsonb_build_object('status','unmatched','order_number',null,'event_id',v_event_id);
+  end if;
+end;
+$$;
+
+grant execute on function public.ingest_payment_event(jsonb) to service_role;
