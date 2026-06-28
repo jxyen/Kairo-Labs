@@ -69,12 +69,10 @@ export function formatUSD(n: number): string {
   return `$${n.toFixed(2)}`;
 }
 
-/** "$42.99" for one size, "$42.99 – $69.99" for a range. */
+/** Lowest price across sizes; the card prefixes "FROM" when there are multiple. */
 export function priceDisplay(p: Product): string {
-  const prices = p.sizes.map((s) => s.price);
-  const lo = Math.min(...prices);
-  const hi = Math.max(...prices);
-  return lo === hi ? formatUSD(lo) : `${formatUSD(lo)} – ${formatUSD(hi)}`;
+  const lo = Math.min(...p.sizes.map((s) => s.price));
+  return formatUSD(lo);
 }
 
 /** "5 mg" for one size, "2 sizes" when multiple dosages are offered. */
