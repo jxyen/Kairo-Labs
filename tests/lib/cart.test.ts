@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { addItem, setQty, removeItem, itemCount, orderTotals, type CartItem } from '../../src/lib/cart/cart'
+import { addItem, setQty, removeItem, itemCount, orderTotals, itemFromProduct, type CartItem } from '../../src/lib/cart/cart'
 
 const mk = (sizeId: string, unitPrice: number, quantity = 1): CartItem =>
   ({ sizeId, productCode: 'P', productName: 'P', mg: '5 mg', unitPrice, quantity })
@@ -28,5 +28,16 @@ describe('cart', () => {
     expect(t.merch).toBeCloseTo(144, 2)
     expect(t.shipping).toBeCloseTo(9.99, 2)
     expect(t.total).toBeCloseTo(153.99, 2)
+  })
+  it('itemFromProduct snapshots the product image onto the line', () => {
+    const product = {
+      code: 'GLP3', name: 'GLP-3 (RT)', sub: '', category: 'x', image: '/img/glp3.png',
+      mechanism: '', tagline: '', purity: '', rating: 0, reviews: 0,
+      bestseller: false, featured: false, blurb: '',
+      sizes: [{ id: 's1', mg: '10 mg', price: 69.99 }],
+    } as unknown as import('../../src/lib/products').Product
+    const line = itemFromProduct(product, 0)
+    expect(line.image).toBe('/img/glp3.png')
+    expect(line.sizeId).toBe('s1')
   })
 })

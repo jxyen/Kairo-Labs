@@ -7,6 +7,7 @@ export interface CartItem {
   mg: string
   unitPrice: number
   quantity: number
+  image?: string | null
 }
 
 const round2 = (n: number) => Math.round(n * 100) / 100
@@ -40,5 +41,5 @@ export function orderTotals(items: CartItem[]) {
 export function itemFromProduct(p: Product, sizeIdx: number, quantity = 1): CartItem {
   const s = p.sizes[sizeIdx]
   if (!s?.id) throw new Error(`size ${sizeIdx} of ${p.code} has no id`)
-  return { sizeId: s.id, productCode: p.code, productName: p.name, mg: s.mg, unitPrice: s.price, quantity }
+  return { sizeId: s.id, productCode: p.code, productName: p.name, mg: s.mg, unitPrice: s.price, quantity, image: p.image }
 }

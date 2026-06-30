@@ -13,6 +13,9 @@ interface CartContextValue {
   remove: (sizeId: string) => void;
   clear: () => void;
   justAdded: string | null;
+  drawerOpen: boolean;
+  openCart: () => void;
+  closeCart: () => void;
 }
 
 const CartContext = createContext<CartContextValue | null>(null);
@@ -37,6 +40,10 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     try { localStorage.setItem(KEY, JSON.stringify(items)); } catch {}
   }, [items]);
 
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const openCart = useCallback(() => setDrawerOpen(true), []);
+  const closeCart = useCallback(() => setDrawerOpen(false), []);
+
   const add = useCallback((item: CartItem) => {
     setItems((cur) => addItem(cur, item));
     setJustAdded(item.productCode);
@@ -48,8 +55,8 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   const clear = useCallback(() => setItems([]), []);
 
   const value = useMemo(
-    () => ({ items, count: itemCount(items), add, setQty, remove, clear, justAdded }),
-    [items, add, setQty, remove, clear, justAdded],
+    () => ({ items, count: itemCount(items), add, setQty, remove, clear, justAdded, drawerOpen, openCart, closeCart }),
+    [items, add, setQty, remove, clear, justAdded, drawerOpen, openCart, closeCart],
   );
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 }
