@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { useCart } from "@/components/cart-context";
 
 /**
@@ -12,6 +13,7 @@ import { useCart } from "@/components/cart-context";
 export function MobileCtaBar() {
   const { count, openCart } = useCart();
   const [show, setShow] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const onScroll = () => setShow(window.scrollY > 480);
@@ -19,6 +21,10 @@ export function MobileCtaBar() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  // The checkout owns its own bottom bar (order-summary sheet); the storefront
+  // conversion bar would collide with it and is out of place mid-checkout.
+  if (pathname?.startsWith("/checkout")) return null;
 
   return (
     <div className="mcta show-mobile" data-show={show} aria-hidden={!show}>

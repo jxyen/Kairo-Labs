@@ -10,7 +10,9 @@ const METHOD_LABELS: Record<string, string> = {
   zelle: "Zelle",
 };
 
-const labelFor = (a: AccountLite) => a.displayName || METHOD_LABELS[a.method] || a.method;
+// Prefer the canonical rail name (Venmo / Cash App / Zelle) so options stay
+// distinct even when every account shares a generic admin display name.
+const labelFor = (a: AccountLite) => METHOD_LABELS[a.method] || a.displayName || a.method;
 
 export function StepPayment({
   index,

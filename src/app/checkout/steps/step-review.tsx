@@ -49,7 +49,7 @@ export function StepReview({
   }
 
   const acc = accounts.find((a) => a.method === payment);
-  const methodLabel = acc?.displayName || METHOD_LABELS[payment] || payment;
+  const methodLabel = METHOD_LABELS[payment] || acc?.displayName || payment;
   const opt = deliveryById(delivery);
   const empty = rpcItems.length === 0;
 
