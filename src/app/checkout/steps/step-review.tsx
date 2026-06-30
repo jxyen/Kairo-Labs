@@ -2,6 +2,7 @@
 
 import { StepShell } from "../step-shell";
 import { LockIcon } from "../checkout-icons";
+import { OrderSummary } from "../order-summary";
 import { deliveryById } from "../delivery-options";
 import { formatUSD } from "@/lib/products";
 import type { PlaceOrderState } from "@/lib/orders/place-order-schema";
@@ -66,6 +67,13 @@ export function StepReview({
         <input type="hidden" name="country" value="US" />
         <input type="hidden" name="method" value={payment} />
         <input type="hidden" name="items" value={JSON.stringify(rpcItems)} />
+
+        {/* Mobile only: the order summary lives in a bottom sheet on other steps,
+            but at the point of placing the order we surface it inline. Desktop
+            already shows it in the sticky sidebar. */}
+        <div className="co-review-summary">
+          <OrderSummary variant="panel" delivery={delivery} />
+        </div>
 
         <dl className="co-review-list">
           <div>
