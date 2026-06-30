@@ -8,7 +8,6 @@ import { orderTotals, lineTotal, itemFromProduct, type CartItem } from "@/lib/ca
 import {
   FREE_SHIP_THRESHOLD,
   formatUSD,
-  nextVolumeTier,
   accessoryByCode,
   type Product,
 } from "@/lib/products";
@@ -42,10 +41,8 @@ export function CartContents({ variant, accessories }: { variant: "drawer" | "pa
 
   const remaining = Math.max(0, FREE_SHIP_THRESHOLD - t.merch);
   const freeShipPct = Math.min(100, Math.round((t.merch / FREE_SHIP_THRESHOLD) * 100));
-  const productUnits = items.filter((x) => !isAccessory(x.productCode)).reduce((n, x) => n + x.quantity, 0);
-  const nextTier = nextVolumeTier(productUnits);
   const inCart = new Set(items.map((x) => x.productCode));
-  const crossSell = accessories.filter((a) => !inCart.has(a.code)).slice(0, 3);
+  const crossSell = accessories.filter((a) => !inCart.has(a.code) && a.sizes.length > 0).slice(0, 3);
 
   const lineSub = (x: CartItem) => (isAccessory(x.productCode) ? accByCode.get(x.productCode)?.sub ?? x.mg : x.mg);
   const lineIcon = (x: CartItem) => accessoryByCode(x.productCode)?.icon ?? "vial";
@@ -96,13 +93,6 @@ export function CartContents({ variant, accessories }: { variant: "drawer" | "pa
             );
           })}
         </div>
-
-        {/* volume upsell nudge */}
-        {nextTier && (
-          <div className="cd-nudge">
-            Add <b>{nextTier.need}</b> more {nextTier.need === 1 ? "vial" : "vials"} → save <b>{Math.round(nextTier.off * 100)}%</b> on all peptides
-          </div>
-        )}
 
         {/* accessory cross-sell */}
         {crossSell.length > 0 && (
