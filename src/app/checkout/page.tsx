@@ -1,15 +1,26 @@
 import { getActivePaymentAccounts } from "@/lib/payments/accounts";
-import { CheckoutForm } from "./checkout-form";
+import { CheckoutView } from "./checkout-view";
+import type { AccountLite } from "./checkout-types";
 
 export const dynamic = "force-dynamic";
 
 export default async function CheckoutPage() {
   const accounts = await getActivePaymentAccounts();
-  const methods = accounts.map((a) => ({ method: a.method, label: a.method }));
+  const lite: AccountLite[] = accounts.map((a) => ({
+    method: a.method,
+    displayName: a.displayName,
+    handle: a.handle,
+    instructions: a.instructions,
+    qrUrl: a.qrUrl,
+  }));
+
   return (
-    <main className="container" style={{ padding: "32px 20px 80px", maxWidth: 720 }}>
-      <h1 style={{ fontSize: 24, fontWeight: 700, marginBottom: 20 }}>Checkout</h1>
-      <CheckoutForm methods={methods} />
+    <main className="container co-wrap">
+      <header className="co-headline">
+        <h1 className="co-title">Checkout</h1>
+        <p className="co-sub">Complete your order securely</p>
+      </header>
+      <CheckoutView accounts={lite} />
     </main>
   );
 }
