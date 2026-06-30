@@ -6,6 +6,8 @@ import { AnnouncementBar } from "@/components/announcement-bar";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { MobileCtaBar } from "@/components/mobile-cta-bar";
+import { getAccessories } from "@/lib/catalog/queries";
+import { CartDrawer } from "@/components/cart-drawer";
 
 // Switzer (display + body) is loaded via globals.css @import (Fontshare).
 // IBM Plex Mono powers the technical eyebrows / labels.
@@ -22,11 +24,12 @@ export const metadata: Metadata = {
     "Kairo Labs supplies research-grade peptides to qualified researchers and laboratories — independently lab-tested to ≥99% purity, each with a certificate of analysis verifiable by lot number. Same-day US shipping in plain, tracked packaging. For research use only; not for human or animal consumption.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const accessories = await getAccessories();
   return (
     <html
       lang="en"
@@ -48,6 +51,7 @@ export default function RootLayout({
             <SiteFooter />
           </div>
           <MobileCtaBar />
+          <CartDrawer accessories={accessories} />
         </CartProvider>
       </body>
     </html>
