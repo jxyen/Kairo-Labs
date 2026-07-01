@@ -9,6 +9,20 @@ const DOMAIN_METHOD: Array<{ re: RegExp; method: PaymentMethod }> = [
   { re: /(cash\.app|squareup\.com|square\.com)/i, method: 'cashapp' },
 ]
 
+// Zelle is the hard case: some banks (e.g. Navy Federal) never send a
+// "Zelle" receipt at all — an incoming Zelle just fires a generic deposit
+// alert with no sender, no memo, and no "Zelle" keyword. Treat such a bank
+// deposit alert as zelle so the amount+method+window fallback can match it.
+// These signals are intentionally deposit-specific (not just "deposited")
+// and are checked LAST, after the Venmo/Cash App keywords, so a Venmo/Cash
+// App email is never misread. Tune this list to the receiving bank(s).
+const BANK_DEPOSIT_SIGNALS: RegExp[] = [
+  /navy\s*federal/i,
+  /your funds are available/i,
+  /deposit confirmation/i,
+  /was deposited into your\b/i,
+]
+
 function methodForEmail(from: string, haystack: string): PaymentMethod {
   for (const { re, method } of DOMAIN_METHOD) {
     if (re.test(from)) return method
@@ -17,6 +31,7 @@ function methodForEmail(from: string, haystack: string): PaymentMethod {
   if (h.includes('venmo')) return 'venmo'
   if (h.includes('cash app') || h.includes('cashapp') || h.includes('cash.app')) return 'cashapp'
   if (h.includes('zelle')) return 'zelle'
+  if (BANK_DEPOSIT_SIGNALS.some((re) => re.test(haystack))) return 'zelle'
   throw new Error(`unknown payment source: ${from}`)
 }
 

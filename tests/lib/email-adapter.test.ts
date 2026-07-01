@@ -41,6 +41,33 @@ describe('parsePaymentEmail', () => {
     expect(e.sender).toBe('Alex Smith')
   })
 
+  it('detects Zelle from a bank deposit alert that never says "Zelle" (Navy Federal)', () => {
+    // Navy Federal sends a generic "Deposit Confirmation" email for an incoming
+    // Zelle — no "Zelle" keyword, no sender, no order code. It must still be
+    // classified as zelle so the amount+method+window fallback can match it.
+    const e = parsePaymentEmail({
+      from: 'Navy Federal Credit Union <alerts@navyfederal.org>',
+      subject: 'Your Funds Are Available',
+      text:
+        '$1.00 was deposited into your Campus Checking account ending in 8159. ' +
+        'As of 07/01/26 at 02:05 AM ET the available balance is $1.80.',
+    })
+    expect(e.method).toBe('zelle')
+    expect(e.amount).toBe(1)
+  })
+
+  it('detects a bank deposit alert as Zelle from the body alone (from-header rewritten by forwarding)', () => {
+    // When Gmail auto-forwards, the From can be rewritten — detection must not
+    // depend on the bank domain surviving in the from header.
+    const e = parsePaymentEmail({
+      from: 'me <jmontague2123@gmail.com>',
+      subject: 'Fwd: Your Funds Are Available',
+      text: '$25.00 was deposited into your Campus Checking account ending in 8159.',
+    })
+    expect(e.method).toBe('zelle')
+    expect(e.amount).toBe(25)
+  })
+
   it('falls back to a generated receivedAt when none is provided', () => {
     const e = parsePaymentEmail({
       from: 'venmo@venmo.com',
