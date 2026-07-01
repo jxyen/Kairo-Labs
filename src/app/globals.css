@@ -458,7 +458,7 @@ h1, h2 { font-family: var(--font-display); font-weight: 700; letter-spacing: -0.
 /* buy box */
 .pdp-buybox { min-width: 0; }
 .pdp-descriptor { font-style: italic; font-size: 14px; color: var(--ink-muted); margin-bottom: 7px; }
-.pdp-name { font-family: var(--font-display); font-weight: 800; letter-spacing: -0.03em; line-height: 1.02;
+.pdp-name { font-family: var(--font-display); font-weight: 800; text-transform: uppercase; letter-spacing: -0.022em; line-height: 1.0;
   font-size: clamp(28px, 5vw, 44px); margin: 0; color: var(--ink); }
 .pdp-idchips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
 .pdp-idchip { font-size: 11px; letter-spacing: .02em; color: var(--ink-muted); background: var(--surface-card); border: 1px solid var(--hair); padding: 6px 11px; border-radius: 999px; }
