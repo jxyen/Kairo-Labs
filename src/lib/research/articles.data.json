@@ -1,0 +1,1970 @@
+[
+  {
+    "slug": "certificate-of-analysis",
+    "section": "verification",
+    "schema": "TechArticle",
+    "eyebrow": "Verification guide",
+    "h1": "How to Read a Peptide Certificate of Analysis (COA)",
+    "title": "How to Read a Peptide Certificate of Analysis (COA) | Kairo Labs Research",
+    "description": "A section-by-section guide to reading a peptide COA: HPLC chromatograms, mass-spec identity, net peptide content, counterion, and lot traceability.",
+    "datePublished": "2026-07-02",
+    "intro": "A Certificate of Analysis (COA) is the primary document that lets a laboratory decide whether a reference material is what its label claims. For research peptides, a credible COA is not a purity number in isolation but a set of orthogonal analytical measurements — chromatographic, spectrometric, and gravimetric — each backed by the underlying instrument data. This guide walks through every block of a peptide COA, how the measurements relate to one another, and how to separate a genuine analytical record from a marketing graphic.",
+    "body": [
+      {
+        "heading": "What a COA is (and is not)",
+        "paragraphs": [
+          "A COA is a lot-specific analytical summary: it reports what a defined laboratory measured on a defined batch of material, on defined instruments, using defined methods. Because it is lot-specific, a COA from one lot does not certify a different lot of the same product — each production run must carry its own document tied to its own lot number.",
+          "A COA is not a safety document, an efficacy claim, or a substitute for a laboratory's own incoming-material verification. All materials described here are reference compounds intended for in-vitro and research use only, and are not for human or animal consumption. The COA answers a narrower, more important question: is this the correct molecule, at the stated purity, in the stated amount?"
+        ],
+        "bullets": [
+          "Lot-specific: valid only for the batch number printed on it.",
+          "Multi-method: identity and purity are established by independent techniques that should agree.",
+          "Traceable: each result should map to a raw instrument file the vendor can produce on request."
+        ]
+      },
+      {
+        "heading": "The identification block",
+        "paragraphs": [
+          "The top of a COA identifies the article unambiguously. Expect the product name, the sequence or molecular formula, the CAS number where one exists, the lot or batch number, a manufacture or test date, and often a recommended retest date. The lot number is the anchor for everything else on the page and is what makes the phrase verified to the lot meaningful.",
+          "Cross-check these fields against the compound you intended to source. A mismatch between the stated molecular formula and the named peptide, or a CAS number that does not correspond to the sequence, is an immediate red flag that the template was reused without care."
+        ],
+        "bullets": [
+          "Product name and synonym(s)",
+          "Sequence (one-letter or three-letter) and/or molecular formula",
+          "CAS number, where an assigned one exists",
+          "Lot/batch number, manufacture date, retest or reanalysis date"
+        ]
+      },
+      {
+        "heading": "Appearance and physical description",
+        "paragraphs": [
+          "Appearance is a simple but genuine test. Most lyophilized research peptides are described as a white to off-white powder or cake; some hygroscopic or highly concentrated materials present as a fluffy or filmy solid. The COA states the observed appearance so it can be compared against the vial received.",
+          "A discrepancy — for example, a COA stating white powder against a vial containing a discolored or oily residue — is a signal that the material may have been mishandled, degraded, or does not match its paperwork."
+        ],
+        "bullets": null
+      },
+      {
+        "heading": "HPLC purity — and why the chromatogram is the evidence",
+        "paragraphs": [
+          "High-performance liquid chromatography (typically reversed-phase, RP-HPLC) separates the main peptide from synthesis-related impurities such as deletion sequences, truncation products, and oxidized or deamidated variants. Purity is reported as the area percentage of the main peak relative to total integrated peak area, commonly with UV detection at 214 nm (peptide bond absorbance) and/or 220 nm.",
+          "The purity number alone is not the evidence — the chromatogram is. A trace that shows a single dominant, symmetric peak with a flat baseline supports a high stated purity. A stated 99% next to a chromatogram with unlabeled shoulders, co-eluting humps, integration that excludes visible peaks, or a truncated time axis should be treated with suspicion. Always ask which detection wavelength, column, gradient, and run time produced the number, and whether the full chromatogram (not a cropped thumbnail) is available."
+        ],
+        "bullets": [
+          "Look for the method: column chemistry, gradient, flow rate, detection wavelength, run time.",
+          "Read the baseline: drift, noise, and unintegrated peaks all matter.",
+          "Peak symmetry and resolution from neighbors indicate a clean separation.",
+          "Beware a purity figure presented without the underlying trace."
+        ]
+      },
+      {
+        "heading": "Mass-spec identity: observed vs theoretical mass",
+        "paragraphs": [
+          "HPLC tells you how much of one thing is present; it does not by itself prove that thing is the intended molecule. Mass spectrometry (commonly ESI-MS or MALDI-TOF) establishes identity by measuring the molecular mass and comparing the observed value against the theoretical monoisotopic or average mass calculated from the sequence.",
+          "A credible COA lists both the theoretical mass and the observed mass, and they should agree within the instrument's expected tolerance. ESI spectra often show a series of multiply charged ions ([M+2H]2+, [M+3H]3+, and so on) that deconvolute to the neutral mass. A mass that is off by the weight of one or more residues suggests a deletion or addition; a mass shifted by ~16 Da can indicate oxidation. Identity confirmation is the step most often missing from thin COAs."
+        ],
+        "bullets": [
+          "Theoretical mass stated alongside observed mass.",
+          "Agreement within stated tolerance confirms molecular identity.",
+          "Characteristic mass shifts flag specific impurities (e.g. +16 Da oxidation)."
+        ]
+      },
+      {
+        "heading": "Net peptide content vs HPLC purity",
+        "paragraphs": [
+          "These two numbers are frequently conflated and they measure different things. HPLC purity is the fraction of peptide-related material that is the target sequence — a relative measure among the peptides present. Net peptide content (peptide content assay, often by nitrogen analysis or amino-acid analysis) is the fraction of the total dry mass in the vial that is actually peptide, as opposed to water, counterions, and residual salts.",
+          "A material can be 99% pure by HPLC yet only ~80% peptide by mass, because the balance is bound water and trifluoroacetate or acetate counterion. For quantitative work, net peptide content is the number that tells you how much peptide a given mass of powder contains; HPLC purity tells you how clean that peptide is. A rigorous COA reports both and does not present one as if it were the other."
+        ],
+        "bullets": [
+          "HPLC purity: how clean the peptide fraction is (relative).",
+          "Net peptide content: how much of the vial mass is peptide (absolute).",
+          "The gap between them is largely water and counterion."
+        ]
+      },
+      {
+        "heading": "Water, counterion, and residual solvents",
+        "paragraphs": [
+          "Water content is typically determined by Karl Fischer titration and reported as a percentage; lyophilized peptides commonly carry several percent residual moisture. The counterion (frequently acetate or trifluoroacetate, TFA) is introduced during synthesis and purification and contributes to the mass that is not peptide. Some laboratories now prefer acetate salts and report a TFA removal or exchange step.",
+          "Residual solvents from synthesis (for example acetonitrile) may be quantified where relevant. Endotoxin or bioburden may appear on COAs for materials intended for sensitive in-vitro assays, though these are not required for all research articles. Each of these values further explains the difference between purity and net content."
+        ],
+        "bullets": [
+          "Water content by Karl Fischer titration.",
+          "Counterion identity and content (acetate vs TFA).",
+          "Residual solvents and, where relevant, endotoxin/bioburden."
+        ]
+      },
+      {
+        "heading": "Third-party testing and traceability",
+        "paragraphs": [
+          "The strongest COAs are either produced by, or independently confirmed by, a laboratory that did not manufacture the material. Independent testing removes the conflict of interest inherent in a supplier grading its own product. Look for the testing laboratory's name, the analyst or approver, and instrument or method references.",
+          "Traceability means each printed result can be tied back to a raw data file — the actual chromatogram and mass spectrum for that lot — that the vendor can produce on request. When those files exist and match the summary, the COA is verifiable rather than merely asserted. This is the core of what verified to the lot means: every batch is tested and every batch's data is retrievable."
+        ],
+        "bullets": [
+          "Named testing laboratory and approver.",
+          "Raw chromatogram and mass spectrum available for the specific lot.",
+          "Results reproducible on the vendor's request."
+        ]
+      },
+      {
+        "heading": "A practical verification workflow",
+        "paragraphs": [
+          "Working through a COA in a fixed order prevents you from anchoring on a single headline number. The sequence below moves from identity to purity to quantity, which mirrors how the measurements build on one another."
+        ],
+        "bullets": [
+          "1. Confirm the lot number on the vial matches the COA.",
+          "2. Verify the product name, sequence/formula, and CAS in the identification block.",
+          "3. Confirm identity: observed mass agrees with theoretical mass.",
+          "4. Assess purity from the actual HPLC chromatogram, not just the percentage.",
+          "5. Read net peptide content to know how much peptide the mass contains.",
+          "6. Check water and counterion to explain the purity/content gap.",
+          "7. Confirm the testing lab and that raw data is retrievable for the lot."
+        ]
+      },
+      {
+        "heading": "COA red flags",
+        "paragraphs": [
+          "The following patterns recur on low-quality or fabricated documents. Any one warrants a request for the underlying data; several together are grounds to reject the material."
+        ],
+        "bullets": [
+          "A purity percentage with no chromatogram, or only a cropped thumbnail.",
+          "No mass-spec identity confirmation (purity reported but identity never established).",
+          "Net peptide content and HPLC purity conflated or one silently omitted.",
+          "No lot number, or a generic COA reused across every batch.",
+          "Molecular formula, CAS, or mass inconsistent with the named peptide.",
+          "No named testing laboratory and no way to obtain raw files.",
+          "Chromatogram with unintegrated peaks or a suspiciously truncated axis."
+        ]
+      }
+    ],
+    "specs": null,
+    "faqs": [
+      {
+        "q": "Is HPLC purity the same as how much peptide is in the vial?",
+        "a": "No. HPLC purity is the fraction of the peptide-related material that is the target sequence, a relative measure. Net peptide content is the fraction of the total dry mass that is peptide rather than water and counterion. A material can be high purity by HPLC yet lower by net content; a rigorous COA reports both."
+      },
+      {
+        "q": "Why does the mass spectrum matter if purity is already high?",
+        "a": "Purity tells you a sample is clean but not that it is the correct molecule. Mass spectrometry confirms identity by matching the observed mass to the theoretical mass calculated from the sequence, catching deletions, additions, and modifications that a purity number cannot reveal."
+      },
+      {
+        "q": "What does verified to the lot mean?",
+        "a": "It means every production batch is analyzed independently and carries its own COA tied to its own lot number, with the raw chromatogram and mass spectrum retrievable for that specific batch. A COA for one lot does not certify another lot."
+      },
+      {
+        "q": "What is the single biggest red flag on a peptide COA?",
+        "a": "A purity percentage presented without the underlying chromatogram, or with a cropped or truncated one. The chromatogram is the evidence; the number is only a summary of it. Absent identity confirmation by mass spectrometry is an equally serious omission."
+      },
+      {
+        "q": "Are these COAs a safety or efficacy document?",
+        "a": "No. A COA is an analytical record of identity, purity, and content for a reference material intended for research use only. It makes no safety or efficacy claim and does not authorize any human or animal use."
+      }
+    ],
+    "relatedProductSlugs": [],
+    "crossLinks": [
+      {
+        "label": "Peptide reconstitution for laboratory research",
+        "href": "/research/handling/reconstitution"
+      },
+      {
+        "label": "Peptide storage & handling",
+        "href": "/research/handling/storage"
+      },
+      {
+        "label": "Peptide stability: what affects it",
+        "href": "/research/handling/stability"
+      }
+    ]
+  },
+  {
+    "slug": "reconstitution",
+    "section": "handling",
+    "schema": "TechArticle",
+    "eyebrow": "Handling guide",
+    "h1": "Peptide Reconstitution for Laboratory Research",
+    "title": "Peptide Reconstitution for Laboratory Research | Kairo Labs Research",
+    "description": "Laboratory guidance on reconstituting lyophilized research peptides: choosing a diluent, gentle technique to avoid degradation, and concentration considerations. RUO.",
+    "datePublished": "2026-07-02",
+    "intro": "Reconstitution is the laboratory step of returning a lyophilized (freeze-dried) peptide to solution before analytical or in-vitro use. Done carelessly, it can shear or denature a peptide, introduce contamination, or produce a solution of unknown concentration; done well, it preserves the integrity established on the Certificate of Analysis. This guide covers diluent selection, gentle technique, and concentration arithmetic strictly as laboratory handling — it does not describe or endorse any human or animal use.",
+    "body": [
+      {
+        "heading": "What reconstitution is",
+        "paragraphs": [
+          "Lyophilized peptides are supplied as a dry powder or cake because the solid state is far more stable for shipping and storage than a solution. Reconstitution dissolves that solid in an appropriate diluent to create a working stock for in-vitro assays, analytical characterization, or further dilution.",
+          "The goal is a clear, fully dissolved solution at a known concentration, produced without physically or chemically stressing the molecule. Every choice below serves that goal."
+        ],
+        "bullets": null
+      },
+      {
+        "heading": "Choosing a diluent",
+        "paragraphs": [
+          "The most common laboratory diluents are sterile water and bacteriostatic water. Sterile water is simply purified, sterilized water with no additive; it is appropriate for solutions that will be used quickly or stored frozen in single-use aliquots. Bacteriostatic water contains a small amount of benzyl alcohol (commonly 0.9%), which inhibits microbial growth and is therefore chosen when a solution will be drawn from repeatedly over time in the laboratory.",
+          "Some peptides dissolve poorly in neutral water and require a small volume of a solubilizing agent first — for example dilute acetic acid for basic/hydrophobic sequences, or a trace of ammonium hydroxide for acidic ones — before bringing to volume with water. The COA or product notes for a specific compound should guide these choices. Avoid diluents that are chemically incompatible with the assay downstream."
+        ],
+        "bullets": [
+          "Sterile water: no preservative; best for single-use or immediately-aliquoted stocks.",
+          "Bacteriostatic water: contains benzyl alcohol; suited to multi-draw laboratory use.",
+          "Difficult sequences: a small volume of dilute acid or base can aid initial dissolution before diluting to final volume.",
+          "Match the diluent to downstream assay compatibility."
+        ]
+      },
+      {
+        "heading": "Gentle technique to avoid degradation",
+        "paragraphs": [
+          "Peptides are sensitive to mechanical and thermal stress. The diluent should be added slowly and directed against the inner wall of the vial rather than jetted directly onto the lyophilized cake, which can foam or shear the material. Once diluent is added, the peptide should be allowed to dissolve by gentle swirling or by letting the vial stand, not by vigorous shaking or vortexing, both of which generate foam and shear that can denature or aggregate the molecule.",
+          "Add diluent at or near room temperature or cool rather than warm, and avoid heating to force dissolution. If a small amount of undissolved material remains, additional standing time is preferable to agitation. A properly reconstituted solution is typically clear; persistent cloudiness or visible particulates warrant investigation before use."
+        ],
+        "bullets": [
+          "Run diluent down the vial wall; do not spray it onto the cake.",
+          "Dissolve by gentle swirling or standing — never shake or vortex hard.",
+          "Do not heat to accelerate dissolution.",
+          "Expect a clear solution; investigate cloudiness or particulates."
+        ]
+      },
+      {
+        "heading": "Concentration considerations",
+        "paragraphs": [
+          "Concentration is a simple ratio of peptide mass to diluent volume, and it is defined by the researcher for the needs of the assay — not by any dosing framework. If a vial contains a known mass of peptide, dividing that mass by the volume of diluent added gives the stock concentration (for example, mass in milligrams divided by volume in milliliters yields mg/mL).",
+          "For accurate quantitation, the relevant mass is the net peptide content from the COA rather than the gross powder mass, because water and counterion contribute to the total weight. Choose a stock concentration high enough to minimize the volume handled but dilute enough to remain fully soluble and stable, and record the exact mass and volume used so the concentration is traceable."
+        ],
+        "bullets": [
+          "Stock concentration = peptide mass / diluent volume.",
+          "Use net peptide content (from the COA) for accurate mass, not gross powder weight.",
+          "Balance solubility and handling volume when picking a target concentration.",
+          "Document exact mass and volume for traceability."
+        ]
+      },
+      {
+        "heading": "Aliquoting and post-reconstitution handling",
+        "paragraphs": [
+          "Once in solution, a peptide is generally less stable than in its lyophilized form, so reconstituted stock should be handled to minimize repeated stress. Dividing the stock into single-use aliquots immediately after reconstitution avoids repeated freeze-thaw cycles and repeated exposure to air and light later on.",
+          "Label every aliquot with the compound, lot number, concentration, diluent, and date so that any result can be traced back to a specific reconstitution and a specific lot. Storage of the reconstituted material is covered in the storage guide."
+        ],
+        "bullets": [
+          "Aliquot into single-use volumes right after reconstitution.",
+          "Label with compound, lot, concentration, diluent, and date.",
+          "Minimize later exposure to air, light, and freeze-thaw."
+        ]
+      }
+    ],
+    "specs": null,
+    "faqs": [
+      {
+        "q": "What is the difference between sterile and bacteriostatic water?",
+        "a": "Sterile water is purified, sterilized water with no additive and suits single-use or immediately-aliquoted stocks. Bacteriostatic water contains a small amount of benzyl alcohol that inhibits microbial growth, making it appropriate when a laboratory solution will be accessed repeatedly over time."
+      },
+      {
+        "q": "Why should peptides not be shaken or vortexed during reconstitution?",
+        "a": "Vigorous agitation generates foam and shear forces that can denature, aggregate, or otherwise degrade a peptide. Gentle swirling or letting the vial stand dissolves the material while preserving the integrity established on the COA."
+      },
+      {
+        "q": "Which mass should I use to calculate concentration?",
+        "a": "For accurate quantitation use the net peptide content reported on the COA rather than the gross powder mass, because residual water and counterion add weight that is not peptide. Concentration is then simply net peptide mass divided by diluent volume."
+      },
+      {
+        "q": "What if the peptide does not fully dissolve in water?",
+        "a": "Some sequences are poorly soluble at neutral pH and benefit from a small volume of a compatible solubilizing agent — dilute acid for some, dilute base for others — before bringing to final volume with water. Allow additional standing time rather than forcing dissolution with heat or hard agitation."
+      },
+      {
+        "q": "Is this reconstitution guidance a dosing protocol?",
+        "a": "No. This describes laboratory handling of reference materials for research use only. It does not describe, recommend, or authorize any human or animal use, and concentrations are chosen for assay requirements, not for any consumption."
+      }
+    ],
+    "relatedProductSlugs": [],
+    "crossLinks": [
+      {
+        "label": "Peptide storage & handling",
+        "href": "/research/handling/storage"
+      },
+      {
+        "label": "Peptide stability: what affects it",
+        "href": "/research/handling/stability"
+      },
+      {
+        "label": "How to read a Certificate of Analysis",
+        "href": "/research/verification/certificate-of-analysis"
+      }
+    ]
+  },
+  {
+    "slug": "retatrutide",
+    "section": "compounds",
+    "schema": "TechArticle",
+    "eyebrow": "Compound explainer",
+    "h1": "Retatrutide: Mechanism of Action",
+    "title": "Retatrutide: Mechanism of Action | Kairo Labs Research",
+    "description": "Retatrutide (LY3437943) is a synthetic triple incretin receptor agonist targeting GIP, GLP-1, and glucagon receptors. Mechanism and molecular data. RUO.",
+    "datePublished": "2026-07-02",
+    "intro": "Retatrutide, known by the research designation LY3437943, is a synthetic single-molecule agonist engineered to activate three receptors at once: the glucose-dependent insulinotropic polypeptide (GIP) receptor, the glucagon-like peptide-1 (GLP-1) receptor, and the glucagon (GCG) receptor. It belongs to the incretin-mimetic class and extends the dual-agonist concept to a triple-agonist, or triagonist, architecture. The summary below covers receptor pharmacology, molecular properties, and how it differs from dual agonists, strictly as a reference-material explainer for research use only.",
+    "body": [
+      {
+        "heading": "Receptor targets",
+        "paragraphs": [
+          "Retatrutide is characterized in the literature as a triple incretin receptor agonist — it engages three distinct class B G-protein-coupled receptors. The GIP and GLP-1 receptors are the two incretin receptors that mediate glucose-dependent insulin signaling, and the glucagon receptor adds a third axis to the molecule's pharmacology.",
+          "Combining agonism at all three receptors in one peptide is the defining feature that distinguishes retatrutide from earlier single- and dual-receptor incretin mimetics studied in the same field."
+        ],
+        "bullets": [
+          "GIP receptor (glucose-dependent insulinotropic polypeptide).",
+          "GLP-1 receptor (glucagon-like peptide-1).",
+          "Glucagon (GCG) receptor.",
+          "Single molecule engineered for balanced tri-receptor agonism."
+        ]
+      },
+      {
+        "heading": "Mechanism of action",
+        "paragraphs": [
+          "As a class B GPCR agonist, retatrutide binds the extracellular and transmembrane regions of each target receptor and drives Gs-coupled signaling, canonically raising intracellular cyclic AMP and downstream signaling in receptor-expressing cells. The GLP-1 and GIP arms represent the incretin axis studied for glucose-dependent insulin signaling, while the glucagon-receptor arm engages a distinct pathway associated in the research literature with hepatic and energy-metabolism signaling.",
+          "The scientific interest in a triagonist rests on the hypothesis that co-activating these complementary pathways in a single molecule produces a signaling profile different from activating any one or two of them alone. Study of this combined pharmacology in cellular and preclinical models is the subject of the peer-reviewed investigation into LY3437943."
+        ],
+        "bullets": null
+      },
+      {
+        "heading": "Molecular design and half-life extension",
+        "paragraphs": [
+          "Retatrutide is a synthetic peptide built on an incretin-analog backbone with engineered modifications that confer balanced potency across the three receptors and resistance to rapid enzymatic clearance. Like other long-acting incretin analogs, it incorporates a fatty-acid (lipidation) moiety that promotes reversible binding to serum albumin, a design strategy associated with an extended circulating half-life in the research literature.",
+          "These structural features — non-native residues and the acyl modification — are what allow a single synthetic molecule to act at three receptors while remaining stable enough for the pharmacology to be studied."
+        ],
+        "bullets": [
+          "Incretin-analog peptide backbone with non-native residues.",
+          "Fatty-acid (lipidation) moiety for albumin binding and half-life extension.",
+          "Engineered for balanced agonism across GIP, GLP-1, and glucagon receptors."
+        ]
+      },
+      {
+        "heading": "Dual vs triple: retatrutide vs tirzepatide",
+        "paragraphs": [
+          "The clearest way to place retatrutide is against tirzepatide, the dual GIP/GLP-1 receptor agonist studied in the same research area. Tirzepatide activates two receptors — GIP and GLP-1 — whereas retatrutide adds a third target, the glucagon receptor, making it a triple agonist.",
+          "This added glucagon-receptor arm is the central pharmacological difference between the two molecules and the reason they are frequently compared in the literature. The comparison is developed in more detail in the dedicated comparison page."
+        ],
+        "bullets": [
+          "Tirzepatide: dual agonist — GIP + GLP-1 receptors.",
+          "Retatrutide: triple agonist — GIP + GLP-1 + glucagon receptors.",
+          "The glucagon-receptor arm is the defining additional target of retatrutide."
+        ]
+      },
+      {
+        "heading": "What the literature investigates",
+        "paragraphs": [
+          "Peer-reviewed and preclinical research on LY3437943 examines its receptor binding and activation profile across the three targets, its pharmacokinetics, and its metabolic signaling effects in cellular and animal models. As a reference material, retatrutide is used to characterize triagonist pharmacology and as a comparator against dual and single agonists.",
+          "All such work is laboratory and preclinical in nature. Kairo Labs supplies retatrutide as a research reference compound for research use only; it is not for human or animal consumption, and nothing here describes any therapeutic use or dosing."
+        ],
+        "bullets": null
+      },
+      {
+        "heading": "Verification and quality",
+        "paragraphs": [
+          "Because retatrutide is a large, modified synthetic peptide, identity and purity confirmation matter. Each lot should carry a Certificate of Analysis reporting HPLC purity with the underlying chromatogram, mass-spectrometric identity comparing observed against theoretical mass, and net peptide content. Kairo Labs verifies to the lot, so every batch is tested and its data is retrievable.",
+          "See the COA guide for how to read those measurements, and the handling guides for reconstitution, storage, and stability of research peptides of this class."
+        ],
+        "bullets": null
+      }
+    ],
+    "specs": [
+      {
+        "label": "Research designation",
+        "value": "LY3437943"
+      },
+      {
+        "label": "CAS number",
+        "value": "2381089-83-2"
+      },
+      {
+        "label": "Molecular formula",
+        "value": "C221H342N46O68"
+      },
+      {
+        "label": "Molar mass",
+        "value": "~4731.3 g/mol"
+      },
+      {
+        "label": "Class",
+        "value": "Synthetic triple incretin receptor agonist (GIP/GLP-1/glucagon)"
+      },
+      {
+        "label": "Form",
+        "value": "Lyophilized powder"
+      },
+      {
+        "label": "Purity",
+        "value": "Verified per lot by HPLC and mass spectrometry (see COA)"
+      }
+    ],
+    "faqs": [
+      {
+        "q": "What receptors does retatrutide target?",
+        "a": "Retatrutide (LY3437943) is a triple incretin receptor agonist that activates three receptors: the GIP receptor, the GLP-1 receptor, and the glucagon receptor. This tri-receptor profile is its defining pharmacological feature in the research literature."
+      },
+      {
+        "q": "How is retatrutide different from tirzepatide?",
+        "a": "Tirzepatide is a dual GIP/GLP-1 receptor agonist; retatrutide adds a third target, the glucagon receptor, making it a triple agonist. The additional glucagon-receptor arm is the central difference between the two molecules."
+      },
+      {
+        "q": "Why does retatrutide have an extended half-life in studies?",
+        "a": "Like other long-acting incretin analogs, its structure incorporates a fatty-acid (lipidation) moiety that promotes reversible binding to serum albumin, a design strategy associated in the literature with an extended circulating half-life. Non-native residues also confer resistance to rapid enzymatic clearance."
+      },
+      {
+        "q": "What is the molecular formula and mass of retatrutide?",
+        "a": "Its molecular formula is C221H342N46O68 with an average molar mass of approximately 4731.3 g/mol, and it carries CAS number 2381089-83-2. Each Kairo Labs lot is verified for identity and purity by HPLC and mass spectrometry on its COA."
+      },
+      {
+        "q": "Is retatrutide available for any human or animal use?",
+        "a": "No. Retatrutide is supplied strictly as a research reference material for research use only. It is not for human or animal consumption, and this page describes only mechanism, molecular properties, and what the literature investigates — no therapeutic use or dosing."
+      }
+    ],
+    "relatedProductSlugs": [
+      "retatrutide"
+    ],
+    "crossLinks": [
+      {
+        "label": "Tirzepatide: mechanism of action",
+        "href": "/research/compounds/tirzepatide"
+      },
+      {
+        "label": "Compare: tirzepatide vs retatrutide",
+        "href": "/research/compare/tirzepatide-vs-retatrutide"
+      },
+      {
+        "label": "How to read a Certificate of Analysis",
+        "href": "/research/verification/certificate-of-analysis"
+      }
+    ]
+  },
+  {
+    "slug": "tirzepatide",
+    "section": "compounds",
+    "schema": "TechArticle",
+    "eyebrow": "Compound explainer",
+    "h1": "Tirzepatide: Mechanism of Action",
+    "title": "Tirzepatide: Mechanism of Action | Kairo Labs Research",
+    "description": "Tirzepatide is a synthetic dual GIP/GLP-1 incretin receptor agonist. Receptor targets, mechanism, molecular design, and accurate molecular data. Research use only.",
+    "datePublished": "2026-07-02",
+    "intro": "Tirzepatide is a synthetic single-molecule agonist that activates two incretin receptors simultaneously: the glucose-dependent insulinotropic polypeptide (GIP) receptor and the glucagon-like peptide-1 (GLP-1) receptor. It is the prototypical dual incretin receptor agonist, a design that combines two complementary signaling axes in one engineered peptide. This explainer covers its receptor pharmacology, mechanism, and molecular properties as a reference-material overview for research use only.",
+    "body": [
+      {
+        "heading": "Receptor targets",
+        "paragraphs": [
+          "Tirzepatide is defined as a dual incretin receptor agonist, engaging both the GIP receptor and the GLP-1 receptor. These are the two incretin receptors, class B G-protein-coupled receptors that mediate glucose-dependent insulin signaling, and tirzepatide is engineered to activate both from a single molecule.",
+          "Its molecular design is based on the native GIP peptide sequence, modified so that it acts as an agonist at both incretin receptors rather than at GIP alone."
+        ],
+        "bullets": [
+          "GIP receptor (glucose-dependent insulinotropic polypeptide).",
+          "GLP-1 receptor (glucagon-like peptide-1).",
+          "Single molecule engineered for dual incretin agonism.",
+          "Backbone derived from the native GIP sequence."
+        ]
+      },
+      {
+        "heading": "Mechanism of action",
+        "paragraphs": [
+          "As a class B GPCR agonist, tirzepatide binds the GIP and GLP-1 receptors and drives Gs-coupled signaling, canonically increasing intracellular cyclic AMP and downstream signaling in receptor-expressing cells. Both receptors sit on the incretin axis studied in relation to glucose-dependent insulin signaling, and the interest in a dual agonist is in the combined effect of engaging both simultaneously from one molecule.",
+          "The relative potency and signaling balance between the GIP and GLP-1 arms is itself a subject of characterization in the research literature, which studies how a single co-agonist compares to activating either receptor alone."
+        ],
+        "bullets": null
+      },
+      {
+        "heading": "Molecular design and half-life extension",
+        "paragraphs": [
+          "Tirzepatide is a synthetic peptide incorporating non-native amino acids that stabilize its structure and a C20 fatty-diacid (lipidation) moiety that promotes reversible binding to serum albumin. Albumin binding is the design strategy associated in the literature with its extended circulating half-life, allowing the dual-receptor pharmacology to be studied over a prolonged window.",
+          "These engineered features — modified residues plus the acyl chain — are what let a single synthetic molecule act at both incretin receptors while resisting rapid enzymatic degradation."
+        ],
+        "bullets": [
+          "Peptide backbone derived from native GIP, with non-native residues.",
+          "C20 fatty-diacid (lipidation) moiety for albumin binding.",
+          "Albumin binding associated with extended half-life in the literature.",
+          "Modifications confer resistance to rapid enzymatic clearance."
+        ]
+      },
+      {
+        "heading": "Dual vs triple agonism",
+        "paragraphs": [
+          "Tirzepatide is frequently discussed alongside retatrutide, a triple incretin receptor agonist. The distinction is the number of receptor targets: tirzepatide activates two receptors (GIP and GLP-1), while retatrutide activates a third, the glucagon receptor.",
+          "This makes tirzepatide the reference dual agonist against which triagonist pharmacology is compared. The comparison is developed further on the dedicated comparison page."
+        ],
+        "bullets": [
+          "Tirzepatide: dual agonist — GIP + GLP-1 receptors.",
+          "Retatrutide: triple agonist — adds the glucagon receptor.",
+          "Tirzepatide serves as the dual-agonist comparator in the literature."
+        ]
+      },
+      {
+        "heading": "What the literature investigates",
+        "paragraphs": [
+          "Research on tirzepatide characterizes its binding and activation at the GIP and GLP-1 receptors, its signaling balance between the two arms, its pharmacokinetics, and its metabolic signaling effects in cellular and preclinical models. As a reference material it is widely used as a comparator for both single agonists and newer multi-agonists.",
+          "This is laboratory and preclinical work. Kairo Labs supplies tirzepatide as a research reference compound for research use only; it is not for human or animal consumption, and nothing here describes therapeutic use or dosing."
+        ],
+        "bullets": null
+      },
+      {
+        "heading": "Verification and quality",
+        "paragraphs": [
+          "Tirzepatide is a large modified synthetic peptide, so lot-level identity and purity confirmation is essential. Each lot should carry a Certificate of Analysis with HPLC purity and its chromatogram, mass-spec identity comparing observed versus theoretical mass, and net peptide content. Kairo Labs verifies to the lot — every batch is tested and its data retrievable.",
+          "The COA guide explains how to interpret those results, and the handling guides cover reconstitution, storage, and stability for peptides of this class."
+        ],
+        "bullets": null
+      }
+    ],
+    "specs": [
+      {
+        "label": "CAS number",
+        "value": "2023788-19-2"
+      },
+      {
+        "label": "Molecular formula",
+        "value": "C225H348N48O68"
+      },
+      {
+        "label": "Molar mass",
+        "value": "~4813.5 g/mol"
+      },
+      {
+        "label": "Class",
+        "value": "Synthetic dual incretin receptor agonist (GIP/GLP-1)"
+      },
+      {
+        "label": "Backbone",
+        "value": "GIP-based analog with non-native residues and C20 fatty-diacid"
+      },
+      {
+        "label": "Form",
+        "value": "Lyophilized powder"
+      },
+      {
+        "label": "Purity",
+        "value": "Verified per lot by HPLC and mass spectrometry (see COA)"
+      }
+    ],
+    "faqs": [
+      {
+        "q": "What receptors does tirzepatide target?",
+        "a": "Tirzepatide is a dual incretin receptor agonist that activates both the GIP receptor and the GLP-1 receptor from a single molecule. These are the two incretin receptors studied in relation to glucose-dependent insulin signaling."
+      },
+      {
+        "q": "How is tirzepatide different from retatrutide?",
+        "a": "Tirzepatide is a dual agonist targeting GIP and GLP-1 receptors, while retatrutide is a triple agonist that additionally targets the glucagon receptor. Tirzepatide is the dual-agonist reference against which triagonist pharmacology is compared."
+      },
+      {
+        "q": "Why does tirzepatide have an extended half-life in studies?",
+        "a": "Its structure incorporates a C20 fatty-diacid (lipidation) moiety that promotes reversible binding to serum albumin, a design strategy associated in the literature with an extended circulating half-life. Non-native residues also confer resistance to rapid enzymatic clearance."
+      },
+      {
+        "q": "What is the molecular formula and mass of tirzepatide?",
+        "a": "Its molecular formula is C225H348N48O68 with an average molar mass of approximately 4813.5 g/mol, and its CAS number is 2023788-19-2. Each Kairo Labs lot is verified for identity and purity by HPLC and mass spectrometry on its COA."
+      },
+      {
+        "q": "Is tirzepatide available for any human or animal use?",
+        "a": "No. Tirzepatide is supplied strictly as a research reference material for research use only. It is not for human or animal consumption, and this page covers only mechanism, molecular properties, and research context — no therapeutic use or dosing."
+      }
+    ],
+    "relatedProductSlugs": [
+      "tirzepatide"
+    ],
+    "crossLinks": [
+      {
+        "label": "Retatrutide: mechanism of action",
+        "href": "/research/compounds/retatrutide"
+      },
+      {
+        "label": "Compare: tirzepatide vs retatrutide",
+        "href": "/research/compare/tirzepatide-vs-retatrutide"
+      },
+      {
+        "label": "How to read a Certificate of Analysis",
+        "href": "/research/verification/certificate-of-analysis"
+      }
+    ]
+  },
+  {
+    "slug": "bpc-157",
+    "section": "compounds",
+    "schema": "TechArticle",
+    "eyebrow": "Compound explainer",
+    "h1": "BPC-157: Mechanism & Research Overview",
+    "title": "BPC-157: Mechanism & Research Overview | Kairo Labs Research",
+    "description": "BPC-157 is a synthetic 15-amino-acid partial sequence of body protection compound. Angiogenesis and tissue-repair pathways studied in models, plus molecular data. RUO.",
+    "datePublished": "2026-07-02",
+    "intro": "BPC-157 is a synthetic pentadecapeptide — a 15-amino-acid chain — derived from a partial sequence of a protein known as body protection compound, originally identified in gastric juice. In the research literature it is studied in cellular and animal models for its effects on angiogenesis and tissue-repair signaling pathways, and it is notable for unusual stability relative to many peptides. This overview summarizes its structure, the mechanisms investigated in models, and its molecular data as a reference-material explainer for research use only.",
+    "body": [
+      {
+        "heading": "Structure and origin",
+        "paragraphs": [
+          "BPC-157 is a synthetic peptide of 15 amino acids (sequence GEPPPGKPADDAGLV) corresponding to a partial fragment of body protection compound, a protein originally described in gastric juice. It is fully synthetic as supplied — it is not extracted from tissue — and the sequence is the defining identity confirmed on a Certificate of Analysis.",
+          "Because it is a partial sequence rather than a native full-length protein, it is sometimes described in the literature as a stable gastric pentadecapeptide."
+        ],
+        "bullets": [
+          "15-amino-acid pentadecapeptide.",
+          "Sequence: Gly-Glu-Pro-Pro-Pro-Gly-Lys-Pro-Ala-Asp-Asp-Ala-Gly-Leu-Val (GEPPPGKPADDAGLV).",
+          "Partial sequence of body protection compound, first identified in gastric juice.",
+          "Supplied as a fully synthetic peptide."
+        ]
+      },
+      {
+        "heading": "Mechanisms studied in models",
+        "paragraphs": [
+          "The research literature examines BPC-157 primarily in the context of angiogenesis — the formation of new blood vessels — and tissue-repair signaling. In cellular and animal models, studied mechanisms include modulation of angiogenic signaling associated with the vascular endothelial growth factor (VEGF) pathway and nitric oxide (NO) system, and interactions with growth-factor and cytoprotective signaling.",
+          "These are mechanistic findings reported in preclinical and in-vitro systems. They describe what the literature investigates about the molecule's biology in models and are not claims about any effect in humans."
+        ],
+        "bullets": [
+          "Angiogenesis / new blood-vessel formation signaling in models.",
+          "Associations with the VEGF pathway in preclinical systems.",
+          "Interactions with the nitric oxide (NO) system.",
+          "Cytoprotective and growth-factor signaling studied in vitro and in animals."
+        ]
+      },
+      {
+        "heading": "Notable stability",
+        "paragraphs": [
+          "A frequently noted property of BPC-157 is its relative stability. In the literature it is described as stable in aqueous solution and in gastric-juice conditions where many peptides would degrade rapidly, a feature attributed to its sequence and the absence of especially labile motifs.",
+          "This relative robustness makes it a comparatively forgiving research peptide to handle, though standard practice — gentle reconstitution, cold storage, minimal freeze-thaw, and protection from light — still applies to preserve the purity and identity established on its COA."
+        ],
+        "bullets": [
+          "Described as stable in aqueous and gastric-juice conditions in the literature.",
+          "Relatively robust compared with many peptides.",
+          "Standard gentle handling and cold storage still recommended."
+        ]
+      },
+      {
+        "heading": "BPC-157 vs TB-500",
+        "paragraphs": [
+          "BPC-157 is often studied and discussed alongside TB-500, a synthetic thymosin β4 fragment, because both are examined in tissue-repair research contexts. They are, however, structurally and mechanistically distinct: BPC-157 is a 15-residue partial sequence of body protection compound associated with angiogenic and cytoprotective signaling, whereas TB-500 relates to the actin-binding thymosin β4 system.",
+          "The two are sometimes co-studied and are also offered as a blend for research. The dedicated comparison page develops the mechanistic differences in detail."
+        ],
+        "bullets": [
+          "BPC-157: pentadecapeptide, angiogenic/cytoprotective signaling in models.",
+          "TB-500: thymosin β4 fragment, actin-binding system.",
+          "Structurally and mechanistically distinct; sometimes co-studied as a blend."
+        ]
+      },
+      {
+        "heading": "What the literature investigates",
+        "paragraphs": [
+          "Peer-reviewed and preclinical work on BPC-157 characterizes its effects on angiogenesis, tissue-repair markers, and cytoprotective signaling in a range of cellular and animal models, along with its stability and physicochemical behavior. As a reference material it is used to probe these pathways and as a comparator in tissue-repair research.",
+          "All such work is laboratory and preclinical. Kairo Labs supplies BPC-157 as a research reference compound for research use only; it is not for human or animal consumption, and nothing here constitutes a health or therapeutic claim or any dosing guidance."
+        ],
+        "bullets": null
+      },
+      {
+        "heading": "Verification and quality",
+        "paragraphs": [
+          "Identity and purity should be confirmed per lot: a Certificate of Analysis reporting HPLC purity with its chromatogram, mass-spectrometric identity comparing observed against theoretical mass (~1419.5 g/mol), and net peptide content establishes that the material is the correct pentadecapeptide at the stated purity. Kairo Labs verifies to the lot, so every batch is tested and its data retrievable.",
+          "See the COA guide for how to read those measurements and the handling guides for reconstitution, storage, and stability."
+        ],
+        "bullets": null
+      }
+    ],
+    "specs": [
+      {
+        "label": "CAS number",
+        "value": "137525-51-0"
+      },
+      {
+        "label": "Molecular formula",
+        "value": "C62H98N16O22"
+      },
+      {
+        "label": "Molar mass",
+        "value": "~1419.5 g/mol"
+      },
+      {
+        "label": "Sequence",
+        "value": "Gly-Glu-Pro-Pro-Pro-Gly-Lys-Pro-Ala-Asp-Asp-Ala-Gly-Leu-Val (GEPPPGKPADDAGLV)"
+      },
+      {
+        "label": "Class",
+        "value": "Synthetic pentadecapeptide (partial sequence of body protection compound)"
+      },
+      {
+        "label": "Form",
+        "value": "Lyophilized powder"
+      },
+      {
+        "label": "Purity",
+        "value": "Verified per lot by HPLC and mass spectrometry (see COA)"
+      }
+    ],
+    "faqs": [
+      {
+        "q": "What is BPC-157?",
+        "a": "BPC-157 is a synthetic pentadecapeptide — a 15-amino-acid chain (sequence GEPPPGKPADDAGLV) — corresponding to a partial fragment of body protection compound, a protein originally identified in gastric juice. It is supplied as a fully synthetic research reference peptide."
+      },
+      {
+        "q": "What mechanisms does the literature study for BPC-157?",
+        "a": "Research in cellular and animal models focuses on angiogenesis and tissue-repair signaling, including associations with the VEGF pathway and the nitric oxide system, and cytoprotective and growth-factor signaling. These are mechanistic findings in preclinical models, not claims about effects in humans."
+      },
+      {
+        "q": "Why is BPC-157 considered notably stable?",
+        "a": "The literature describes it as stable in aqueous solution and in gastric-juice conditions where many peptides degrade rapidly, attributed to its sequence. It is comparatively robust to handle, though standard gentle reconstitution, cold storage, and light protection still apply."
+      },
+      {
+        "q": "How does BPC-157 differ from TB-500?",
+        "a": "BPC-157 is a 15-residue partial sequence of body protection compound associated with angiogenic and cytoprotective signaling, while TB-500 is a synthetic thymosin β4 fragment related to the actin-binding thymosin β4 system. They are structurally and mechanistically distinct though sometimes co-studied."
+      },
+      {
+        "q": "Is BPC-157 available for any human or animal use?",
+        "a": "No. BPC-157 is supplied strictly as a research reference material for research use only. It is not for human or animal consumption, and this page describes only structure, mechanism studied in models, and molecular data — no therapeutic claims or dosing."
+      }
+    ],
+    "relatedProductSlugs": [
+      "bpc-157"
+    ],
+    "crossLinks": [
+      {
+        "label": "TB-500 (thymosin β4 fragment): mechanism",
+        "href": "/research/compounds/tb-500"
+      },
+      {
+        "label": "Compare: BPC-157 vs TB-500",
+        "href": "/research/compare/bpc-157-vs-tb-500"
+      },
+      {
+        "label": "Peptide stability: what affects it",
+        "href": "/research/handling/stability"
+      },
+      {
+        "label": "How to read a Certificate of Analysis",
+        "href": "/research/verification/certificate-of-analysis"
+      }
+    ]
+  },
+  {
+    "slug": "tirzepatide-vs-retatrutide",
+    "section": "compare",
+    "schema": "Article",
+    "eyebrow": "Mechanism Comparison",
+    "h1": "Tirzepatide vs Retatrutide: Receptor Target Comparison",
+    "title": "Tirzepatide vs Retatrutide: Receptor Targets | Kairo Labs Research",
+    "description": "A target-by-target mechanism comparison of tirzepatide (dual GIP/GLP-1 agonist) and retatrutide (triple GIP/GLP-1/glucagon agonist) for research reference.",
+    "datePublished": "2026-07-02",
+    "intro": "Tirzepatide and retatrutide are incretin-based multi-receptor agonists that differ in how many receptor systems they engage. This reference compares them strictly at the level of receptor targets and signaling mechanism — which incretin receptors each activates and how those pathways differ — for laboratory research context. It does not compare efficacy, outcomes, or any application in humans or animals.",
+    "body": [
+      {
+        "heading": "Two multi-agonist peptides, different target sets",
+        "paragraphs": [
+          "Both compounds are synthetic peptide agonists engineered to activate more than one incretin-family receptor with a single molecule. The essential distinction is scope: tirzepatide is a dual agonist engaging two receptor systems, while retatrutide is a triple agonist engaging three.",
+          "This comparison is framed only around the receptor pharmacology — which receptors are targeted and what each receptor's canonical signaling is — because that is the mechanistic axis on which the two molecules genuinely differ."
+        ],
+        "bullets": null
+      },
+      {
+        "heading": "Tirzepatide: dual GIP/GLP-1 agonism",
+        "paragraphs": [
+          "Tirzepatide is a single-chain synthetic peptide that acts as an agonist at two receptors: the glucose-dependent insulinotropic polypeptide receptor (GIPR) and the glucagon-like peptide-1 receptor (GLP-1R). Both are class B Gs-coupled GPCRs that signal through adenylate cyclase and cAMP.",
+          "Structurally it is based on a GIP-like backbone engineered to also bind GLP-1R, and it carries a fatty-acid moiety that supports albumin binding and an extended half-life. In the research literature it is the reference example of balanced dual incretin-receptor engagement."
+        ],
+        "bullets": [
+          "Target 1: GIP receptor (GIPR) — Gs/cAMP.",
+          "Target 2: GLP-1 receptor (GLP-1R) — Gs/cAMP.",
+          "Fatty-acid-modified for albumin binding and extended half-life."
+        ]
+      },
+      {
+        "heading": "Retatrutide: triple GIP/GLP-1/glucagon agonism",
+        "paragraphs": [
+          "Retatrutide is a synthetic peptide agonist that adds a third receptor to the same incretin framework: in addition to GIPR and GLP-1R, it activates the glucagon receptor (GCGR). Like the other targets, GCGR is a class B Gs-coupled GPCR signaling through cAMP, but it is expressed prominently in the liver and engages glucagon-driven pathways that are mechanistically distinct from the two incretin receptors.",
+          "The addition of glucagon-receptor agonism is the defining mechanistic difference between the two molecules. It means retatrutide's activity profile spans an additional metabolic axis that tirzepatide does not touch."
+        ],
+        "bullets": [
+          "Target 1: GIP receptor (GIPR).",
+          "Target 2: GLP-1 receptor (GLP-1R).",
+          "Target 3: glucagon receptor (GCGR) — the distinguishing third target."
+        ]
+      },
+      {
+        "heading": "Target-by-target contrast",
+        "paragraphs": [
+          "Placing the two side by side, GIPR and GLP-1R are shared targets, so the incretin arm of both molecules is conceptually similar. The divergence is entirely at the glucagon receptor: tirzepatide has no glucagon-receptor arm, whereas retatrutide adds one.",
+          "Mechanistically, glucagon-receptor agonism engages hepatic signaling pathways associated with energy expenditure and hepatic glucose handling in the research literature — a different physiological lever from the insulinotropic, glucose-dependent incretin receptors. The two molecules therefore represent a two-lever versus three-lever design at the receptor level."
+        ],
+        "bullets": [
+          "Shared: GIPR and GLP-1R agonism (both molecules).",
+          "Unique to retatrutide: GCGR (glucagon-receptor) agonism.",
+          "Signaling family: all three targets are Gs-coupled class B GPCRs (cAMP).",
+          "Design summary: tirzepatide = dual; retatrutide = triple."
+        ]
+      },
+      {
+        "heading": "Why researchers compare them",
+        "paragraphs": [
+          "Comparing a dual and a triple agonist lets researchers isolate the contribution of the added glucagon-receptor arm while holding the incretin targets roughly constant. That controlled contrast is why these two molecules appear together in mechanistic and receptor-pharmacology studies. The comparison is a study of receptor engagement, not a ranking of outcomes.",
+          "Both compounds are handled as lyophilized research peptides, and each Kairo Labs lot is verified to the lot with a Certificate of Analysis documenting identity and purity by HPLC and mass spectrometry."
+        ],
+        "bullets": null
+      }
+    ],
+    "specs": null,
+    "faqs": [
+      {
+        "q": "What is the core mechanistic difference between tirzepatide and retatrutide?",
+        "a": "Tirzepatide is a dual agonist at the GIP and GLP-1 receptors. Retatrutide adds a third target — the glucagon receptor (GCGR) — making it a triple GIP/GLP-1/glucagon agonist. The glucagon arm is the distinguishing feature."
+      },
+      {
+        "q": "Do both molecules act on GIP and GLP-1 receptors?",
+        "a": "Yes. Both engage the GIP receptor (GIPR) and GLP-1 receptor (GLP-1R). The difference is that only retatrutide also activates the glucagon receptor."
+      },
+      {
+        "q": "What receptor family do these targets belong to?",
+        "a": "GIPR, GLP-1R and GCGR are all class B G-protein-coupled receptors that couple to Gs and signal through adenylate cyclase and cAMP."
+      },
+      {
+        "q": "Does this comparison say which is better?",
+        "a": "No. This is strictly a comparison of receptor targets and signaling mechanism for research reference. It does not assess efficacy or any use in humans or animals."
+      },
+      {
+        "q": "How are these research peptides verified?",
+        "a": "Each Kairo Labs lot ships with a Certificate of Analysis verified to the lot, documenting identity and purity by HPLC and mass spectrometry."
+      }
+    ],
+    "relatedProductSlugs": [
+      "tirzepatide",
+      "retatrutide"
+    ],
+    "crossLinks": [
+      {
+        "label": "Tirzepatide: mechanism of action",
+        "href": "/research/compounds/tirzepatide"
+      },
+      {
+        "label": "Retatrutide: mechanism of action",
+        "href": "/research/compounds/retatrutide"
+      },
+      {
+        "label": "Certificate of Analysis: what we verify",
+        "href": "/research/verification/certificate-of-analysis"
+      }
+    ]
+  },
+  {
+    "slug": "tb-500",
+    "section": "compounds",
+    "schema": "TechArticle",
+    "eyebrow": "Compound explainer",
+    "h1": "TB-500 (Thymosin β4 Fragment): Mechanism",
+    "title": "TB-500 (Thymosin β4 Fragment): Mechanism | Kairo Labs Research",
+    "description": "TB-500 is a synthetic peptide related to thymosin β4, centered on its actin-binding domain. Mechanism, the TB-500 vs thymosin β4 distinction, and molecular data. RUO.",
+    "datePublished": "2026-07-02",
+    "intro": "TB-500 is a synthetic peptide studied in tissue-repair and cell-migration research, related to thymosin β4 (Tβ4), a naturally occurring 43-amino-acid actin-binding protein. The name TB-500 is frequently used interchangeably with thymosin β4 in the research supply context, but the two are not strictly identical, and understanding the distinction — and the central role of actin binding — is key to reading the literature correctly. This overview covers the mechanism, the TB-500 versus thymosin β4 clarification, and molecular framing as a reference-material explainer for research use only.",
+    "body": [
+      {
+        "heading": "TB-500 vs thymosin β4: the clarification",
+        "paragraphs": [
+          "Thymosin β4 is a native 43-residue peptide whose best-characterized property is binding to G-actin (monomeric actin) and regulating actin polymerization. The designation TB-500 is used in the research-supply space to refer to a thymosin β4-related peptide; depending on the source, TB-500 is described either as full-length synthetic thymosin β4 or as a synthetic fragment centered on the molecule's key active region.",
+          "The important active region is the actin-binding domain, and a central, highly conserved motif associated with actin binding is the sequence LKKTETQ. Because usage varies, a rigorous laboratory confirms exactly which sequence a given TB-500 lot contains via its Certificate of Analysis rather than assuming — the COA's sequence, mass, and purity data define what is actually in the vial."
+        ],
+        "bullets": [
+          "Thymosin β4: native 43-amino-acid actin-binding peptide.",
+          "TB-500: a thymosin β4-related synthetic peptide (full-length or fragment, depending on source).",
+          "Key conserved actin-binding motif: LKKTETQ.",
+          "Always confirm the exact sequence supplied via the lot COA."
+        ]
+      },
+      {
+        "heading": "Actin binding — the core mechanism",
+        "paragraphs": [
+          "The defining, most-studied mechanism of thymosin β4 and its fragments is interaction with actin. Thymosin β4 is the principal G-actin-sequestering peptide in many cell types: it binds monomeric actin and thereby helps regulate the balance between monomeric (G) and filamentous (F) actin, a balance central to the cytoskeletal dynamics that underlie cell migration, motility, and tissue-repair processes.",
+          "In cellular and animal models the literature studies how this actin regulation relates to cell migration and repair-associated signaling, along with associated effects on angiogenesis. These are mechanistic findings in research systems describing the molecule's cytoskeletal biology, not claims about effects in humans."
+        ],
+        "bullets": [
+          "Binds monomeric G-actin (actin sequestration).",
+          "Helps regulate the G-actin / F-actin balance.",
+          "Actin dynamics underlie cell migration and motility studied in models.",
+          "Associated cell-migration and angiogenesis signaling investigated preclinically."
+        ]
+      },
+      {
+        "heading": "The Ac-SDKP fragment",
+        "paragraphs": [
+          "Thymosin β4 contains, at its N-terminus, the tetrapeptide sequence Ac-Ser-Asp-Lys-Pro, known as Ac-SDKP (acetyl-N-Ser-Asp-Lys-Pro, also called seraspenide). Ac-SDKP is a naturally occurring fragment liberated from thymosin β4 and is itself a subject of research, studied in the literature in relation to angiogenesis and anti-fibrotic signaling in models.",
+          "This is relevant framing for TB-500 because it illustrates that thymosin β4 is a source of biologically studied fragments, and that TB-500-type materials are best understood as thymosin β4-derived peptides whose precise composition should be read from the COA."
+        ],
+        "bullets": [
+          "Ac-SDKP (Ac-Ser-Asp-Lys-Pro, seraspenide): N-terminal tetrapeptide of thymosin β4.",
+          "A naturally liberated thymosin β4 fragment studied in its own right.",
+          "Investigated for angiogenesis and anti-fibrotic signaling in models.",
+          "Illustrates thymosin β4 as a source of studied active fragments."
+        ]
+      },
+      {
+        "heading": "BPC-157 vs TB-500",
+        "paragraphs": [
+          "TB-500 is often studied alongside BPC-157 in tissue-repair research contexts, and the two are offered together as a research blend. They are mechanistically distinct: TB-500 acts through the thymosin β4 actin-binding system and cell-migration dynamics, while BPC-157 is a partial sequence of body protection compound associated with angiogenic and cytoprotective signaling.",
+          "The dedicated comparison page develops these mechanistic differences and how the literature co-studies them."
+        ],
+        "bullets": [
+          "TB-500: thymosin β4-related, actin-binding and cell-migration mechanisms.",
+          "BPC-157: body-protection-compound fragment, angiogenic/cytoprotective signaling.",
+          "Mechanistically distinct; offered together as a research blend."
+        ]
+      },
+      {
+        "heading": "What the literature investigates",
+        "paragraphs": [
+          "Research on thymosin β4 and TB-500 characterizes actin binding, cell-migration and motility effects, angiogenesis, and tissue-repair-associated signaling in cellular and animal models, along with the physicochemical properties of the synthetic peptide. As a reference material it is used to probe actin-regulatory biology and in tissue-repair comparator studies.",
+          "This work is laboratory and preclinical. Kairo Labs supplies TB-500 as a research reference compound for research use only; it is not for human or animal consumption, and nothing here is a health or therapeutic claim or any dosing guidance."
+        ],
+        "bullets": null
+      },
+      {
+        "heading": "Verification and quality",
+        "paragraphs": [
+          "Because TB-500 usage spans full-length and fragment forms, lot-level verification is especially important: a Certificate of Analysis reporting HPLC purity with its chromatogram, mass-spec identity comparing observed against theoretical mass, and the exact sequence and net peptide content tells you precisely which thymosin β4-related peptide the vial contains. Kairo Labs verifies to the lot — every batch is tested and its data retrievable.",
+          "See the COA guide for reading those measurements and the handling guides for reconstitution, storage, and stability."
+        ],
+        "bullets": null
+      }
+    ],
+    "specs": [
+      {
+        "label": "Related protein",
+        "value": "Thymosin β4 (Tβ4), a native 43-amino-acid actin-binding peptide"
+      },
+      {
+        "label": "Key actin-binding motif",
+        "value": "LKKTETQ"
+      },
+      {
+        "label": "Notable fragment",
+        "value": "Ac-SDKP (Ac-Ser-Asp-Lys-Pro, seraspenide), N-terminal tetrapeptide of Tβ4"
+      },
+      {
+        "label": "Class",
+        "value": "Synthetic peptide, thymosin β4 fragment (composition per lot — see COA)"
+      },
+      {
+        "label": "Form",
+        "value": "Lyophilized powder"
+      },
+      {
+        "label": "Purity",
+        "value": "Verified per lot by HPLC and mass spectrometry (see COA)"
+      }
+    ],
+    "faqs": [
+      {
+        "q": "Is TB-500 the same as thymosin β4?",
+        "a": "Not strictly. Thymosin β4 is the native 43-amino-acid actin-binding peptide; TB-500 is a thymosin β4-related synthetic peptide that, depending on the source, is described as either full-length synthetic thymosin β4 or a synthetic fragment centered on its key active region. Confirm the exact sequence supplied via the lot COA."
+      },
+      {
+        "q": "What is TB-500's core mechanism?",
+        "a": "Its defining, most-studied mechanism is actin binding. Thymosin β4 is a principal G-actin-sequestering peptide that helps regulate the balance between monomeric and filamentous actin, a balance central to the cytoskeletal dynamics underlying cell migration and tissue-repair processes studied in models."
+      },
+      {
+        "q": "What is Ac-SDKP?",
+        "a": "Ac-SDKP (acetyl-Ser-Asp-Lys-Pro, also called seraspenide) is the N-terminal tetrapeptide of thymosin β4, a naturally liberated fragment studied in its own right in relation to angiogenesis and anti-fibrotic signaling in models. It illustrates that thymosin β4 is a source of biologically studied fragments."
+      },
+      {
+        "q": "How does TB-500 differ from BPC-157?",
+        "a": "TB-500 acts through the thymosin β4 actin-binding system and cell-migration dynamics, while BPC-157 is a partial sequence of body protection compound associated with angiogenic and cytoprotective signaling. They are mechanistically distinct but are sometimes co-studied and offered as a research blend."
+      },
+      {
+        "q": "Is TB-500 available for any human or animal use?",
+        "a": "No. TB-500 is supplied strictly as a research reference material for research use only. It is not for human or animal consumption, and this page covers only mechanism, the thymosin β4 relationship, and molecular framing — no therapeutic claims or dosing."
+      }
+    ],
+    "relatedProductSlugs": [
+      "tb-500"
+    ],
+    "crossLinks": [
+      {
+        "label": "BPC-157: mechanism & research overview",
+        "href": "/research/compounds/bpc-157"
+      },
+      {
+        "label": "Compare: BPC-157 vs TB-500",
+        "href": "/research/compare/bpc-157-vs-tb-500"
+      },
+      {
+        "label": "Peptide reconstitution for laboratory research",
+        "href": "/research/handling/reconstitution"
+      },
+      {
+        "label": "How to read a Certificate of Analysis",
+        "href": "/research/verification/certificate-of-analysis"
+      }
+    ]
+  },
+  {
+    "slug": "cjc-1295",
+    "section": "compounds",
+    "schema": "TechArticle",
+    "eyebrow": "Compound Monograph",
+    "h1": "CJC-1295: Mechanism of Action",
+    "title": "CJC-1295: Mechanism of Action (GHRH Analog) | Kairo Labs Research",
+    "description": "A research-use reference on CJC-1295, a synthetic GHRH(1-29) analog: receptor targets, the DAC vs no-DAC molecular distinction, and secretagogue mechanism.",
+    "datePublished": "2026-07-02",
+    "intro": "CJC-1295 is a synthetic analog of growth-hormone-releasing hormone (GHRH) used as a reference compound in secretagogue research. This monograph describes its receptor target, the structural modifications that distinguish it from native GHRH, and the pharmacologically significant difference between the DAC and no-DAC forms. All information is provided strictly for laboratory research use and characterizes what the peer-reviewed literature investigates at the molecular level.",
+    "body": [
+      {
+        "heading": "Molecular class and origin",
+        "paragraphs": [
+          "CJC-1295 is a peptide analog derived from the biologically active 1-29 fragment of human GHRH (sermorelin, GRF 1-29). Native GHRH is a 44-amino-acid hypothalamic hormone, but the first 29 residues retain full receptor-activating capacity, which is why the 1-29 scaffold is the basis for this analog class.",
+          "The molecule incorporates four amino-acid substitutions relative to the native 1-29 sequence — D-Ala at position 2, Gln at position 8, Ala at position 15, and Leu at position 27. These substitutions are engineered to resist enzymatic degradation (notably dipeptidyl peptidase-4 cleavage at the N-terminus) and to reduce oxidation and deamidation, increasing the analog's stability in solution relative to unmodified GRF 1-29."
+        ],
+        "bullets": null
+      },
+      {
+        "heading": "Receptor target and signaling",
+        "paragraphs": [
+          "CJC-1295 acts as an agonist at the growth-hormone-releasing hormone receptor (GHRHR), a class B G-protein-coupled receptor expressed on somatotroph cells of the anterior pituitary. Agonist binding couples to Gs, activating adenylate cyclase, elevating intracellular cAMP, and engaging protein kinase A signaling.",
+          "In the research literature this pathway is characterized as increasing the synthesis and pulsatile release of growth hormone from somatotrophs. Because the mechanism works upstream through the pituitary's own regulatory machinery, the literature frequently frames GHRH analogs as preserving the pulsatile, feedback-regulated character of endogenous secretion rather than overriding it."
+        ],
+        "bullets": null
+      },
+      {
+        "heading": "The DAC vs no-DAC distinction",
+        "paragraphs": [
+          "The single most important structural variable in CJC-1295 research is the presence or absence of the Drug Affinity Complex (DAC). DAC is a maleimidopropionic-acid (lysine-linked) moiety appended to the peptide that reacts with a free cysteine thiol on circulating serum albumin, forming a reversible covalent conjugate.",
+          "CJC-1295 with DAC is albumin-bound in circulation, which shields it from renal clearance and proteolysis and extends its plasma half-life to the order of days in reported models. The no-DAC form — often referred to in the literature as modified GRF(1-29) or 'mod-GRF 1-29' — lacks the albumin-binding element and behaves as a short-acting analog with a half-life on the order of minutes.",
+          "This difference matters mechanistically: the long-acting DAC form is studied for its capacity to raise a sustained tonic GHRH tone, whereas the short-acting no-DAC form is studied for producing a discrete, pulse-like stimulus that more closely mimics endogenous GHRH kinetics. Researchers select between them based on the temporal profile a given experiment requires."
+        ],
+        "bullets": [
+          "With DAC: albumin-conjugating, long circulating half-life (days), sustained receptor tone.",
+          "No-DAC (mod-GRF 1-29): no albumin binder, short half-life (minutes), pulse-like stimulus.",
+          "Both share the same four-substitution GHRHR-agonist core sequence."
+        ]
+      },
+      {
+        "heading": "Why it is co-studied with ghrelin-receptor agonists",
+        "paragraphs": [
+          "GHRH-receptor signaling and ghrelin-receptor (GHSR) signaling represent two distinct, complementary axes of somatotroph regulation. Much of the literature pairs a GHRH analog such as CJC-1295 with a selective GHSR agonist such as ipamorelin to examine the interaction of the two pathways in vitro and in animal models. The mechanistic rationale for this pairing is covered in the dedicated comparison reference."
+        ],
+        "bullets": null
+      },
+      {
+        "heading": "Laboratory handling and verification",
+        "paragraphs": [
+          "As a lyophilized peptide, CJC-1295 is handled under standard cold-chain research practice: reconstitution with an appropriate sterile diluent, aliquoting to minimize freeze-thaw cycles, and storage per the compound's stability profile. The DAC and no-DAC forms have differing stability characteristics that inform handling decisions.",
+          "Every Kairo Labs lot is verified to the lot with a Certificate of Analysis documenting identity and purity by mass spectrometry and HPLC, so researchers can confirm which analog form and what purity they are working with before experimental use."
+        ],
+        "bullets": null
+      }
+    ],
+    "specs": [
+      {
+        "label": "Class",
+        "value": "GHRH analog (GHRHR agonist), modified GRF(1-29) scaffold"
+      },
+      {
+        "label": "Parent sequence",
+        "value": "Human GHRH residues 1-29"
+      },
+      {
+        "label": "Key substitutions",
+        "value": "D-Ala2, Gln8, Ala15, Leu27"
+      },
+      {
+        "label": "DAC form",
+        "value": "Albumin-conjugating (maleimidopropionic acid); half-life ~days"
+      },
+      {
+        "label": "No-DAC form",
+        "value": "Modified GRF(1-29); half-life ~minutes"
+      },
+      {
+        "label": "Receptor target",
+        "value": "Growth-hormone-releasing hormone receptor (GHRHR), Gs-coupled"
+      },
+      {
+        "label": "Form",
+        "value": "Lyophilized powder"
+      },
+      {
+        "label": "Research use",
+        "value": "For laboratory research use only. Not for human or animal consumption."
+      }
+    ],
+    "faqs": [
+      {
+        "q": "What is the difference between CJC-1295 with DAC and without DAC?",
+        "a": "The DAC (Drug Affinity Complex) is an albumin-binding element attached to the peptide. With DAC, the analog conjugates to serum albumin and circulates for days; without DAC (mod-GRF 1-29) it lacks that element and clears within minutes. Both share the same GHRHR-agonist core."
+      },
+      {
+        "q": "What receptor does CJC-1295 target?",
+        "a": "It is an agonist at the growth-hormone-releasing hormone receptor (GHRHR), a Gs-coupled class B GPCR on pituitary somatotrophs, signaling through adenylate cyclase and cAMP/PKA."
+      },
+      {
+        "q": "How does CJC-1295 differ from native GHRH?",
+        "a": "It is built on the GHRH 1-29 fragment with four amino-acid substitutions (D-Ala2, Gln8, Ala15, Leu27) that increase enzymatic stability, plus optionally the DAC albumin-binding moiety for extended circulation."
+      },
+      {
+        "q": "Why is CJC-1295 studied alongside ipamorelin?",
+        "a": "They act on two separate receptor systems — GHRHR and the ghrelin receptor (GHSR) — that the literature examines together to study complementary secretagogue mechanisms. See the CJC-1295 vs ipamorelin comparison reference."
+      },
+      {
+        "q": "How is lot identity verified?",
+        "a": "Each Kairo Labs lot ships with a Certificate of Analysis verified to the lot, documenting identity and purity by HPLC and mass spectrometry so the analog form is confirmed before research use."
+      }
+    ],
+    "relatedProductSlugs": [
+      "cjc-1295"
+    ],
+    "crossLinks": [
+      {
+        "label": "CJC-1295 vs Ipamorelin: mechanism comparison",
+        "href": "/research/compare/cjc-1295-vs-ipamorelin"
+      },
+      {
+        "label": "Ipamorelin: mechanism of action",
+        "href": "/research/compounds/ipamorelin"
+      },
+      {
+        "label": "Certificate of Analysis: what we verify",
+        "href": "/research/verification/certificate-of-analysis"
+      },
+      {
+        "label": "Peptide reconstitution guide",
+        "href": "/research/handling/reconstitution"
+      }
+    ]
+  },
+  {
+    "slug": "ipamorelin",
+    "section": "compounds",
+    "schema": "TechArticle",
+    "eyebrow": "Compound Monograph",
+    "h1": "Ipamorelin: Mechanism of Action",
+    "title": "Ipamorelin: Mechanism of Action (GHSR Agonist) | Kairo Labs Research",
+    "description": "A research reference on ipamorelin, a selective pentapeptide ghrelin-receptor (GHSR) agonist: receptor target, selectivity vs GHRP-2/GHRP-6, and molecular data.",
+    "datePublished": "2026-07-02",
+    "intro": "Ipamorelin is a synthetic pentapeptide studied as one of the most selective growth-hormone secretagogues in the GHRP research class. This monograph outlines its receptor target, the structural basis of its selectivity relative to GHRP-2 and GHRP-6, and its molecular properties. All content is intended for laboratory research use and describes what the peer-reviewed literature investigates at the mechanistic level.",
+    "body": [
+      {
+        "heading": "Molecular class and structure",
+        "paragraphs": [
+          "Ipamorelin is a pentapeptide with the sequence Aib-His-D-2-Nal-D-Phe-Lys-NH2 (a C-terminal amide). It belongs to the growth-hormone-releasing-peptide (GHRP) family of small-molecule secretagogues but is structurally distinct from earlier members of that family.",
+          "The molecular formula is C38H49N9O5 with a monoisotopic molar mass of approximately 711.9 g/mol (CAS 170851-70-4). The inclusion of the non-natural residues alpha-aminoisobutyric acid (Aib) and D-2-naphthylalanine (D-2-Nal), together with the C-terminal amide, gives the molecule resistance to peptidase degradation and contributes to its receptor selectivity."
+        ],
+        "bullets": null
+      },
+      {
+        "heading": "Receptor target and signaling",
+        "paragraphs": [
+          "Ipamorelin is an agonist at the growth-hormone secretagogue receptor (GHSR-1a), the endogenous receptor for ghrelin. GHSR-1a is a Gq/11-coupled G-protein-coupled receptor; agonist binding activates phospholipase C, generating inositol trisphosphate and diacylglycerol, mobilizing intracellular calcium and driving growth-hormone release from pituitary somatotrophs.",
+          "Because this is a different receptor and a different intracellular pathway (Gq/PLC/calcium) from the GHRH receptor (Gs/cAMP/PKA), the ghrelin-receptor axis is mechanistically complementary to GHRH-analog signaling — a distinction that underlies much of the co-study literature."
+        ],
+        "bullets": null
+      },
+      {
+        "heading": "Selectivity vs GHRP-2 and GHRP-6",
+        "paragraphs": [
+          "The defining feature of ipamorelin in the research literature is its selectivity. Earlier GHRPs such as GHRP-2 and GHRP-6 are potent GHSR agonists but are reported to also stimulate release of adrenocorticotropic hormone (ACTH), cortisol, and — in the case of GHRP-6 — prolactin, reflecting off-target activity beyond the somatotroph axis.",
+          "Ipamorelin is characterized as producing a comparatively clean GHSR-mediated signal with minimal reported effect on ACTH, cortisol, or prolactin at comparable exposures in model systems. This selectivity is why ipamorelin is frequently chosen as the reference GHSR agonist when researchers want to isolate ghrelin-receptor signaling from confounding endocrine effects."
+        ],
+        "bullets": [
+          "GHRP-6: GHSR agonist; reported ACTH, cortisol and prolactin stimulation.",
+          "GHRP-2: GHSR agonist; reported ACTH/cortisol activity.",
+          "Ipamorelin: GHSR agonist with minimal reported ACTH/cortisol/prolactin effect — the selective reference."
+        ]
+      },
+      {
+        "heading": "Why it is paired with GHRH analogs",
+        "paragraphs": [
+          "Ipamorelin's GHSR agonism and a GHRH analog's GHRHR agonism act through separate receptor systems that the literature examines together. The two pathways are studied as complementary inputs to the same somatotroph cell population, which is why a selective GHSR agonist and a GHRH analog form a common experimental pair. The mechanistic rationale is detailed in the comparison reference."
+        ],
+        "bullets": null
+      },
+      {
+        "heading": "Laboratory handling and verification",
+        "paragraphs": [
+          "Ipamorelin is supplied as a lyophilized powder and handled under standard peptide research practice — reconstitution with a suitable sterile diluent, aliquoting, and cold storage to limit freeze-thaw exposure.",
+          "Each Kairo Labs lot is verified to the lot with a Certificate of Analysis reporting identity and purity by mass spectrometry and HPLC, so the pentapeptide's identity and grade are confirmed before experimental use."
+        ],
+        "bullets": null
+      }
+    ],
+    "specs": [
+      {
+        "label": "Class",
+        "value": "Selective growth hormone secretagogue (GHSR agonist)"
+      },
+      {
+        "label": "Sequence",
+        "value": "Aib-His-D-2-Nal-D-Phe-Lys-NH2 (pentapeptide, C-terminal amide)"
+      },
+      {
+        "label": "CAS",
+        "value": "170851-70-4"
+      },
+      {
+        "label": "Molecular formula",
+        "value": "C38H49N9O5"
+      },
+      {
+        "label": "Molar mass",
+        "value": "~711.9 g/mol"
+      },
+      {
+        "label": "Receptor target",
+        "value": "Ghrelin/GHS receptor (GHSR-1a), Gq/11-coupled"
+      },
+      {
+        "label": "Selectivity note",
+        "value": "Minimal reported ACTH/cortisol/prolactin activity vs GHRP-2/GHRP-6"
+      },
+      {
+        "label": "Research use",
+        "value": "For laboratory research use only. Not for human or animal consumption."
+      }
+    ],
+    "faqs": [
+      {
+        "q": "What receptor does ipamorelin target?",
+        "a": "It is a selective agonist at the growth-hormone secretagogue receptor (GHSR-1a), the ghrelin receptor, signaling through the Gq/phospholipase-C/calcium pathway."
+      },
+      {
+        "q": "How is ipamorelin more selective than GHRP-2 or GHRP-6?",
+        "a": "In the literature, GHRP-2 and GHRP-6 also stimulate ACTH, cortisol and (for GHRP-6) prolactin. Ipamorelin is reported to produce a comparatively clean GHSR signal with minimal effect on those hormones, making it the selective reference GHSR agonist."
+      },
+      {
+        "q": "What is the molecular formula and mass of ipamorelin?",
+        "a": "The formula is C38H49N9O5 with a molar mass of approximately 711.9 g/mol (CAS 170851-70-4). It is a pentapeptide with a C-terminal amide."
+      },
+      {
+        "q": "How does ipamorelin's mechanism differ from CJC-1295?",
+        "a": "Ipamorelin acts on the ghrelin receptor (GHSR, Gq/PLC/calcium), while CJC-1295 acts on the GHRH receptor (GHRHR, Gs/cAMP/PKA). They target different receptors and are studied as complementary pathways."
+      },
+      {
+        "q": "How is lot purity confirmed?",
+        "a": "Each Kairo Labs lot ships with a Certificate of Analysis verified to the lot, documenting identity and purity by HPLC and mass spectrometry."
+      }
+    ],
+    "relatedProductSlugs": [
+      "ipamorelin"
+    ],
+    "crossLinks": [
+      {
+        "label": "CJC-1295 vs Ipamorelin: mechanism comparison",
+        "href": "/research/compare/cjc-1295-vs-ipamorelin"
+      },
+      {
+        "label": "CJC-1295: mechanism of action",
+        "href": "/research/compounds/cjc-1295"
+      },
+      {
+        "label": "Certificate of Analysis: what we verify",
+        "href": "/research/verification/certificate-of-analysis"
+      },
+      {
+        "label": "Storage and stability guide",
+        "href": "/research/handling/storage"
+      }
+    ]
+  },
+  {
+    "slug": "ghk-cu",
+    "section": "compounds",
+    "schema": "TechArticle",
+    "eyebrow": "Compound Monograph",
+    "h1": "GHK-Cu (Copper Peptide): Mechanism",
+    "title": "GHK-Cu (Copper Peptide): Mechanism | Kairo Labs Research",
+    "description": "A research reference on GHK-Cu, the copper-binding tripeptide Gly-His-Lys complexed with Cu(II): coordination chemistry and what the literature studies in matrix-remodeling models.",
+    "datePublished": "2026-07-02",
+    "intro": "GHK-Cu is the copper(II) complex of the tripeptide glycyl-L-histidyl-L-lysine, one of the most extensively studied copper-binding peptides in the biochemical literature. This monograph describes its coordination chemistry, its proposed molecular mechanisms, and the extracellular-matrix and gene-expression endpoints that in-vitro and animal-model research investigates. All content is for laboratory research use only.",
+    "body": [
+      {
+        "heading": "Molecular class and composition",
+        "paragraphs": [
+          "GHK is a tripeptide with the sequence Gly-His-Lys (glycyl-L-histidyl-L-lysine), a small human peptide originally isolated from plasma. In its biologically studied form it is complexed with a divalent copper ion, Cu(II), to form GHK-Cu — a copper-binding tripeptide complex rather than a simple free peptide.",
+          "The apo-peptide GHK has a molecular formula of C14H24N6O4 (molar mass ~340.4 g/mol). The copper complex adds a coordinated Cu(II) center; the peptide is best characterized as a metal-peptide coordination complex whose properties depend on the copper it carries."
+        ],
+        "bullets": null
+      },
+      {
+        "heading": "Copper coordination chemistry",
+        "paragraphs": [
+          "The defining chemical feature of GHK-Cu is its high, selective affinity for copper(II). Coordination is provided principally by the imidazole nitrogen of the histidine residue, the alpha-amino terminus of glycine, and the deprotonated amide nitrogen between glycine and histidine, with the lysine side chain contributing to overall stability. This arrangement forms a square-planar Cu(II) coordination geometry characteristic of the complex.",
+          "This coordination is why the literature treats GHK-Cu as a physiological copper carrier and exchanger: the complex is studied as a vehicle that can present or exchange copper with other biomolecules, and much of its proposed activity is discussed in terms of copper delivery and redox-relevant coordination rather than the bare peptide acting alone."
+        ],
+        "bullets": null
+      },
+      {
+        "heading": "What the literature investigates",
+        "paragraphs": [
+          "Research on GHK-Cu focuses heavily on extracellular-matrix biology in cell-culture and animal models. Reported endpoints include modulation of the expression of matrix components such as collagens and glycosaminoglycans, and of matrix-remodeling enzymes including matrix metalloproteinases (MMPs) and their tissue inhibitors (TIMPs).",
+          "A separate line of investigation uses large-scale gene-expression (transcriptomic) profiling, which has reported that GHK exposure shifts the expression of a broad set of genes in model systems. The literature frames these observations as data on tissue-remodeling and antioxidant-related pathways in vitro — mechanistic and model-level findings, not demonstrations of any consumer or clinical outcome."
+        ],
+        "bullets": [
+          "ECM component expression (collagens, glycosaminoglycans) in culture models.",
+          "Matrix-remodeling enzymes (MMPs) and their inhibitors (TIMPs).",
+          "Copper-dependent redox and antioxidant-associated pathways.",
+          "Broad transcriptomic modulation reported in gene-expression studies."
+        ]
+      },
+      {
+        "heading": "Why the copper matters mechanistically",
+        "paragraphs": [
+          "Because copper is a cofactor for enzymes involved in matrix cross-linking (such as lysyl oxidase) and in redox handling (such as superoxide dismutase), the copper carried by GHK-Cu is central to how the literature reasons about its mechanism. Studies frequently distinguish effects attributable to the intact copper complex from those of the copper-free peptide, underscoring that GHK and GHK-Cu should be treated as distinct research entities."
+        ],
+        "bullets": null
+      },
+      {
+        "heading": "Laboratory handling and verification",
+        "paragraphs": [
+          "GHK-Cu is typically supplied as a lyophilized powder with a characteristic blue coloration from the coordinated copper. Handling follows standard peptide practice with attention to the metal center's sensitivity to pH and to competing chelators in buffers.",
+          "Each Kairo Labs lot is verified to the lot with a Certificate of Analysis confirming identity and purity, so the copper-complexed tripeptide is characterized before use in research."
+        ],
+        "bullets": null
+      }
+    ],
+    "specs": [
+      {
+        "label": "Class",
+        "value": "Copper-binding tripeptide complex"
+      },
+      {
+        "label": "Peptide sequence",
+        "value": "Gly-His-Lys (glycyl-L-histidyl-L-lysine)"
+      },
+      {
+        "label": "Metal center",
+        "value": "Coordinated copper(II), Cu(II) — square-planar geometry"
+      },
+      {
+        "label": "Apo-peptide formula",
+        "value": "C14H24N6O4 (~340.4 g/mol)"
+      },
+      {
+        "label": "Primary coordination donors",
+        "value": "His imidazole N, Gly alpha-amino N, deprotonated Gly-His amide N"
+      },
+      {
+        "label": "Studied endpoints",
+        "value": "ECM component expression, MMP/TIMP modulation, transcriptomic profiling (model systems)"
+      },
+      {
+        "label": "Form",
+        "value": "Lyophilized powder (blue, copper-coordinated)"
+      },
+      {
+        "label": "Research use",
+        "value": "For laboratory research use only. Not for human or animal consumption."
+      }
+    ],
+    "faqs": [
+      {
+        "q": "What is the difference between GHK and GHK-Cu?",
+        "a": "GHK is the free tripeptide Gly-His-Lys. GHK-Cu is that peptide complexed with a copper(II) ion. Because copper is central to its proposed mechanism, the literature treats the two as distinct research entities."
+      },
+      {
+        "q": "How does GHK-Cu bind copper?",
+        "a": "Copper(II) is coordinated primarily by the histidine imidazole nitrogen, the N-terminal glycine amino group, and the deprotonated amide nitrogen between glycine and histidine, forming a square-planar complex stabilized by the lysine residue."
+      },
+      {
+        "q": "What does research on GHK-Cu investigate?",
+        "a": "In vitro and animal-model studies examine extracellular-matrix component expression, matrix-remodeling enzymes (MMPs/TIMPs), copper-dependent redox pathways, and broad gene-expression changes — all at the mechanistic and model level."
+      },
+      {
+        "q": "Why does the copper matter to the mechanism?",
+        "a": "Copper is a cofactor for matrix-crosslinking and redox enzymes, so studies attribute much of GHK-Cu's proposed activity to copper coordination and exchange rather than the peptide backbone alone."
+      },
+      {
+        "q": "How is the complex verified?",
+        "a": "Each Kairo Labs lot ships with a Certificate of Analysis verified to the lot, confirming identity and purity of the copper-complexed tripeptide before research use."
+      }
+    ],
+    "relatedProductSlugs": [
+      "ghk-cu"
+    ],
+    "crossLinks": [
+      {
+        "label": "Certificate of Analysis: what we verify",
+        "href": "/research/verification/certificate-of-analysis"
+      },
+      {
+        "label": "Peptide reconstitution guide",
+        "href": "/research/handling/reconstitution"
+      },
+      {
+        "label": "Storage and stability guide",
+        "href": "/research/handling/storage"
+      }
+    ]
+  },
+  {
+    "slug": "igf-1-lr3",
+    "section": "compounds",
+    "schema": "TechArticle",
+    "eyebrow": "Compound Monograph",
+    "h1": "IGF-1 LR3 (Long R3 analog): Mechanism",
+    "title": "IGF-1 LR3 (Long R3 Analog): Mechanism | Kairo Labs Research",
+    "description": "A research reference on IGF-1 LR3, an 83-residue IGF-1 analog with an Arg3 substitution and N-terminal extension: receptor binding, reduced IGFBP affinity, and half-life.",
+    "datePublished": "2026-07-02",
+    "intro": "IGF-1 LR3 (Long Arg3 IGF-1) is an engineered analog of insulin-like growth factor 1 used widely as a research reference because of its extended activity relative to the native protein. This monograph describes its structural modifications, its receptor binding, and the binding-protein interaction that gives it its distinctive half-life. All content is for laboratory research use only and characterizes mechanism, not any consumer application.",
+    "body": [
+      {
+        "heading": "Molecular class and structure",
+        "paragraphs": [
+          "Native human IGF-1 is a 70-amino-acid single-chain protein structurally homologous to proinsulin. IGF-1 LR3 is an analog of this protein carrying two engineering changes that together define it: an amino-acid substitution within the mature sequence and an added N-terminal peptide extension.",
+          "The result is an 83-residue polypeptide (the 70-residue IGF-1 body plus a 13-amino-acid N-terminal extension) with a molar mass of approximately 9.1 kDa. The two modifications are described in detail below."
+        ],
+        "bullets": null
+      },
+      {
+        "heading": "The Arg3 substitution and N-terminal extension",
+        "paragraphs": [
+          "The 'R3' in the name denotes substitution of the native glutamic acid at position 3 of the mature IGF-1 sequence with an arginine residue (Arg3). The 'Long' (L) denotes a 13-amino-acid N-terminal extension appended ahead of the mature sequence.",
+          "Both modifications share a single functional purpose: to reduce the analog's affinity for the family of IGF binding proteins (IGFBPs). Native IGF-1 circulates largely bound to IGFBPs, which sequester it and regulate its availability. By weakening IGFBP binding, IGF-1 LR3 remains comparatively more available as free peptide in model systems, which is the basis of its markedly longer functional half-life — reported on the order of many hours versus minutes for native IGF-1."
+        ],
+        "bullets": [
+          "Arg3: glutamate-to-arginine substitution at position 3 of mature IGF-1.",
+          "Long: 13-residue N-terminal peptide extension.",
+          "Combined effect: reduced IGFBP affinity, greater free-peptide availability, extended half-life."
+        ]
+      },
+      {
+        "heading": "Receptor target and signaling",
+        "paragraphs": [
+          "IGF-1 LR3 retains the receptor-binding face of native IGF-1 and acts as an agonist at the type 1 IGF receptor (IGF-1R), a receptor tyrosine kinase. Ligand binding triggers receptor autophosphorylation and recruitment of adaptor proteins, activating the downstream PI3K/Akt and Ras/MAPK signaling cascades that IGF-1R engages.",
+          "Because of structural homology, IGF-1 also has lower-affinity cross-reactivity with the insulin receptor, and the LR3 analog is studied with that cross-reactivity in mind. The core mechanistic point in the literature is that LR3 preserves IGF-1R agonism while altering the pharmacokinetic profile through its IGFBP-evading modifications."
+        ],
+        "bullets": null
+      },
+      {
+        "heading": "Why the modifications are studied",
+        "paragraphs": [
+          "The reduced IGFBP binding makes IGF-1 LR3 a useful research tool: in cell culture, IGFBPs secreted into media can blunt the activity of native IGF-1, whereas LR3's diminished binding gives more consistent receptor engagement. This is why the analog is a common reference in in-vitro signaling and proliferation assays, where reproducibility of receptor stimulation is the experimental goal."
+        ],
+        "bullets": null
+      },
+      {
+        "heading": "Laboratory handling and verification",
+        "paragraphs": [
+          "As a larger polypeptide, IGF-1 LR3 is handled with attention to its sensitivity to freeze-thaw cycling and to adsorption losses; carrier-protein-containing diluents are commonly used in research handling. Storage follows the protein's stability profile.",
+          "Each Kairo Labs lot is verified to the lot with a Certificate of Analysis documenting identity and purity, so the analog's modifications and grade are confirmed before use in research."
+        ],
+        "bullets": null
+      }
+    ],
+    "specs": [
+      {
+        "label": "Class",
+        "value": "IGF-1 analog (Long Arg3)"
+      },
+      {
+        "label": "Length",
+        "value": "83 amino acids (70-residue IGF-1 body + 13-residue N-terminal extension)"
+      },
+      {
+        "label": "Key modifications",
+        "value": "Arg3 substitution (Glu3 to Arg); 13-aa N-terminal extension"
+      },
+      {
+        "label": "Molar mass",
+        "value": "~9.1 kDa"
+      },
+      {
+        "label": "Receptor target",
+        "value": "Type 1 IGF receptor (IGF-1R) tyrosine kinase; low-affinity insulin-receptor cross-reactivity"
+      },
+      {
+        "label": "Binding-protein affinity",
+        "value": "Reduced IGFBP affinity vs native IGF-1"
+      },
+      {
+        "label": "Half-life note",
+        "value": "Extended vs native IGF-1 in reported models"
+      },
+      {
+        "label": "Research use",
+        "value": "For laboratory research use only. Not for human or animal consumption."
+      }
+    ],
+    "faqs": [
+      {
+        "q": "What do 'Long' and 'R3' mean in IGF-1 LR3?",
+        "a": "'R3' is the substitution of arginine for the native glutamic acid at position 3 of mature IGF-1. 'Long' is a 13-amino-acid N-terminal extension. Together they weaken IGF binding-protein affinity."
+      },
+      {
+        "q": "How does IGF-1 LR3 differ from native IGF-1?",
+        "a": "It adds an N-terminal extension and an Arg3 substitution that reduce IGFBP binding, producing greater free-peptide availability and a longer functional half-life while retaining IGF-1R agonism."
+      },
+      {
+        "q": "What receptor does IGF-1 LR3 activate?",
+        "a": "It is an agonist at the type 1 IGF receptor (IGF-1R), a receptor tyrosine kinase signaling through PI3K/Akt and Ras/MAPK, with lower-affinity cross-reactivity at the insulin receptor."
+      },
+      {
+        "q": "Why is IGF-1 LR3 used in cell-culture research?",
+        "a": "Its reduced IGFBP binding gives more consistent receptor engagement in media where secreted IGFBPs would otherwise blunt native IGF-1, improving assay reproducibility."
+      },
+      {
+        "q": "How is the analog verified?",
+        "a": "Each Kairo Labs lot ships with a Certificate of Analysis verified to the lot, documenting identity and purity so the analog's modifications and grade are confirmed before research use."
+      }
+    ],
+    "relatedProductSlugs": [
+      "igf-1-lr3"
+    ],
+    "crossLinks": [
+      {
+        "label": "Certificate of Analysis: what we verify",
+        "href": "/research/verification/certificate-of-analysis"
+      },
+      {
+        "label": "Peptide reconstitution guide",
+        "href": "/research/handling/reconstitution"
+      },
+      {
+        "label": "Storage and stability guide",
+        "href": "/research/handling/storage"
+      }
+    ]
+  },
+  {
+    "slug": "storage",
+    "section": "handling",
+    "schema": "TechArticle",
+    "eyebrow": "Handling guide",
+    "h1": "Peptide Storage & Handling",
+    "title": "Peptide Storage & Handling | Kairo Labs Research",
+    "description": "Laboratory storage of research peptides: lyophilized vs reconstituted, temperature ranges, freeze-thaw cycles, light and moisture, and cold chain. RUO.",
+    "datePublished": "2026-07-02",
+    "intro": "Storage is the difference between a peptide that still matches its Certificate of Analysis months after receipt and one that has quietly degraded on the bench. Peptides are sensitive to temperature, moisture, oxygen, light, and repeated phase changes, and the appropriate regime differs sharply between the dry lyophilized state and a reconstituted solution. This guide describes laboratory storage practice for research materials only; it does not concern any human or animal use.",
+    "body": [
+      {
+        "heading": "Lyophilized vs reconstituted storage",
+        "paragraphs": [
+          "In its lyophilized (freeze-dried) form, a peptide is at its most stable: with little water present, the hydrolytic and oxidative reactions that degrade peptides proceed slowly. Many lyophilized research peptides tolerate short periods at cool room or refrigerator temperature for shipping, while long-term storage is colder.",
+          "Once reconstituted, the same peptide is markedly less stable because it is now in an aqueous environment where degradation chemistry is faster. Reconstituted solutions are therefore treated as short-lived working stocks and stored cold, ideally as single-use aliquots to avoid repeated handling."
+        ],
+        "bullets": [
+          "Lyophilized: most stable state; low residual water slows degradation.",
+          "Reconstituted: aqueous, less stable; treat as a short-term working stock.",
+          "Aliquot reconstituted stock to limit repeated stress."
+        ]
+      },
+      {
+        "heading": "Temperature ranges",
+        "paragraphs": [
+          "General laboratory practice for lyophilized peptides is refrigeration (approximately 2–8 °C) for near-term storage and freezing (commonly around −20 °C, or −80 °C for extended archival) for long-term storage. Colder storage further slows the reactions that erode purity over time.",
+          "Reconstituted solutions are typically kept refrigerated for short-term use and frozen in aliquots if they must be kept longer, subject to the freeze-thaw considerations below. Always defer to any compound-specific guidance on the product's COA or documentation, since optimal conditions vary with sequence and formulation."
+        ],
+        "bullets": [
+          "Lyophilized, near-term: refrigerated, ~2–8 °C.",
+          "Lyophilized, long-term: frozen, ~−20 °C, or −80 °C for archival.",
+          "Reconstituted: refrigerated short-term; frozen aliquots if longer.",
+          "Follow any compound-specific COA guidance."
+        ]
+      },
+      {
+        "heading": "Freeze-thaw cycles",
+        "paragraphs": [
+          "Each freeze-thaw cycle stresses a peptide in solution: ice formation concentrates solutes locally, shifts pH, and can drive aggregation and hydrolysis. Repeated cycling is one of the most common and most avoidable causes of degradation in the laboratory.",
+          "The standard mitigation is to divide reconstituted stock into single-use aliquots before the first freeze, so each aliquot is thawed exactly once and never refrozen. Thaw aliquots gently — for example in a refrigerator or by hand warmth rather than a hot bath — and mix by gentle inversion rather than vortexing."
+        ],
+        "bullets": [
+          "Minimize the number of freeze-thaw cycles a solution experiences.",
+          "Aliquot before freezing so each portion is thawed only once.",
+          "Thaw gently and mix by inversion, not vortexing.",
+          "Do not refreeze a thawed single-use aliquot."
+        ]
+      },
+      {
+        "heading": "Light and moisture",
+        "paragraphs": [
+          "Light, particularly UV, can drive photodegradation of certain residues, so peptides are best stored in opaque or amber containers or otherwise protected from light. Many vials are supplied and stored in the dark for this reason.",
+          "Moisture is the other major threat, especially to lyophilized material, which can be hygroscopic. Cold vials taken from a freezer should be allowed to equilibrate to room temperature while still sealed before opening, so that atmospheric moisture does not condense onto and into the cold powder. Desiccants and tightly sealed containers help keep the dry state dry."
+        ],
+        "bullets": [
+          "Protect from light; use opaque/amber vials or dark storage.",
+          "Warm sealed vials to room temperature before opening to prevent condensation.",
+          "Keep lyophilized material dry with tight seals and, where appropriate, desiccant."
+        ]
+      },
+      {
+        "heading": "Cold-chain and receiving practice",
+        "paragraphs": [
+          "Peptides shipped under temperature control should be inspected on arrival and moved promptly to their intended storage temperature. Brief excursions to ambient temperature during transit are generally tolerated by lyophilized material, but prolonged or repeated warming is not, and any temperature indicator included with a shipment should be checked.",
+          "Good receiving practice ties the physical vial to its paperwork: confirm the lot number against the COA, log the receipt date and storage location, and record the storage temperature. This preserves traceability so that any later result can be linked to a specific lot stored under known conditions."
+        ],
+        "bullets": [
+          "Inspect on arrival; move promptly to target storage temperature.",
+          "Check any shipment temperature indicators.",
+          "Confirm the vial lot number against its COA on receipt.",
+          "Log receipt date, storage location, and temperature for traceability."
+        ]
+      }
+    ],
+    "specs": null,
+    "faqs": [
+      {
+        "q": "Is a lyophilized peptide more stable than a reconstituted one?",
+        "a": "Yes. The dry lyophilized state has little water available for the hydrolytic and oxidative reactions that degrade peptides, so it is considerably more stable. Once reconstituted into an aqueous solution, degradation proceeds faster, so solutions are treated as short-lived working stocks."
+      },
+      {
+        "q": "Why are freeze-thaw cycles harmful?",
+        "a": "Each cycle concentrates solutes locally as ice forms, shifts local pH, and can promote aggregation and hydrolysis. Repeated cycling is a leading avoidable cause of degradation. Dividing stock into single-use aliquots before freezing ensures each portion is thawed only once."
+      },
+      {
+        "q": "Why let a frozen vial warm before opening it?",
+        "a": "A cold vial opened in room air causes atmospheric moisture to condense onto the cold powder, and lyophilized peptides can be hygroscopic. Allowing the sealed vial to equilibrate to room temperature first prevents moisture uptake that would accelerate degradation."
+      },
+      {
+        "q": "Does light really affect stored peptides?",
+        "a": "It can. UV and strong light can drive photodegradation of susceptible residues, so peptides are best kept in opaque or amber containers or otherwise shielded from light during storage."
+      },
+      {
+        "q": "What temperature should I store peptides at?",
+        "a": "As a general laboratory guide, refrigerate lyophilized peptides (~2–8 °C) for near-term storage and freeze (~−20 °C, or −80 °C for archival) for the long term, always following any compound-specific guidance on the COA. This is storage guidance for research materials, not a use protocol."
+      }
+    ],
+    "relatedProductSlugs": [],
+    "crossLinks": [
+      {
+        "label": "Peptide reconstitution for laboratory research",
+        "href": "/research/handling/reconstitution"
+      },
+      {
+        "label": "Peptide stability: what affects it",
+        "href": "/research/handling/stability"
+      },
+      {
+        "label": "How to read a Certificate of Analysis",
+        "href": "/research/verification/certificate-of-analysis"
+      }
+    ]
+  },
+  {
+    "slug": "stability",
+    "section": "handling",
+    "schema": "TechArticle",
+    "eyebrow": "Handling guide",
+    "h1": "Peptide Stability: What Affects It",
+    "title": "Peptide Stability: What Affects It | Kairo Labs Research",
+    "description": "The chemistry of peptide degradation: hydrolysis, oxidation, deamidation, and how pH, temperature, and lyophilization affect research-peptide stability. RUO.",
+    "datePublished": "2026-07-02",
+    "intro": "Peptide stability is the degree to which a peptide retains its correct sequence, structure, and purity over time under a given set of conditions. Degradation is not a single process but a family of chemical and physical pathways — hydrolysis, oxidation, deamidation, isomerization, and aggregation — each accelerated or suppressed by variables the laboratory controls. Understanding these pathways explains why the storage and handling recommendations exist and how to interpret changes seen on a re-analysis. All of this concerns research reference materials only.",
+    "body": [
+      {
+        "heading": "The main degradation pathways",
+        "paragraphs": [
+          "Peptide degradation divides broadly into chemical routes, which alter covalent structure, and physical routes, which alter the physical state without necessarily breaking bonds. Chemical routes include hydrolysis of the peptide backbone, oxidation of susceptible side chains, deamidation of asparagine and glutamine, and isomerization or racemization of certain residues. Physical routes include aggregation, adsorption to surfaces, and denaturation.",
+          "On an analytical record these show up as new peaks in an HPLC chromatogram, a shifted or additional mass in a mass spectrum, or a loss of main-peak area — which is why periodic re-analysis and a retest date appear on rigorous COAs."
+        ],
+        "bullets": [
+          "Chemical: hydrolysis, oxidation, deamidation, isomerization.",
+          "Physical: aggregation, surface adsorption, denaturation.",
+          "Detected as new HPLC peaks, mass shifts, or lost main-peak area."
+        ]
+      },
+      {
+        "heading": "pH",
+        "paragraphs": [
+          "The pH of a peptide solution strongly influences which degradation reactions dominate. Backbone hydrolysis and several side-chain reactions are acid- or base-catalyzed, and each peptide tends to have a pH range of maximum stability, often mildly acidic to neutral, outside of which degradation accelerates.",
+          "Deamidation of asparagine, for example, is promoted at higher (more basic) pH, while some cleavage reactions are favored under acidic conditions. Choosing a diluent and any buffer to keep a reconstituted solution near its stability optimum is one of the most effective ways to slow degradation."
+        ],
+        "bullets": [
+          "Each peptide has a pH range of maximum stability, often mildly acidic to neutral.",
+          "Deamidation is generally faster at higher pH.",
+          "Some hydrolytic cleavages are faster under acidic conditions.",
+          "Diluent/buffer choice should target the stability optimum."
+        ]
+      },
+      {
+        "heading": "Oxidation",
+        "paragraphs": [
+          "Oxidation targets specific residues — most notably methionine, cysteine, tryptophan, histidine, and tyrosine — and is driven by exposure to atmospheric oxygen, trace metal ions, and light. Methionine oxidation, adding roughly 16 Da per oxygen atom, is a classic finding on a mass spectrum of an oxidized sample.",
+          "Practical control means limiting headspace oxygen, protecting solutions from light, avoiding metal contamination, and storing cold. Peptides containing multiple oxidation-prone residues warrant particular care in handling and shorter working-solution lifetimes."
+        ],
+        "bullets": [
+          "Susceptible residues: Met, Cys, Trp, His, Tyr.",
+          "Driven by oxygen, trace metals, and light.",
+          "Methionine oxidation shows as a ~+16 Da mass shift.",
+          "Mitigate with reduced oxygen exposure, cold storage, and light protection."
+        ]
+      },
+      {
+        "heading": "Deamidation and isomerization",
+        "paragraphs": [
+          "Deamidation converts asparagine (and more slowly glutamine) side chains into aspartate/isoaspartate and glutamate, often via a cyclic succinimide intermediate. It is one of the most common non-hydrolytic degradation routes and is sensitive to sequence context, pH, and temperature. Asparagine followed by a small flexible residue such as glycine is especially prone.",
+          "The related succinimide chemistry can also produce isoaspartate and D-isomers, subtly changing the molecule's mass and chromatographic behavior. These modifications may leave the nominal mass nearly unchanged while producing new HPLC peaks, which is one reason both orthogonal methods matter on a COA."
+        ],
+        "bullets": [
+          "Asn (and slower Gln) deamidation proceeds via a succinimide intermediate.",
+          "Asn-Gly and similar motifs are particularly susceptible.",
+          "Can generate isoaspartate and D-isomers.",
+          "Often visible chromatographically even when mass changes little."
+        ]
+      },
+      {
+        "heading": "Temperature and freeze-thaw",
+        "paragraphs": [
+          "Temperature accelerates essentially all chemical degradation: reaction rates rise steeply with heat, so warmer storage shortens usable lifetime. This is the direct rationale for refrigerated and frozen storage of research peptides.",
+          "Freezing helps by slowing chemistry, but the freeze-thaw transition itself is a physical stressor: ice formation concentrates solutes and can shift local pH and drive aggregation. The net practice is to store cold to slow chemistry while minimizing the number of freeze-thaw cycles through single-use aliquoting."
+        ],
+        "bullets": [
+          "Higher temperature accelerates chemical degradation.",
+          "Cold storage slows degradation chemistry.",
+          "The freeze-thaw transition is itself a physical stressor.",
+          "Aliquot to store cold while avoiding repeated cycling."
+        ]
+      },
+      {
+        "heading": "Lyophilization and the dry state",
+        "paragraphs": [
+          "Lyophilization improves stability primarily by removing the water that participates in hydrolysis and mobilizes other reactions. A well-formed lyophilized cake with low residual moisture is the most stable form in which most research peptides are stored and shipped.",
+          "The dry state is not perfectly inert: residual moisture, hygroscopic uptake of atmospheric water, and oxidation can still occur, which is why lyophilized material is kept sealed, cold, dry, and protected from light. Reconstitution reintroduces water and, with it, the faster solution-phase degradation described above."
+        ],
+        "bullets": [
+          "Removing water suppresses hydrolysis and other reactions.",
+          "Low-residual-moisture lyophilized cake is the most stable common form.",
+          "Dry material is not fully inert — keep it sealed, cold, dry, and dark.",
+          "Reconstitution restores faster solution-phase degradation."
+        ]
+      }
+    ],
+    "specs": null,
+    "faqs": [
+      {
+        "q": "What are the main ways a peptide degrades?",
+        "a": "Chemically, through hydrolysis of the backbone, oxidation of susceptible side chains, deamidation of asparagine and glutamine, and isomerization; physically, through aggregation, surface adsorption, and denaturation. These appear on analytical records as new HPLC peaks, mass shifts, or lost main-peak area."
+      },
+      {
+        "q": "Why does lyophilization improve stability?",
+        "a": "It removes the water that participates in hydrolysis and mobilizes other degradation reactions, so a low-moisture lyophilized cake is the most stable common storage form. The dry state is not perfectly inert, however, so it is still kept sealed, cold, dry, and protected from light."
+      },
+      {
+        "q": "How does pH affect peptide stability?",
+        "a": "Many degradation reactions are acid- or base-catalyzed, so each peptide has a pH range of maximum stability, often mildly acidic to neutral. Deamidation tends to accelerate at higher pH while some cleavages favor acidic conditions, so diluent and buffer choice should target the stability optimum."
+      },
+      {
+        "q": "Which residues are most prone to oxidation?",
+        "a": "Methionine, cysteine, tryptophan, histidine, and tyrosine are the most oxidation-prone. Methionine oxidation characteristically adds about 16 Da and is a common finding in mass-spec data of a degraded sample. Limiting oxygen, metals, light, and heat slows it."
+      },
+      {
+        "q": "Does this stability guidance imply any use of the peptide?",
+        "a": "No. It describes the chemistry and physics of degradation for research reference materials handled for research use only, to inform storage and analysis. It does not describe or authorize any human or animal use."
+      }
+    ],
+    "relatedProductSlugs": [],
+    "crossLinks": [
+      {
+        "label": "Peptide storage & handling",
+        "href": "/research/handling/storage"
+      },
+      {
+        "label": "Peptide reconstitution for laboratory research",
+        "href": "/research/handling/reconstitution"
+      },
+      {
+        "label": "How to read a Certificate of Analysis",
+        "href": "/research/verification/certificate-of-analysis"
+      }
+    ]
+  },
+  {
+    "slug": "bpc-157-vs-tb-500",
+    "section": "compare",
+    "schema": "Article",
+    "eyebrow": "Mechanism Comparison",
+    "h1": "BPC-157 vs TB-500: Research Repair Pathways",
+    "title": "BPC-157 vs TB-500: Repair Pathways | Kairo Labs Research",
+    "description": "A mechanism comparison of BPC-157 (angiogenesis/GI-derived) and TB-500 (actin-binding thymosin fragment) — two distinct research repair pathways, for lab reference.",
+    "datePublished": "2026-07-02",
+    "intro": "BPC-157 and TB-500 are frequently studied together in tissue-repair research, but they act through distinct molecular pathways. This reference compares their origins, molecular targets, and the mechanisms the peer-reviewed literature investigates. It is written for laboratory research context only and makes no claims about outcomes in humans or animals.",
+    "body": [
+      {
+        "heading": "Two different molecules, two different origins",
+        "paragraphs": [
+          "BPC-157 and TB-500 are both peptides studied in repair-and-remodeling models, which is why they are commonly discussed as a pair, but their molecular biology diverges from the outset. BPC-157 is a gastric-derived pentadecapeptide, whereas TB-500 is a synthetic fragment of the actin-binding protein thymosin beta-4.",
+          "This comparison sets their mechanisms side by side. The point is not that one is superior — it is that they engage different pathways, which is the reason the literature sometimes examines them in combination."
+        ],
+        "bullets": null
+      },
+      {
+        "heading": "BPC-157: angiogenic and GI-derived signaling",
+        "paragraphs": [
+          "BPC-157 (Body Protection Compound-157) is a 15-amino-acid peptide whose sequence corresponds to a partial fragment of a protein found in gastric juice. Its research mechanism centers on angiogenesis — the formation of new blood vessels.",
+          "In model systems the literature reports that BPC-157 modulates the vascular endothelial growth factor receptor 2 (VEGFR2) pathway and downstream nitric-oxide signaling (the eNOS/NO axis). Angiogenic and nitric-oxide-related signaling are the mechanistic themes most associated with this peptide, alongside reported interactions with growth-factor and focal-adhesion pathways in cell and animal studies."
+        ],
+        "bullets": [
+          "Origin: partial sequence from a gastric-juice protein (pentadecapeptide, 15 aa).",
+          "Central mechanism: angiogenesis via the VEGFR2 pathway.",
+          "Associated signaling: nitric-oxide (eNOS/NO) modulation.",
+          "Studied in a range of tissue models (GI, vascular, connective tissue)."
+        ]
+      },
+      {
+        "heading": "TB-500: actin binding via a thymosin fragment",
+        "paragraphs": [
+          "TB-500 is a synthetic peptide corresponding to an active fragment of thymosin beta-4 (Tβ4), a naturally occurring actin-sequestering protein. Its mechanism is entirely different from BPC-157's: it centers on the cytoskeleton rather than the vasculature.",
+          "Thymosin beta-4 is the principal G-actin-sequestering peptide in cells; it binds monomeric (globular) actin and regulates the pool available for filament assembly. The active fragment carries the actin-binding motif (centered on the LKKTETQ sequence), and the literature studies TB-500 in terms of actin dynamics, cell migration, and its downstream association with angiogenesis and remodeling that flow from cytoskeletal regulation."
+        ],
+        "bullets": [
+          "Origin: synthetic fragment of thymosin beta-4 (Tβ4).",
+          "Central mechanism: G-actin binding and sequestration (actin-motif LKKTETQ).",
+          "Associated effects: cell migration and cytoskeletal remodeling.",
+          "Distinct from BPC-157's vascular/nitric-oxide focus."
+        ]
+      },
+      {
+        "heading": "Pathway-by-pathway contrast",
+        "paragraphs": [
+          "The clearest way to hold the two apart is by their primary molecular target. BPC-157's research narrative starts at the blood vessel — angiogenic and nitric-oxide signaling. TB-500's starts inside the cell — actin-cytoskeleton regulation that then influences migration and, secondarily, angiogenesis and remodeling.",
+          "Because these entry points are different and arguably complementary, the literature sometimes examines the two together, and a combined BPC-157 + TB-500 preparation exists as a research format. The rationale for co-study is mechanistic complementarity, not an efficacy claim of any kind."
+        ],
+        "bullets": [
+          "BPC-157: vascular entry point (VEGFR2/nitric oxide), gastric-derived pentadecapeptide.",
+          "TB-500: cytoskeletal entry point (G-actin binding), thymosin beta-4 fragment.",
+          "Overlap: both intersect angiogenesis/remodeling downstream, via different routes.",
+          "Co-study rationale: complementary mechanisms, studied as a pair."
+        ]
+      },
+      {
+        "heading": "Handling and verification",
+        "paragraphs": [
+          "Both are supplied as lyophilized research peptides and reconstituted and stored under standard peptide-handling practice. Their differing sequences and molecular sizes are reflected in their individual Certificates of Analysis.",
+          "Every Kairo Labs lot — including the combined BPC-157 + TB-500 research blend — is verified to the lot with a Certificate of Analysis documenting identity and purity by HPLC and mass spectrometry, so researchers confirm exactly what each lot contains before use."
+        ],
+        "bullets": null
+      }
+    ],
+    "specs": null,
+    "faqs": [
+      {
+        "q": "How do BPC-157 and TB-500 differ mechanistically?",
+        "a": "BPC-157 is a gastric-derived pentadecapeptide whose research mechanism centers on angiogenesis (VEGFR2) and nitric-oxide signaling. TB-500 is a thymosin beta-4 fragment that binds G-actin and regulates the cytoskeleton. They act through distinct pathways."
+      },
+      {
+        "q": "What is TB-500's molecular target?",
+        "a": "TB-500 corresponds to an active fragment of thymosin beta-4, the main G-actin-sequestering peptide in cells. It binds monomeric actin (via the LKKTETQ motif) and regulates actin dynamics and cell migration."
+      },
+      {
+        "q": "Why are they studied together?",
+        "a": "Their mechanisms are complementary — one enters at the vasculature, the other at the cytoskeleton — so the literature sometimes examines them jointly, and a combined research blend exists. This is a mechanistic rationale, not an efficacy claim."
+      },
+      {
+        "q": "Is this comparison about which one works better?",
+        "a": "No. It is strictly a comparison of molecular origins and repair pathways for research reference. It makes no claims about outcomes in humans or animals."
+      },
+      {
+        "q": "How is each lot verified?",
+        "a": "Every Kairo Labs lot, including the BPC-157 + TB-500 blend, ships with a Certificate of Analysis verified to the lot, documenting identity and purity by HPLC and mass spectrometry."
+      }
+    ],
+    "relatedProductSlugs": [
+      "bpc-157",
+      "tb-500",
+      "bpc-tb-blend"
+    ],
+    "crossLinks": [
+      {
+        "label": "BPC-157: mechanism of action",
+        "href": "/research/compounds/bpc-157"
+      },
+      {
+        "label": "TB-500: mechanism of action",
+        "href": "/research/compounds/tb-500"
+      },
+      {
+        "label": "Certificate of Analysis: what we verify",
+        "href": "/research/verification/certificate-of-analysis"
+      }
+    ]
+  },
+  {
+    "slug": "cjc-1295-vs-ipamorelin",
+    "section": "compare",
+    "schema": "Article",
+    "eyebrow": "Mechanism Comparison",
+    "h1": "CJC-1295 vs Ipamorelin: Complementary Secretagogue Mechanisms",
+    "title": "CJC-1295 vs Ipamorelin: Secretagogue Mechanisms | Kairo Labs Research",
+    "description": "A mechanism comparison of CJC-1295 (GHRH-receptor analog) and ipamorelin (ghrelin-receptor agonist) and why the literature studies the two pathways as a pair.",
+    "datePublished": "2026-07-02",
+    "intro": "CJC-1295 and ipamorelin are the canonical example of two growth-hormone secretagogues that act on different receptors. This reference compares their receptor targets and signaling pathways and explains why the peer-reviewed literature so often studies them together as complementary mechanisms. It is written for laboratory research context only, with no claims about use in humans or animals.",
+    "body": [
+      {
+        "heading": "Two receptors, one cell population",
+        "paragraphs": [
+          "Both molecules ultimately act on the same target cell — the pituitary somatotroph — but they reach it through two entirely separate receptor systems. CJC-1295 is a GHRH analog engaging the GHRH receptor; ipamorelin is a selective agonist of the ghrelin receptor. Understanding the pair means understanding those two distinct receptors.",
+          "This comparison focuses on the receptor pharmacology and the reason the two are treated as complementary in the research literature."
+        ],
+        "bullets": null
+      },
+      {
+        "heading": "CJC-1295: the GHRH-receptor arm",
+        "paragraphs": [
+          "CJC-1295 is a synthetic analog of GHRH(1-29) that agonizes the growth-hormone-releasing hormone receptor (GHRHR), a Gs-coupled class B GPCR. Its signaling runs through adenylate cyclase, cAMP, and protein kinase A.",
+          "It exists in a long-acting DAC form (albumin-binding, half-life on the order of days) and a short-acting no-DAC form (mod-GRF 1-29). Functionally it represents the GHRH input to the somatotroph — the pathway that governs growth-hormone synthesis and the amplitude of secretion."
+        ],
+        "bullets": [
+          "Receptor: GHRHR (Gs-coupled, cAMP/PKA).",
+          "Class: GHRH(1-29) analog.",
+          "Forms: DAC (long-acting) and no-DAC/mod-GRF 1-29 (short-acting).",
+          "Role: the GHRH input axis."
+        ]
+      },
+      {
+        "heading": "Ipamorelin: the ghrelin-receptor arm",
+        "paragraphs": [
+          "Ipamorelin is a selective pentapeptide agonist of the growth-hormone secretagogue receptor (GHSR-1a), the ghrelin receptor — a Gq/11-coupled GPCR signaling through phospholipase C, inositol trisphosphate, and intracellular calcium mobilization.",
+          "It is prized in research for its selectivity: unlike GHRP-2 and GHRP-6, it produces minimal reported ACTH, cortisol, or prolactin activity, giving a comparatively clean GHSR signal. Functionally it represents the ghrelin input to the somatotroph — a separate and different pathway from GHRH."
+        ],
+        "bullets": [
+          "Receptor: GHSR-1a (Gq/11-coupled, PLC/calcium).",
+          "Class: selective pentapeptide GHSR agonist.",
+          "Selectivity: minimal ACTH/cortisol/prolactin activity vs GHRP-2/GHRP-6.",
+          "Role: the ghrelin input axis."
+        ]
+      },
+      {
+        "heading": "Why the two are complementary",
+        "paragraphs": [
+          "The GHRH and ghrelin systems are two physiologically distinct regulators of the same somatotroph. They use different receptors, different G-proteins, and different second messengers — Gs/cAMP for GHRHR versus Gq/calcium for GHSR. Because the pathways are non-redundant, the literature examines them as complementary rather than interchangeable inputs.",
+          "A further mechanistic reason they are paired is that GHRH-receptor and ghrelin-receptor signaling are frequently reported to interact — the two inputs together are studied for effects that neither pathway isolated fully reproduces. This synergy of distinct receptor systems is the reason a GHRH analog and a selective GHSR agonist are so often studied, and formulated, as a research pair."
+        ],
+        "bullets": [
+          "Different receptors: GHRHR vs GHSR-1a.",
+          "Different signaling: Gs/cAMP/PKA vs Gq/PLC/calcium.",
+          "Non-redundant, interacting inputs to the same somatotroph.",
+          "Studied and formulated as a complementary pair (e.g., the CJC-1295 + ipamorelin blend)."
+        ]
+      },
+      {
+        "heading": "Handling and verification",
+        "paragraphs": [
+          "Both are lyophilized research peptides handled under standard reconstitution and cold-storage practice. Their separate sequences and, for CJC-1295, the DAC/no-DAC distinction are documented on their individual Certificates of Analysis.",
+          "Every Kairo Labs lot — including the combined CJC-1295 + ipamorelin research blend — is verified to the lot with a Certificate of Analysis documenting identity and purity by HPLC and mass spectrometry, so the exact composition is confirmed before use."
+        ],
+        "bullets": null
+      }
+    ],
+    "specs": null,
+    "faqs": [
+      {
+        "q": "What is the mechanistic difference between CJC-1295 and ipamorelin?",
+        "a": "CJC-1295 is a GHRH analog acting on the GHRH receptor (Gs/cAMP/PKA). Ipamorelin is a selective ghrelin-receptor (GHSR-1a) agonist acting through Gq/phospholipase-C/calcium. They target different receptors and different signaling pathways."
+      },
+      {
+        "q": "Why are they studied together?",
+        "a": "They provide two non-redundant, interacting inputs to the same pituitary somatotroph. Because GHRH and ghrelin signaling are complementary and reported to interact, the literature examines them as a pair rather than as substitutes."
+      },
+      {
+        "q": "What makes ipamorelin the preferred ghrelin-receptor partner?",
+        "a": "Its selectivity — unlike GHRP-2 and GHRP-6, ipamorelin shows minimal reported ACTH, cortisol, or prolactin activity, giving a cleaner GHSR signal to pair with a GHRH analog."
+      },
+      {
+        "q": "Is this comparison about which is more effective?",
+        "a": "No. It is strictly a comparison of receptor targets and mechanisms for research reference, with no claims about efficacy or any use in humans or animals."
+      },
+      {
+        "q": "How is the blend verified?",
+        "a": "The combined CJC-1295 + ipamorelin research blend, like every Kairo Labs lot, ships with a Certificate of Analysis verified to the lot, documenting identity and purity by HPLC and mass spectrometry."
+      }
+    ],
+    "relatedProductSlugs": [
+      "cjc-1295",
+      "ipamorelin",
+      "cjc-ipa-blend"
+    ],
+    "crossLinks": [
+      {
+        "label": "CJC-1295: mechanism of action",
+        "href": "/research/compounds/cjc-1295"
+      },
+      {
+        "label": "Ipamorelin: mechanism of action",
+        "href": "/research/compounds/ipamorelin"
+      },
+      {
+        "label": "Certificate of Analysis: what we verify",
+        "href": "/research/verification/certificate-of-analysis"
+      }
+    ]
+  }
+]
