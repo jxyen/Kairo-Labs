@@ -121,7 +121,6 @@ export function ResearcherGate() {
 
               <div className="mt-7 flex flex-col gap-3">
                 <GateCheckbox
-                  id="gate-age"
                   checked={age}
                   onChange={setAge}
                   label={
@@ -131,7 +130,6 @@ export function ResearcherGate() {
                   }
                 />
                 <GateCheckbox
-                  id="gate-researcher"
                   checked={researcher}
                   onChange={setResearcher}
                   label={
@@ -186,19 +184,24 @@ export function ResearcherGate() {
 }
 
 function GateCheckbox({
-  id,
   checked,
   onChange,
   label,
 }: {
-  id: string
   checked: boolean
   onChange: (next: boolean) => void
   label: React.ReactNode
 }) {
+  // The input is nested inside the label instead of using htmlFor so the
+  // whole row is clickable. Nesting alone already associates the label with
+  // the control (for both the a11y tree and native click-forwarding) — do
+  // NOT add htmlFor back on top of this: a label that both wraps its control
+  // AND points at it via htmlFor double-fires the click in real browsers
+  // (the input's own click plus the label's forwarded activation), which
+  // toggles the checkbox twice and nets out unchecked. jsdom doesn't
+  // reproduce that double-activation, so this only breaks in a real browser.
   return (
     <label
-      htmlFor={id}
       className="flex cursor-pointer items-start gap-3 p-4 text-[15px] leading-relaxed transition-colors"
       style={{
         borderRadius: 'var(--r-lg)',
@@ -208,7 +211,6 @@ function GateCheckbox({
       }}
     >
       <input
-        id={id}
         type="checkbox"
         checked={checked}
         onChange={(e) => onChange(e.target.checked)}

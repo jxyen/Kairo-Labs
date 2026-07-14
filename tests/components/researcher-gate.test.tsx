@@ -106,4 +106,25 @@ describe('ResearcherGate', () => {
 
     expect(document.body.style.overflow).toBe('')
   })
+
+  // Real-browser regression guard: GateCheckbox's <label> wraps its <input>
+  // (so the whole row is clickable) and must NOT also carry htmlFor pointing
+  // at the input. A label that both wraps its control and points at it via
+  // htmlFor forwards a *second* synthetic click to the input on top of the
+  // input's own click, so a click landing on the checkbox square itself
+  // double-toggles and nets out unchecked — while clicking the label text
+  // (which has no native click of its own to double up with) still works.
+  // jsdom does not reproduce that double-activation, so this test would pass
+  // even with the bug present; it exists to pin the markup so nobody
+  // reintroduces htmlFor on a wrapping label. See researcher-gate.tsx.
+  it('checks the box when clicking the checkbox input itself, not just the label text', async () => {
+    const user = userEvent.setup()
+    render(<ResearcherGate />)
+
+    await user.click(ageBox())
+    expect((ageBox() as HTMLInputElement).checked).toBe(true)
+
+    await user.click(researcherBox())
+    expect((researcherBox() as HTMLInputElement).checked).toBe(true)
+  })
 })
