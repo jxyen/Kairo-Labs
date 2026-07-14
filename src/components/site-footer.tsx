@@ -65,12 +65,16 @@ export function SiteFooter() {
           { label: "Best sellers", href: "/#bestsellers" },
           { label: "Certificates (COA)", href: "/#quality" },
         ]} />
+        <FooterCol title="Company" links={[
+          { label: "Affiliate Program", href: "/affiliates" },
+          { label: "Research Hub", href: "/research" },
+          { label: "FAQ", href: "/#faq" },
+        ]} />
         <FooterCol title="Policies" links={[
           { label: "Terms & Conditions" },
           { label: "Privacy Policy" },
           { label: "Shipping Policy" },
           { label: "Refund Policy" },
-          { label: "FAQ", href: "/#faq" },
         ]} />
         <div>
           <div className="font-mono" style={{ fontSize: 11, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--ink-ghost)", marginBottom: 14 }}>

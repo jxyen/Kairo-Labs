@@ -64,6 +64,69 @@ export type Database = {
         }
         Relationships: []
       }
+      affiliate_applications: {
+        Row: {
+          admin_notes: string | null
+          agreed_terms: boolean
+          audience_size: string
+          created_at: string
+          email: string
+          experience: string | null
+          full_name: string
+          id: string
+          niche: string
+          other_links: string | null
+          phone: string | null
+          primary_handle: string
+          primary_platform: string
+          promo_plan: string
+          referral_source: string | null
+          status: Database["public"]["Enums"]["affiliate_application_status"]
+          updated_at: string
+          website: string | null
+        }
+        Insert: {
+          admin_notes?: string | null
+          agreed_terms?: boolean
+          audience_size: string
+          created_at?: string
+          email: string
+          experience?: string | null
+          full_name: string
+          id?: string
+          niche: string
+          other_links?: string | null
+          phone?: string | null
+          primary_handle: string
+          primary_platform: string
+          promo_plan: string
+          referral_source?: string | null
+          status?: Database["public"]["Enums"]["affiliate_application_status"]
+          updated_at?: string
+          website?: string | null
+        }
+        Update: {
+          admin_notes?: string | null
+          agreed_terms?: boolean
+          audience_size?: string
+          created_at?: string
+          email?: string
+          experience?: string | null
+          full_name?: string
+          id?: string
+          niche?: string
+          other_links?: string | null
+          phone?: string | null
+          primary_handle?: string
+          primary_platform?: string
+          promo_plan?: string
+          referral_source?: string | null
+          status?: Database["public"]["Enums"]["affiliate_application_status"]
+          updated_at?: string
+          website?: string | null
+        }
+        Relationships: []
+      }
       inventory: {
         Row: {
           quantity_on_hand: number
@@ -620,8 +683,10 @@ export type Database = {
         }
         Returns: Json
       }
+      submit_affiliate_application: { Args: { p_app: Json }; Returns: Json }
     }
     Enums: {
+      affiliate_application_status: "new" | "reviewing" | "approved" | "rejected"
       affiliate_status: "active" | "inactive"
       inventory_reason: "restock" | "sale" | "adjustment"
       order_status:

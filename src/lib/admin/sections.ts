@@ -16,6 +16,7 @@ export const ADMIN_SECTIONS: AdminSection[] = [
   { slug: 'products', label: 'Products', table: 'products', ownerOnly: false },
   { slug: 'inventory', label: 'Inventory', table: 'product_sizes', ownerOnly: false },
   { slug: 'affiliates', label: 'Affiliates', table: 'affiliates', ownerOnly: false },
+  { slug: 'affiliate-applications', label: 'Affiliate Applications', table: 'affiliate_applications', ownerOnly: false },
   { slug: 'shipping', label: 'Shipping', table: 'shipments', ownerOnly: false },
   { slug: 'staff', label: 'Staff', table: 'staff', ownerOnly: true },
   { slug: 'payment-accounts', label: 'Payment Accounts', table: 'payment_accounts', ownerOnly: true },
