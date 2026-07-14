@@ -10,7 +10,7 @@ export default defineConfig({
   test: {
     setupFiles: ['./tests/setup.ts'],
     environment: 'node',
-    include: ['tests/**/*.test.ts'],
+    include: ['tests/**/*.test.ts', 'tests/**/*.test.tsx'],
     fileParallelism: false,
     // Route all DB tests to the LOCAL Supabase instance. .env.local points at
     // the remote/prod project; without this override `npm test` would insert
