@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { paymentDeepLink } from '@/lib/payments/payment-links'
+import { displayHandle, paymentDeepLink } from '@/lib/payments/payment-links'
 
 describe('paymentDeepLink', () => {
   it('builds a Cash App cashtag link and normalizes a leading $', () => {
@@ -28,5 +28,33 @@ describe('paymentDeepLink', () => {
     expect(paymentDeepLink('cashapp', '')).toBeNull()
     expect(paymentDeepLink('venmo', '   ')).toBeNull()
     expect(paymentDeepLink('cashapp', '$')).toBeNull()
+  })
+
+  it('strips the other platform’s prefix — an owner typing @ for Cash App still gets a live link', () => {
+    expect(paymentDeepLink('cashapp', '@kairolabs')).toBe('https://cash.app/$kairolabs')
+    expect(paymentDeepLink('venmo', '$kairolabs')).toBe('https://venmo.com/u/kairolabs')
+  })
+
+  it('returns null rather than a broken link when the handle is not a valid username', () => {
+    expect(paymentDeepLink('cashapp', 'kairo labs')).toBeNull()
+    expect(paymentDeepLink('cashapp', 'kairo/labs?x=1')).toBeNull()
+    expect(paymentDeepLink('venmo', 'pay@kairolabs.org')).toBeNull()
+  })
+})
+
+describe('displayHandle', () => {
+  it('shows the platform-correct prefix regardless of how the owner typed it', () => {
+    expect(displayHandle('cashapp', '@kairolabs')).toBe('$kairolabs')
+    expect(displayHandle('cashapp', 'kairolabs')).toBe('$kairolabs')
+    expect(displayHandle('venmo', '$kairolabs')).toBe('@kairolabs')
+  })
+
+  it('leaves a Zelle handle alone — it is an email or phone, not a username', () => {
+    expect(displayHandle('zelle', 'pay@kairolabs.org')).toBe('pay@kairolabs.org')
+  })
+
+  it('returns null for an empty handle', () => {
+    expect(displayHandle('cashapp', '  ')).toBeNull()
+    expect(displayHandle('zelle', null)).toBeNull()
   })
 })

@@ -3,6 +3,7 @@
 import { StepShell } from "../step-shell";
 import { LockIcon, ShieldIcon } from "../checkout-icons";
 import type { AccountLite, StepStatus } from "../checkout-types";
+import { displayHandle } from "@/lib/payments/payment-links";
 
 const METHOD_LABELS: Record<string, string> = {
   venmo: "Venmo",
@@ -62,21 +63,24 @@ export function StepPayment({
           <p className="co-err">No payment methods are available right now.</p>
         ) : (
           <div className="co-methods">
-            {accounts.map((a) => (
-              <label key={a.method} className="co-method" data-active={selected === a.method}>
-                <input
-                  type="radio"
-                  name="payment"
-                  value={a.method}
-                  checked={selected === a.method}
-                  onChange={() => onSelect(a.method)}
-                />
-                <div className="co-method-main">
-                  <span className="nm">{labelFor(a)}</span>
-                  {a.handle ? <span className="sb font-mono">{a.handle}</span> : null}
-                </div>
-              </label>
-            ))}
+            {accounts.map((a) => {
+              const shown = displayHandle(a.method, a.handle);
+              return (
+                <label key={a.method} className="co-method" data-active={selected === a.method}>
+                  <input
+                    type="radio"
+                    name="payment"
+                    value={a.method}
+                    checked={selected === a.method}
+                    onChange={() => onSelect(a.method)}
+                  />
+                  <div className="co-method-main">
+                    <span className="nm">{labelFor(a)}</span>
+                    {shown ? <span className="sb font-mono">{shown}</span> : null}
+                  </div>
+                </label>
+              );
+            })}
           </div>
         )}
 

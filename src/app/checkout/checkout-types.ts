@@ -1,4 +1,5 @@
 // Shared client types for the checkout step components.
+import type { PaymentMethod } from "@/lib/payments/payment-links";
 
 export interface ShippingValues {
   name: string;
@@ -26,7 +27,7 @@ export const EMPTY_SHIPPING: ShippingValues = {
 
 // Serializable subset of PaymentAccount passed from the server page to the client.
 export interface AccountLite {
-  method: string;
+  method: PaymentMethod;
   displayName: string;
   handle: string;
   instructions: string | null;
