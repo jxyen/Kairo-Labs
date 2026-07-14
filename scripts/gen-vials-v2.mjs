@@ -31,8 +31,8 @@ function fillDesc(fill) {
 const CATALOG = [
   ["bpc-157",       "BPC-157",          "20 MG", "white"],
   ["tb-500",        "TB-500",           "10 MG", "white"],
-  ["tirzepatide",   "TIRZEPATIDE",      "10 MG", "white"],
-  ["retatrutide",   "RETATRUTIDE",      "10 MG", "white"],
+  ["kl-2-tz",       "KL-2 TZ",          "10 MG", "white"],
+  ["kl-3-rt",       "KL-3 RT",          "10 MG", "white"],
   ["mots-c",        "MOTS-C",           "10 MG", "white"],
   ["cjc-1295",      "CJC-1295",         "10 MG", "white"],
   ["ipamorelin",    "IPAMORELIN",       "10 MG", "white"],

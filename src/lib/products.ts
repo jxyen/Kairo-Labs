@@ -140,8 +140,7 @@ export const PRODUCT_DETAILS: Record<string, ProductDetail> = {
       "A synthetic peptide based on thymosin β4, an actin-binding regulatory peptide. Investigated in cell-migration, angiogenesis and tissue-regeneration research models.",
   },
   Tirzepatide: {
-    fullName: "Tirzepatide",
-    aliases: "LY3298176, GIP/GLP-1 RA",
+    fullName: "KL-2 TZ",
     cas: "2023788-19-2",
     formula: "C225H348N48O68",
     molarMass: "≈ 4813.5 g/mol",
@@ -151,8 +150,7 @@ export const PRODUCT_DETAILS: Record<string, ProductDetail> = {
       "A 39-amino-acid dual agonist of the GIP and GLP-1 receptors. Studied across glucose-metabolism, incretin-signaling and energy-balance research endpoints.",
   },
   Retatrutide: {
-    fullName: "Retatrutide",
-    aliases: "LY3437943, GGG tri-agonist",
+    fullName: "KL-3 RT",
     cas: "2381089-83-2",
     formula: "C221H342N46O68",
     molarMass: "≈ 4731.3 g/mol",

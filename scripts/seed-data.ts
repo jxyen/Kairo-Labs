@@ -44,10 +44,10 @@ export const SEED_PRODUCTS: Product[] = [
   // ----- Metabolic & Weight -----
   {
     code: "Tirzepatide",
-    name: "Tirzepatide",
+    name: "KL-2 TZ",
     sub: "GLP-1 / GIP Co-Agonist",
     category: "Metabolic & Weight",
-    image: "/products/tirzepatide.png",
+    image: "/products/kl-2-tz.png",
     mechanism: "GLP-1 · GIP",
     tagline: "Dual incretin\nco-agonist.",
     purity: "99.3%",
@@ -66,10 +66,10 @@ export const SEED_PRODUCTS: Product[] = [
   },
   {
     code: "Retatrutide",
-    name: "Retatrutide",
+    name: "KL-3 RT",
     sub: "GLP-1 / GIP / Glucagon Tri-Agonist",
     category: "Metabolic & Weight",
-    image: "/products/retatrutide.png",
+    image: "/products/kl-3-rt.png",
     mechanism: "GLP-1 · GIP · GCG",
     tagline: "Triple incretin\nagonist.",
     purity: "99.1%",
