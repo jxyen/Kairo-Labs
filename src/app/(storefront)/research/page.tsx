@@ -8,8 +8,6 @@ import {
 } from "@/lib/research/articles";
 import { collectionPageJsonLd, breadcrumbJsonLd, jsonLdScript, ORGANIZATION, SITE } from "@/lib/research/seo";
 
-export const dynamic = "error";
-
 const TITLE = "Research Education Hub — Peptide Mechanisms, Handling & Verification | Kairo Labs";
 const DESC =
   "The technical reference for researchers: mechanism of action, reconstitution and stability, and how to read a Certificate of Analysis — where every claim about a compound is verifiable to the lot. Research use only.";

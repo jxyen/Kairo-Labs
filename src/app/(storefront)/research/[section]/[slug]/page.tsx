@@ -10,8 +10,6 @@ import {
 } from "@/lib/research/articles";
 import { articleJsonLd, faqJsonLd, breadcrumbJsonLd, jsonLdScript, SITE } from "@/lib/research/seo";
 
-export const dynamic = "error"; // fully static — the registry is compile-time content
-
 export function generateStaticParams() {
   return articleParams();
 }

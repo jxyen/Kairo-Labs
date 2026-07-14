@@ -1,13 +1,6 @@
 import type { Metadata } from "next";
 import { IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
-import { CartProvider } from "@/components/cart-context";
-import { AnnouncementBar } from "@/components/announcement-bar";
-import { SiteHeader } from "@/components/site-header";
-import { SiteFooter } from "@/components/site-footer";
-import { MobileCtaBar } from "@/components/mobile-cta-bar";
-import { getAccessories } from "@/lib/catalog/queries";
-import { CartDrawer } from "@/components/cart-drawer";
 
 // Switzer (display + body) is loaded via globals.css @import (Fontshare).
 // IBM Plex Mono powers the technical eyebrows / labels.
@@ -25,12 +18,11 @@ export const metadata: Metadata = {
     "Kairo Labs supplies research-grade peptides to qualified researchers and laboratories — independently lab-tested to ≥99% purity, each with a certificate of analysis verifiable by lot number. Same-day US shipping in plain, tracked packaging. For research use only; not for human or animal consumption.",
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const accessories = await getAccessories();
   return (
     <html
       lang="en"
@@ -43,18 +35,7 @@ export default async function RootLayout({
           href="https://api.fontshare.com/v2/css?f[]=switzer@400,500,600,700,800,900&display=swap"
         />
       </head>
-      <body className="min-h-full">
-        <CartProvider>
-          <div className="page-wash">
-            <AnnouncementBar />
-            <SiteHeader />
-            {children}
-            <SiteFooter />
-          </div>
-          <MobileCtaBar />
-          <CartDrawer accessories={accessories} />
-        </CartProvider>
-      </body>
+      <body className="min-h-full">{children}</body>
     </html>
   );
 }

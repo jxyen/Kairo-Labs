@@ -9,8 +9,6 @@ import {
 } from "@/lib/research/articles";
 import { collectionPageJsonLd, breadcrumbJsonLd, jsonLdScript, SITE } from "@/lib/research/seo";
 
-export const dynamic = "error";
-
 export function generateStaticParams() {
   return RESEARCH_SECTIONS.map((section) => ({ section }));
 }
