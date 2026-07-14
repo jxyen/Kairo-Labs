@@ -114,17 +114,68 @@ describe('ResearcherGate', () => {
   // input's own click, so a click landing on the checkbox square itself
   // double-toggles and nets out unchecked — while clicking the label text
   // (which has no native click of its own to double up with) still works.
-  // jsdom does not reproduce that double-activation, so this test would pass
-  // even with the bug present; it exists to pin the markup so nobody
-  // reintroduces htmlFor on a wrapping label. See researcher-gate.tsx.
-  it('checks the box when clicking the checkbox input itself, not just the label text', async () => {
-    const user = userEvent.setup()
+  // jsdom does NOT reproduce that double-activation (a programmatic/simulated
+  // click on the input only ever fires once), so a behavioral test that
+  // clicks the checkbox and asserts it becomes checked would pass even with
+  // the bug reintroduced — it can't tell one click from two. Instead we pin
+  // the markup invariant that actually prevents the double-fire: the label
+  // must have no `for` attribute.
+  it('does not put htmlFor on the label wrapping either checkbox (would double-toggle it in a real browser)', () => {
     render(<ResearcherGate />)
 
-    await user.click(ageBox())
-    expect((ageBox() as HTMLInputElement).checked).toBe(true)
+    const ageLabel = ageBox().closest('label')
+    const researcherLabel = researcherBox().closest('label')
+    expect(ageLabel).not.toBeNull()
+    expect(researcherLabel).not.toBeNull()
+    expect(ageLabel!.hasAttribute('for')).toBe(false)
+    expect(researcherLabel!.hasAttribute('for')).toBe(false)
+  })
 
-    await user.click(researcherBox())
-    expect((researcherBox() as HTMLInputElement).checked).toBe(true)
+  // Regression guard: autofocus used to land on the logo's <Link href="/">
+  // (it was the first focusable element inside the old, single focus trap).
+  // A visitor arriving at a deep link who reflexively hits Enter would get
+  // soft-navigated to "/" while the gate stayed up. Initial focus must go to
+  // the dialog itself, not any link.
+  it('moves initial focus to the dialog, not a link', () => {
+    render(<ResearcherGate />)
+
+    const dialog = screen.getByRole('dialog')
+    expect(document.activeElement).toBe(dialog)
+    expect(document.activeElement?.tagName).not.toBe('A')
+  })
+
+  // Regression guard: the logo must be structurally outside the tab trap and
+  // marked non-interactive (`inert`), so it can never be reached via Tab
+  // while the gate is up. jsdom/user-event don't implement `inert` focus
+  // suppression, so we can only assert the markup that a real browser acts
+  // on — not that Tab actually skips it.
+  it('keeps the logo link outside the focus trap and marks it inert', () => {
+    render(<ResearcherGate />)
+
+    const dialog = screen.getByRole('dialog')
+    const logoLink = dialog.querySelector('a[href="/"]')
+    expect(logoLink).not.toBeNull()
+    expect(logoLink!.closest('[inert]')).not.toBeNull()
+  })
+
+  // Regression guard: aria-modal="true" is only honest if focus genuinely
+  // cannot land outside the dialog. Simulate what happens after a scrim
+  // click drops focus to <body> and a subsequent Tab reaches real
+  // storefront content behind the overlay (header nav, cart button, etc.) —
+  // focusing that content directly, the way Tab would.
+  it('pulls focus back inside the dialog if it lands outside', () => {
+    render(<ResearcherGate />)
+
+    const outside = document.createElement('button')
+    outside.textContent = 'outside the gate'
+    document.body.appendChild(outside)
+
+    try {
+      outside.focus()
+      expect(document.activeElement).not.toBe(outside)
+      expect(screen.getByRole('dialog').contains(document.activeElement)).toBe(true)
+    } finally {
+      document.body.removeChild(outside)
+    }
   })
 })
