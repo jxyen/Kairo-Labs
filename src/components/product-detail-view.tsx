@@ -165,9 +165,51 @@ export function ProductDetailView({
               <button aria-label="Increase quantity" onClick={() => setQty((q) => Math.min(99, q + 1))}>+</button>
             </div>
             <div className="pdp-priceblock">
-              {multi && <span className="from">From</span>}
-              <span className="amt">{formatUSD(size.price)}</span>
-              <span className="per font-mono">{formatUSD(perMg(size))}/mg</span>
+              {disc > 0 && <span className="was">{formatUSD(subtotal)}</span>}
+              <span className="amt">{formatUSD(total)}</span>
+              <span className="per font-mono">
+                {formatUSD(perMg(size))}/mg{qty > 1 ? ` · ${qty} vials` : ""}
+              </span>
+            </div>
+          </div>
+
+          <div className="pdp-field pdp-bs-field">
+            <div className="pdp-field-label">Bundle &amp; Save</div>
+            <div className="pdp-bundles">
+              {[
+                { qty: 1, label: "1 Bottle" },
+                { qty: 2, label: "2 Bottles", badge: "Most Popular" as const },
+                { qty: 3, label: "3+ Bottles", badge: "Best Value" as const },
+              ].map((b) => {
+                const off = volumeDiscount(b.qty);
+                const active = b.qty === 3 ? qty >= 3 : qty === b.qty;
+                return (
+                  <button
+                    key={b.qty}
+                    type="button"
+                    className="pdp-bundle-card"
+                    data-active={active}
+                    onClick={() => setQty(b.qty)}
+                  >
+                    {b.badge && (
+                      <span className={`pdp-bundle-flag ${b.qty === 3 ? "best" : "pop"}`}>{b.badge}</span>
+                    )}
+                    <span className="pdp-bundle-vials" aria-hidden>
+                      {Array.from({ length: b.qty }).map((_, i) => (
+                        <i
+                          key={i}
+                          className="pdp-bundle-vial"
+                          style={{ backgroundImage: `url(${product.image})`, zIndex: b.qty - i }}
+                        />
+                      ))}
+                    </span>
+                    <span className="pdp-bundle-meta">
+                      <span className="pdp-bundle-qty">{b.label}</span>
+                      <span className="pdp-bundle-off">{off > 0 ? `${Math.round(off * 100)}% off` : "Standard"}</span>
+                    </span>
+                  </button>
+                );
+              })}
             </div>
           </div>
 
