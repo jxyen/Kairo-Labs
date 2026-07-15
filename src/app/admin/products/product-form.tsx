@@ -80,7 +80,15 @@ export function ProductForm({
   const [uploading, setUploading] = useState(false)
   const [submitError, setSubmitError] = useState('')
 
-  const filteredCategories = CATEGORIES.filter((c) => c !== 'All')
+  const validCategories = CATEGORIES.filter((c) => c !== 'All')
+  // If the product's stored category is outside the current taxonomy (legacy or
+  // hand-edited data), surface it as an option so the <select> shows the real
+  // value instead of silently rendering the first option while state holds the
+  // stale value — otherwise Save submits an invalid category the user never saw.
+  const filteredCategories =
+    category && !validCategories.includes(category as (typeof validCategories)[number])
+      ? [category, ...validCategories]
+      : validCategories
 
   function updateSizeField(index: number, field: keyof SizeRow, value: string) {
     setSizes((prev) => {

@@ -3,7 +3,8 @@ export type Category =
   | "Metabolic & Weight"
   | "Growth Hormone"
   | "Skin & Cosmetic"
-  | "Blends & Stacks";
+  | "Blends & Stacks"
+  | "Accessories";
 
 export type FilterCategory = "All" | Category;
 
@@ -43,6 +44,7 @@ export const CATEGORIES: FilterCategory[] = [
   "Growth Hormone",
   "Skin & Cosmetic",
   "Blends & Stacks",
+  "Accessories",
 ];
 
 export interface CategoryMeta {
@@ -56,6 +58,7 @@ export const CATEGORY_META: CategoryMeta[] = [
   { name: "Growth Hormone", blurb: "Secretagogues and GHRH analogs for GH-release studies." },
   { name: "Skin & Cosmetic", blurb: "Collagen, pigmentation and dermal-model compounds." },
   { name: "Blends & Stacks", blurb: "Co-formulated multi-peptide research stacks." },
+  { name: "Accessories", blurb: "Reconstitution and injection supplies for research use." },
 ];
 
 export function categoryCount(list: Product[], category: Category): number {
