@@ -1,16 +1,15 @@
-// Static delivery options (UI-only — the backend computes shipping on its own and
-// does not yet persist a chosen method). Used by the Delivery Method step and the
-// order summary so the displayed shipping line matches the selection.
+// Static delivery-option metadata (id/label/eta). Price is NOT stored here — it
+// depends on the cart subtotal and is computed by shippingCost(id, merch) in
+// @/lib/cart/cart. See docs/superpowers/specs/2026-07-14-checkout-shipping-tiers-design.md
 export interface DeliveryOption {
   id: string;
   label: string;
-  price: number;
   eta: string;
 }
 
 export const DELIVERY_OPTIONS: DeliveryOption[] = [
-  { id: "standard", label: "Standard Shipping", price: 0, eta: "5–7 business days" },
-  { id: "two_day", label: "Two-Day Shipping", price: 14.99, eta: "~2 business days" },
+  { id: "standard", label: "Standard Shipping", eta: "5–7 business days" },
+  { id: "priority", label: "Priority Shipping", eta: "1–3 business days" },
 ];
 
 export const DEFAULT_DELIVERY = DELIVERY_OPTIONS[0].id;

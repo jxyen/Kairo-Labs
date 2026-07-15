@@ -3,9 +3,8 @@
 import Link from "next/link";
 import { useCart } from "@/components/cart-context";
 import { PromoCode } from "@/components/promo-code";
-import { orderTotals, lineTotal } from "@/lib/cart/cart";
+import { orderTotals, lineTotal, shippingCost, type ShippingMethod } from "@/lib/cart/cart";
 import { formatUSD } from "@/lib/products";
-import { deliveryById } from "./delivery-options";
 import { StarIcon, TrashIcon } from "./checkout-icons";
 
 /**
@@ -22,7 +21,7 @@ export function OrderSummary({
 }) {
   const { items, setQty, remove, count } = useCart();
   const t = orderTotals(items);
-  const ship = deliveryById(delivery).price;
+  const ship = shippingCost(delivery as ShippingMethod, t.merch);
   const total = Math.round((t.merch + ship) * 100) / 100;
   const points = Math.round(t.merch * 2.5);
   const editable = variant === "sheet";

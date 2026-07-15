@@ -4,6 +4,7 @@ import { StepShell } from "../step-shell";
 import { LockIcon } from "../checkout-icons";
 import { OrderSummary } from "../order-summary";
 import { deliveryById } from "../delivery-options";
+import { shippingCost, type ShippingMethod } from "@/lib/cart/cart";
 import { formatUSD } from "@/lib/products";
 import type { PlaceOrderState } from "@/lib/orders/place-order-schema";
 import type { AccountLite, ShippingValues, StepStatus } from "../checkout-types";
@@ -31,6 +32,7 @@ export function StepReview({
   pending,
   state,
   total,
+  merch,
 }: {
   index: number;
   status: StepStatus;
@@ -43,6 +45,7 @@ export function StepReview({
   pending: boolean;
   state: PlaceOrderState;
   total: number;
+  merch: number;
 }) {
   if (status === "locked") {
     return <StepShell index={index} title="Review & Place Order" status={status} />;
@@ -51,6 +54,7 @@ export function StepReview({
   const acc = accounts.find((a) => a.method === payment);
   const methodLabel = METHOD_LABELS[payment] || acc?.displayName || payment;
   const opt = deliveryById(delivery);
+  const shipPrice = shippingCost(delivery as ShippingMethod, merch);
   const empty = rpcItems.length === 0;
 
   return (
@@ -66,6 +70,7 @@ export function StepReview({
         <input type="hidden" name="postal_code" value={shipping.postal_code} />
         <input type="hidden" name="country" value="US" />
         <input type="hidden" name="method" value={payment} />
+        <input type="hidden" name="shipping_method" value={delivery} />
         <input type="hidden" name="items" value={JSON.stringify(rpcItems)} />
 
         {/* Mobile only: the order summary lives in a bottom sheet on other steps,
@@ -86,7 +91,7 @@ export function StepReview({
           <div>
             <dt>Delivery</dt>
             <dd>
-              {opt.label} — {opt.price === 0 ? "Free" : formatUSD(opt.price)}
+              {opt.label} — {shipPrice === 0 ? "Free" : formatUSD(shipPrice)}
             </dd>
           </div>
           <div>

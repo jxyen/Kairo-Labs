@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { addItem, setQty, removeItem, itemCount, orderTotals, itemFromProduct, type CartItem } from '../../src/lib/cart/cart'
+import { addItem, setQty, removeItem, itemCount, orderTotals, itemFromProduct, shippingCost, type CartItem, type ShippingMethod } from '../../src/lib/cart/cart'
 
 const mk = (sizeId: string, unitPrice: number, quantity = 1): CartItem =>
   ({ sizeId, productCode: 'P', productName: 'P', mg: '5 mg', unitPrice, quantity })
@@ -39,5 +39,31 @@ describe('cart', () => {
     const line = itemFromProduct(product, 0)
     expect(line.image).toBe('/img/glp3.png')
     expect(line.sizeId).toBe('s1')
+  })
+})
+
+describe('shippingCost', () => {
+  it('standard: $9.99 under $150, free at/above', () => {
+    expect(shippingCost('standard', 50)).toBeCloseTo(9.99, 2)
+    expect(shippingCost('standard', 149.99)).toBeCloseTo(9.99, 2)
+    expect(shippingCost('standard', 150)).toBe(0)
+    expect(shippingCost('standard', 200)).toBe(0)
+  })
+  it('priority: $16.99 under $150, $11.99 at/above', () => {
+    expect(shippingCost('priority', 50)).toBeCloseTo(16.99, 2)
+    expect(shippingCost('priority', 149.99)).toBeCloseTo(16.99, 2)
+    expect(shippingCost('priority', 150)).toBeCloseTo(11.99, 2)
+    expect(shippingCost('priority', 300)).toBeCloseTo(11.99, 2)
+  })
+  it('empty cart is always free', () => {
+    expect(shippingCost('standard', 0)).toBe(0)
+    expect(shippingCost('priority', 0)).toBe(0)
+  })
+  it('orderTotals uses the selected method for shipping + total', () => {
+    const items = [mk('a', 50, 1)] // merch 50
+    expect(orderTotals(items, 'standard').shipping).toBeCloseTo(9.99, 2)
+    expect(orderTotals(items, 'priority').shipping).toBeCloseTo(16.99, 2)
+    expect(orderTotals(items, 'priority').total).toBeCloseTo(66.99, 2)
+    expect(orderTotals(items).shipping).toBeCloseTo(9.99, 2) // defaults to standard
   })
 })

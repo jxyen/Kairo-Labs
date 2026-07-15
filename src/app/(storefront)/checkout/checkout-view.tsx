@@ -4,7 +4,7 @@ import { useActionState, useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCart } from "@/components/cart-context";
-import { orderTotals } from "@/lib/cart/cart";
+import { orderTotals, shippingCost, type ShippingMethod } from "@/lib/cart/cart";
 import { placeOrder } from "@/lib/orders/place-order";
 import type { PlaceOrderState } from "@/lib/orders/place-order-schema";
 import { StepShipping } from "./steps/step-shipping";
@@ -13,7 +13,7 @@ import { StepPayment } from "./steps/step-payment";
 import { StepReview } from "./steps/step-review";
 import { OrderSummary } from "./order-summary";
 import { OrderSummarySheet } from "./order-summary-sheet";
-import { DEFAULT_DELIVERY, deliveryById } from "./delivery-options";
+import { DEFAULT_DELIVERY } from "./delivery-options";
 import { EMPTY_SHIPPING, type AccountLite, type ShippingValues, type StepKey, type StepStatus } from "./checkout-types";
 
 const FLOW: StepKey[] = ["shipping", "delivery", "payment"];
@@ -57,7 +57,7 @@ export function CheckoutView({ accounts }: { accounts: AccountLite[] }) {
   };
 
   const t = orderTotals(items);
-  const total = Math.round((t.merch + deliveryById(delivery).price) * 100) / 100;
+  const total = Math.round((t.merch + shippingCost(delivery as ShippingMethod, t.merch)) * 100) / 100;
   const rpcItems = items.map((x) => ({ size_id: x.sizeId, quantity: x.quantity }));
 
   if (mounted && items.length === 0) {
@@ -91,6 +91,7 @@ export function CheckoutView({ accounts }: { accounts: AccountLite[] }) {
           onSelect={setDelivery}
           onEdit={() => setCurrent("delivery")}
           onContinue={() => advanceFrom("delivery")}
+          merch={t.merch}
         />
         <StepPayment
           index={3}
@@ -113,6 +114,7 @@ export function CheckoutView({ accounts }: { accounts: AccountLite[] }) {
           pending={pending}
           state={state}
           total={total}
+          merch={t.merch}
         />
       </div>
 

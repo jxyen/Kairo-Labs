@@ -1,6 +1,7 @@
 import { describe, it, expect, beforeAll, afterAll } from 'vitest'
 import { execSync } from 'node:child_process'
 import { createClient } from '@supabase/supabase-js'
+import { shippingCost, type ShippingMethod } from '../../src/lib/cart/cart'
 
 const url = process.env.NEXT_PUBLIC_SUPABASE_URL!
 const admin = createClient(url, process.env.SUPABASE_SERVICE_ROLE_KEY!, { auth: { persistSession: false } })
@@ -26,6 +27,19 @@ const customer = { name: 'Jane Buyer', email: 'jane@example.com', address: { lin
 
 async function place(items: { size_id: string; quantity: number }[]) {
   return admin.rpc('place_order', { p_items: items, p_customer: customer, p_payment_method: 'cashapp' })
+}
+
+async function placeAndRead(sizeId: string, qty: number, method: ShippingMethod) {
+  const { data, error } = await admin.rpc('place_order', {
+    p_items: [{ size_id: sizeId, quantity: qty }],
+    p_customer: customer,
+    p_payment_method: 'venmo',
+    p_shipping_method: method,
+  })
+  expect(error).toBeNull()
+  const orderNumber = (data as { order_number: string }).order_number
+  const { data: row } = await admin.from('orders').select('*').eq('order_number', orderNumber).single()
+  return { orderNumber, row: row! }
 }
 
 describe('place_order', () => {
@@ -55,5 +69,23 @@ describe('place_order', () => {
     await expect(place([])).resolves.toMatchObject({ error: expect.objectContaining({ message: expect.stringMatching(/empty/i) }) })
     const bad = await place([{ size_id: '00000000-0000-0000-0000-000000000000', quantity: 1 }])
     expect(bad.error).not.toBeNull()
+  })
+})
+
+describe('place_order shipping', () => {
+  it('prices + records each method × tier from the server-side matrix', async () => {
+    const underQty = 1 // one unit is < $150 for a normal size
+    const overQty = Math.ceil(150 / cheapPrice) + 2 // push merch >= 150 even after volume discount
+
+    for (const method of ['standard', 'priority'] as ShippingMethod[]) {
+      for (const qty of [underQty, overQty]) {
+        const { orderNumber, row } = await placeAndRead(cheapId, qty, method)
+        const merch = Number(row.subtotal) - Number(row.discount_total)
+        expect(row.shipping_method).toBe(method)
+        expect(Number(row.shipping_cost)).toBeCloseTo(shippingCost(method, merch), 2)
+        expect(Number(row.total)).toBeCloseTo(merch + shippingCost(method, merch), 2)
+        await admin.from('orders').delete().eq('order_number', orderNumber)
+      }
+    }
   })
 })
