@@ -19,6 +19,7 @@ export async function placeOrder(_prev: PlaceOrderState, formData: FormData): Pr
       country: formData.get('country') || 'US',
     },
     method: formData.get('method'),
+    shipping_method: formData.get('shipping_method') || undefined,
     items,
   })
   if (!parsed.success) return { ok: false, error: parsed.error.issues[0].message }
@@ -29,6 +30,7 @@ export async function placeOrder(_prev: PlaceOrderState, formData: FormData): Pr
     p_items: v.items,
     p_customer: { name: v.name, email: v.email, phone: v.phone ?? null, address: v.address },
     p_payment_method: v.method,
+    p_shipping_method: v.shipping_method,
   })
   if (error) return { ok: false, error: error.message }
   const result = data as { order_number: string }

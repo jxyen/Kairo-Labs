@@ -16,6 +16,7 @@ export const placeOrderSchema = z.object({
     country: z.string().min(1).default('US'),
   }),
   method: z.enum(['venmo', 'cashapp', 'zelle']),
+  shipping_method: z.enum(['standard', 'priority']).default('standard'),
   items: z.array(z.object({
     size_id: z.guid(),
     quantity: z.number().int().min(1).max(99),

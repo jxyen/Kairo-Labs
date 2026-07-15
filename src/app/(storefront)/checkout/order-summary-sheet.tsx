@@ -2,9 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useCart } from "@/components/cart-context";
-import { orderTotals } from "@/lib/cart/cart";
+import { orderTotals, shippingCost, type ShippingMethod } from "@/lib/cart/cart";
 import { formatUSD } from "@/lib/products";
-import { deliveryById } from "./delivery-options";
 import { ChevronUp } from "./checkout-icons";
 import { OrderSummary } from "./order-summary";
 
@@ -19,7 +18,7 @@ export function OrderSummarySheet({ delivery, atReview = false }: { delivery: st
   const closeRef = useRef<HTMLButtonElement>(null);
 
   const t = orderTotals(items);
-  const total = Math.round((t.merch + deliveryById(delivery).price) * 100) / 100;
+  const total = Math.round((t.merch + shippingCost(delivery as ShippingMethod, t.merch)) * 100) / 100;
 
   // The sheet can never be open while the bar is dismissed (review step).
   const sheetOpen = open && !atReview;

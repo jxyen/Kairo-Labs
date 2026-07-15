@@ -3,6 +3,7 @@
 import { StepShell } from "../step-shell";
 import { ShieldIcon } from "../checkout-icons";
 import { DELIVERY_OPTIONS, deliveryById } from "../delivery-options";
+import { shippingCost, type ShippingMethod } from "@/lib/cart/cart";
 import { formatUSD } from "@/lib/products";
 import type { StepStatus } from "../checkout-types";
 
@@ -13,6 +14,7 @@ export function StepDelivery({
   onSelect,
   onEdit,
   onContinue,
+  merch,
 }: {
   index: number;
   status: StepStatus;
@@ -20,16 +22,18 @@ export function StepDelivery({
   onSelect: (id: string) => void;
   onEdit: () => void;
   onContinue: () => void;
+  merch: number;
 }) {
   if (status === "done") {
     const opt = deliveryById(selected);
+    const price = shippingCost(selected as ShippingMethod, merch);
     return (
       <StepShell index={index} title="Delivery Method" status={status} onEdit={onEdit}>
         <div className="co-recap">
           <div className="co-recap-col">
             <div className="co-recap-h">Delivery Method</div>
             <p className="co-recap-body">
-              {opt.label} — {opt.price === 0 ? "Free" : formatUSD(opt.price)}
+              {opt.label} — {price === 0 ? "Free" : formatUSD(price)}
               <br />
               <span className="co-recap-muted">Arrives in {opt.eta}</span>
             </p>
@@ -56,7 +60,9 @@ export function StepDelivery({
                 <span className="nm">{o.label}</span>
                 <span className="sb">Arrives in {o.eta}</span>
               </div>
-              <span className="co-method-price">{o.price === 0 ? "Free" : formatUSD(o.price)}</span>
+              <span className="co-method-price">
+                {(() => { const p = shippingCost(o.id as ShippingMethod, merch); return p === 0 ? "Free" : formatUSD(p); })()}
+              </span>
             </label>
           ))}
         </div>

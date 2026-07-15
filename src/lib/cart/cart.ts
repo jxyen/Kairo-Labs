@@ -13,6 +13,20 @@ export interface CartItem {
 const round2 = (n: number) => Math.round(n * 100) / 100
 export const clampQty = (q: number) => Math.max(1, Math.min(99, Math.floor(q)))
 
+export type ShippingMethod = 'standard' | 'priority'
+
+// Shipping price matrix — the SINGLE source of truth. Mirrored in the
+// place_order SQL RPC (supabase/migrations/0012_shipping_method.sql); keep the
+// numbers in sync. See docs/superpowers/specs/2026-07-14-checkout-shipping-tiers-design.md
+export const SHIP = { standardUnder: 9.99, priorityUnder: 16.99, priorityOver: 11.99 } as const
+
+export function shippingCost(method: ShippingMethod, merch: number): number {
+  if (merch <= 0) return 0
+  const free = merch >= FREE_SHIP_THRESHOLD
+  if (method === 'priority') return free ? SHIP.priorityOver : SHIP.priorityUnder
+  return free ? 0 : SHIP.standardUnder
+}
+
 export function addItem(items: CartItem[], item: CartItem): CartItem[] {
   const i = items.findIndex((x) => x.sizeId === item.sizeId)
   if (i === -1) return [...items, { ...item, quantity: clampQty(item.quantity) }]
@@ -30,11 +44,11 @@ export function removeItem(items: CartItem[], sizeId: string): CartItem[] {
 export const itemCount = (items: CartItem[]) => items.reduce((n, x) => n + x.quantity, 0)
 export const lineTotal = (x: CartItem) => round2(x.unitPrice * x.quantity)
 
-export function orderTotals(items: CartItem[]) {
+export function orderTotals(items: CartItem[], method: ShippingMethod = 'standard') {
   const subtotal = round2(items.reduce((s, x) => s + x.unitPrice * x.quantity, 0))
   const discount = round2(items.reduce((s, x) => s + round2(round2(x.unitPrice * x.quantity) * volumeDiscount(x.quantity)), 0))
   const merch = round2(subtotal - discount)
-  const shipping = merch > 0 && merch < FREE_SHIP_THRESHOLD ? 9.99 : 0
+  const shipping = shippingCost(method, merch)
   return { subtotal, discount, merch, shipping, total: round2(merch + shipping) }
 }
 

@@ -18,4 +18,13 @@ describe('placeOrderSchema', () => {
   it('rejects an unknown payment method', () => {
     expect(placeOrderSchema.safeParse({ ...base, method: 'bitcoinz' }).success).toBe(false)
   })
+  it('defaults shipping_method to standard when omitted', () => {
+    const r = placeOrderSchema.safeParse(base)
+    expect(r.success).toBe(true)
+    if (r.success) expect(r.data.shipping_method).toBe('standard')
+  })
+  it('accepts priority and rejects an unknown shipping method', () => {
+    expect(placeOrderSchema.safeParse({ ...base, shipping_method: 'priority' }).success).toBe(true)
+    expect(placeOrderSchema.safeParse({ ...base, shipping_method: 'overnight' }).success).toBe(false)
+  })
 })
