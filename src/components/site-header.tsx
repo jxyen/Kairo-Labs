@@ -11,6 +11,7 @@ const NAV_LINKS = [
   { label: "Categories", href: "/#categories" },
   { label: "Quality", href: "/#quality" },
   { label: "FAQ", href: "/#faq" },
+  { label: "Affiliates", href: "/affiliates" },
 ];
 
 function CartIcon() {
