@@ -60,11 +60,13 @@ export function ProductDetailView({
   detail,
   related,
   accessories,
+  research,
 }: {
   product: Product;
   detail: ProductDetail;
   related: Product[];
   accessories: Product[];
+  research?: { href: string; label: string };
 }) {
   const { add, justAdded } = useCart();
   const [sizeIdx, setSizeIdx] = useState(0);
@@ -359,6 +361,14 @@ export function ProductDetailView({
               <span className="lab font-mono">Components</span>
               <span className="val">{detail.components.join("  ·  ")}</span>
             </div>
+          )}
+          {research && (
+            <Link href={research.href} className="pdp-research-link">
+              <span>
+                Read the full research: <b>{research.label}</b>
+              </span>
+              <span aria-hidden>→</span>
+            </Link>
           )}
         </div>
       </section>

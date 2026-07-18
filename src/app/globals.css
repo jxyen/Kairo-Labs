@@ -598,6 +598,12 @@ h1, h2 { font-family: var(--font-display); font-weight: 700; letter-spacing: -0.
 .pdp-seq .lab { display: block; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-ghost); margin-bottom: 6px; }
 .pdp-seq .val { font-size: 12.5px; color: var(--ink); word-break: break-word; line-height: 1.5; }
 
+/* Product → research backlink (info↔sales bridge) */
+.pdp-research-link { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 16px; padding: 13px 15px; border: 1px solid var(--hair-soft); border-radius: 12px; font-size: 13px; color: var(--ink); text-decoration: none; transition: border-color .18s ease, background .18s ease; }
+.pdp-research-link:hover { border-color: var(--emerald, #35E0A0); background: color-mix(in srgb, var(--emerald, #35E0A0) 7%, transparent); }
+.pdp-research-link b { font-weight: 600; }
+.pdp-research-link > span:last-child { color: var(--emerald, #35E0A0); font-size: 16px; flex-shrink: 0; }
+
 /* Storage & stability */
 .pdp-store-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
 .pdp-store-chip { font-size: 12.5px; font-weight: 500; color: var(--ink-soft); background: var(--surface-card); border: 1px solid var(--hair); padding: 9px 14px; border-radius: 10px; }

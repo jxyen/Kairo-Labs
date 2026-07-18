@@ -12,9 +12,9 @@
 
 import ARTICLES_DATA from "./articles.data.json";
 
-export type ResearchSection = "compounds" | "handling" | "verification" | "compare";
+export type ResearchSection = "compounds" | "stacks" | "handling" | "verification" | "compare";
 
-export const RESEARCH_SECTIONS: ResearchSection[] = ["compounds", "handling", "verification", "compare"];
+export const RESEARCH_SECTIONS: ResearchSection[] = ["compounds", "stacks", "handling", "verification", "compare"];
 
 export interface ArticleBodySection {
   heading?: string;
@@ -47,6 +47,10 @@ export const SECTION_META: Record<ResearchSection, { label: string; blurb: strin
   compounds: {
     label: "Compounds",
     blurb: "Mechanism of action, receptor targets, and molecular profiles for each research compound.",
+  },
+  stacks: {
+    label: "Stacks & Protocols",
+    blurb: "How co-formulated research compounds are studied together — complementary mechanisms and handling.",
   },
   handling: {
     label: "Handling & Stability",
@@ -97,4 +101,24 @@ export function articleParams(): { section: string; slug: string }[] {
 }
 export function productName(slug: string): string {
   return PRODUCT_NAMES[slug] ?? slug;
+}
+
+/**
+ * Reverse of `relatedProductSlugs`: given a product slug, find the best research
+ * article to link back to from its product page. Prefers the compound's own deep
+ * article (`compounds/<slug>`); otherwise the first article that references it.
+ * This closes the product→research half of the internal-link bridge, so a
+ * commercial-search visitor landing on a product can reach the trust-building
+ * depth (and link equity flows back into the hub).
+ */
+export function articleForProduct(productSlug: string): { href: string; label: string } | undefined {
+  // Preference order: the compound's own deep article, then a stack/protocol
+  // article that features it (right for blend products), then any article that
+  // references it at all.
+  const own = bySlug.get(`compounds/${productSlug}`);
+  const stack = ARTICLES.find((a) => a.section === "stacks" && a.relatedProductSlugs.includes(productSlug));
+  const any = ARTICLES.find((a) => a.relatedProductSlugs.includes(productSlug));
+  const match = own ?? stack ?? any;
+  if (!match) return undefined;
+  return { href: `/research/${match.section}/${match.slug}`, label: match.h1 };
 }

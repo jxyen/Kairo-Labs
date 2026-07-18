@@ -1,8 +1,16 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import { usePathname } from 'next/navigation'
 import { gateCookieString } from '@/lib/gate'
 import { Logo } from '@/components/logo'
+
+// Routes left ungated: educational, Research-Use-Only content that pulls cold
+// organic search traffic. A hard modal on these pages tanks dwell time and
+// blocks the SEO/conversion job they exist to do (Googlebot can't attest age
+// either). The gate still guards the commercial surface — catalog, product,
+// cart, checkout — where an add-to-cart intent actually forms.
+const UNGATED_PREFIXES = ['/research', '/tools']
 
 const FOCUSABLE =
   'a[href], button:not([disabled]), input, [tabindex]:not([tabindex="-1"])'
@@ -14,20 +22,23 @@ export function ResearcherGate() {
   const [dismissed, setDismissed] = useState(false)
   const dialogRef = useRef<HTMLDivElement>(null)
   const trapRef = useRef<HTMLDivElement>(null)
+  const pathname = usePathname()
+  const ungated = UNGATED_PREFIXES.some((p) => pathname === p || pathname.startsWith(`${p}/`))
 
   // Lock body scroll while the gate is up; restore it when it goes away.
+  // `ungated` pages never render the gate, so they must never lock scroll.
   useEffect(() => {
-    if (dismissed) return
+    if (dismissed || ungated) return
     const previous = document.body.style.overflow
     document.body.style.overflow = 'hidden'
     return () => {
       document.body.style.overflow = previous
     }
-  }, [dismissed])
+  }, [dismissed, ungated])
 
   // Move focus into the gate and keep it there while the gate is up.
   useEffect(() => {
-    if (dismissed) return
+    if (dismissed || ungated) return
     const dialog = dialogRef.current
     const trap = trapRef.current
     if (!dialog || !trap) return
@@ -74,9 +85,9 @@ export function ResearcherGate() {
       document.removeEventListener('keydown', onKeyDown)
       document.removeEventListener('focusin', onFocusIn)
     }
-  }, [dismissed, exited])
+  }, [dismissed, exited, ungated])
 
-  if (dismissed) return null
+  if (dismissed || ungated) return null
 
   function accept() {
     document.cookie = gateCookieString()

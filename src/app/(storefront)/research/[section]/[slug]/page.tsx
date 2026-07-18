@@ -108,7 +108,7 @@ export default async function ResearchArticlePage({ params }: { params: Promise<
             </div>
           )}
 
-          {article.relatedProductSlugs.length > 0 && (
+          {article.relatedProductSlugs.length > 0 ? (
             <div className="rh-cta">
               <div className="rh-cta-h">Verified to the lot</div>
               <p className="rh-cta-sub">
@@ -120,6 +120,22 @@ export default async function ResearchArticlePage({ params }: { params: Promise<
                     View {productName(ps)}
                   </Link>
                 ))}
+              </div>
+              <Link href="/research/verification/certificate-of-analysis" className="rh-cta-coa">
+                How to verify a COA →
+              </Link>
+            </div>
+          ) : (
+            <div className="rh-cta">
+              <div className="rh-cta-h">Research-grade, verified to the lot</div>
+              <p className="rh-cta-sub">
+                Every Kairo Labs compound ships as lyophilized powder, third-party lab-tested with a COA verifiable by
+                lot number.
+              </p>
+              <div className="rh-cta-links">
+                <Link href="/catalog" className="btn btn-emerald" style={{ fontSize: 14, padding: "11px 18px", width: "100%" }}>
+                  Shop research peptides
+                </Link>
               </div>
               <Link href="/research/verification/certificate-of-analysis" className="rh-cta-coa">
                 How to verify a COA →

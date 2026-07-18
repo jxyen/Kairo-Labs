@@ -4,6 +4,7 @@ import { getProductBySlug, getRelated, getAccessories } from "@/lib/catalog/quer
 import { productDetail } from "@/lib/products";
 import { ProductDetailView } from "@/components/product-detail-view";
 import { jsonLdScript, productJsonLd, breadcrumbJsonLd, SITE } from "@/lib/research/seo";
+import { articleForProduct } from "@/lib/research/articles";
 
 export const dynamic = "force-dynamic";
 
@@ -37,6 +38,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
   if (!product || !detail) notFound();
 
   const [related, accessories] = await Promise.all([getRelated(product), getAccessories()]);
+  const research = articleForProduct(slug);
 
   return (
     <>
@@ -55,6 +57,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
         detail={detail}
         related={related}
         accessories={accessories}
+        research={research}
       />
     </>
   );
