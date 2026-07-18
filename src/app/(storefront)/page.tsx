@@ -1,11 +1,25 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { getCatalog, getBestsellers } from "@/lib/catalog/queries";
 import { ProductCard } from "@/components/product-card";
 import { FeatureCard } from "@/components/feature-card";
 import { CategoryTabs } from "@/components/category-tabs";
 import { Hero } from "@/components/hero";
+import { SITE } from "@/lib/research/seo";
 
 export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+  openGraph: {
+    title: "Kairo Labs — Research peptides, verified to the lot.",
+    description:
+      "Research-grade peptides supplied to qualified researchers and laboratories. Independently lab-tested to ≥99% purity, each with a verifiable certificate of analysis. Same-day US shipping. For research use only.",
+    url: SITE,
+    type: "website",
+    siteName: "Kairo Labs",
+  },
+};
 
 const sectionPad = { padding: "clamp(40px, 6vw, 96px) 20px" };
 

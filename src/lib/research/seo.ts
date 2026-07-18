@@ -1,11 +1,16 @@
-// JSON-LD structured-data builders for the Research Education Hub.
+// JSON-LD structured-data builders for the storefront + Research Education Hub.
 // Compliance: compound/handling/verification pages use TechArticle (NOT Drug or
 // MedicalWebPage, which would signal human medical use); comparisons use Article.
-// Product schema stays on PDPs only.
+// Product schema stays on PDPs only. Deliberately NO aggregateRating anywhere —
+// the catalog carries placeholder star values, and emitting them as schema would
+// be both dishonest and a Google structured-data violation.
 
 import type { Article, ArticleFaq } from "./articles";
+import type { Product, ProductDetail } from "@/lib/products";
+import { productSlug } from "@/lib/products";
 
 export const SITE = "https://kairolabs.org";
+const LOGO = `${SITE}/kairo-logo-stacked.png`;
 
 export const ORGANIZATION = {
   "@type": "Organization",
@@ -13,6 +18,76 @@ export const ORGANIZATION = {
   url: SITE,
   description: "Research-grade peptides supplied to qualified researchers and laboratories, verified to the lot.",
 };
+
+// Sitewide brand identity — rendered once in the root layout so every page
+// carries it. Establishes the brand entity for a knowledge panel / brand SERP.
+export function organizationJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    ...ORGANIZATION,
+    logo: LOGO,
+    slogan: "Research peptides, verified to the lot.",
+  };
+}
+
+export function websiteJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "Kairo Labs",
+    url: SITE,
+    publisher: ORGANIZATION,
+  };
+}
+
+// Absolute image URL for a product render (public/products/*.png).
+function absImage(image: string): string {
+  if (!image) return LOGO;
+  if (image.startsWith("http")) return image;
+  return `${SITE}${image.startsWith("/") ? "" : "/"}${image}`;
+}
+
+// Product schema for a PDP. Uses AggregateOffer to express the price range
+// across sizes. Molecular identifiers ride along as additionalProperty so the
+// technical profile is machine-readable. Research-framed description only.
+export function productJsonLd(p: Product, detail: ProductDetail) {
+  const url = `${SITE}/product/${productSlug(p)}`;
+  const prices = p.sizes.map((s) => s.price).filter((n) => Number.isFinite(n));
+  const additionalProperty = [
+    detail.cas && { "@type": "PropertyValue", name: "CAS Number", value: detail.cas },
+    detail.formula && { "@type": "PropertyValue", name: "Molecular Formula", value: detail.formula },
+    detail.molarMass && { "@type": "PropertyValue", name: "Molar Mass", value: detail.molarMass },
+    p.purity && { "@type": "PropertyValue", name: "Purity", value: p.purity },
+    detail.form && { "@type": "PropertyValue", name: "Form", value: detail.form },
+  ].filter(Boolean);
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: detail.fullName || p.name,
+    description: `${p.sub ? p.sub + ". " : ""}${detail.research}`.trim(),
+    sku: p.code,
+    category: p.category,
+    brand: { "@type": "Brand", name: "Kairo Labs" },
+    image: absImage(p.image),
+    url,
+    ...(additionalProperty.length ? { additionalProperty } : {}),
+    ...(prices.length
+      ? {
+          offers: {
+            "@type": "AggregateOffer",
+            priceCurrency: "USD",
+            lowPrice: Math.min(...prices).toFixed(2),
+            highPrice: Math.max(...prices).toFixed(2),
+            offerCount: prices.length,
+            availability: "https://schema.org/InStock",
+            url,
+            seller: ORGANIZATION,
+          },
+        }
+      : {}),
+  };
+}
 
 export function breadcrumbJsonLd(items: { name: string; url: string }[]) {
   return {

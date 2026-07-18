@@ -11,6 +11,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE}/`, lastModified: now, changeFrequency: "weekly", priority: 1 },
     { url: `${SITE}/catalog`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
     { url: `${SITE}/research`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
+    { url: `${SITE}/tools/reconstitution-calculator`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
   ];
 
   const sectionRoutes: MetadataRoute.Sitemap = RESEARCH_SECTIONS.map((s) => ({
