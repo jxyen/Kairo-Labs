@@ -21,4 +21,5 @@ export const ADMIN_SECTIONS: AdminSection[] = [
   { slug: 'staff', label: 'Staff', table: 'staff', ownerOnly: true },
   { slug: 'payment-accounts', label: 'Payment Accounts', table: 'payment_accounts', ownerOnly: true },
   { slug: 'payments-review', label: 'Payments Review', table: 'payment_events', ownerOnly: false },
+  { slug: 'seo', label: 'SEO', table: 'orders', ownerOnly: true },
 ]

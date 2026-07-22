@@ -5,7 +5,7 @@ import { ProductCard } from "@/components/product-card";
 import { FeatureCard } from "@/components/feature-card";
 import { CategoryTabs } from "@/components/category-tabs";
 import { Hero } from "@/components/hero";
-import { SITE } from "@/lib/research/seo";
+import { SITE, jsonLdScript, organizationJsonLd, websiteJsonLd } from "@/lib/research/seo";
 
 export const dynamic = "force-dynamic";
 
@@ -68,6 +68,8 @@ export default async function HomePage() {
   const feature = products.find((p) => p.code === "Retatrutide") ?? products[0];
   return (
     <main>
+      <script {...jsonLdScript(organizationJsonLd())} />
+      <script {...jsonLdScript(websiteJsonLd())} />
       <Hero />
 
       {/* ===================== FEATURED PRODUCT ===================== */}
