@@ -9,7 +9,8 @@ import {
 } from "@/lib/research/seo";
 import { CatalogBrowser } from "./catalog-browser";
 
-export const dynamic = "force-dynamic";
+// ISR: CDN-cached, revalidated hourly; catalog edits bust the cache tag.
+export const revalidate = 3600;
 
 const TITLE = "Research Peptides Catalog — Lab-Tested, COA-Verified | Kairo Labs";
 const DESCRIPTION =

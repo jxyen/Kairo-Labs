@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { usePathname } from 'next/navigation'
-import { gateCookieString } from '@/lib/gate'
+import { gateCookieString, readVerifiedCookie } from '@/lib/gate'
 import { Logo } from '@/components/logo'
 
 // Routes left ungated: educational, Research-Use-Only content that pulls cold
@@ -24,6 +24,17 @@ export function ResearcherGate() {
   const trapRef = useRef<HTMLDivElement>(null)
   const pathname = usePathname()
   const ungated = UNGATED_PREFIXES.some((p) => pathname === p || pathname.startsWith(`${p}/`))
+
+  // The gate is now mounted unconditionally by the storefront layout (so the
+  // layout never reads cookies() and every storefront page stays ISR-cacheable).
+  // We therefore decide HERE, on the client, whether this visitor already
+  // verified: default to showing the gate (unverified first-timers see it
+  // instantly, no content flash), then hide it on mount if the cookie says
+  // they've already passed. A returning verified visitor may see it for one
+  // frame before it clears — harmless, since they're already verified.
+  useEffect(() => {
+    if (readVerifiedCookie()) setDismissed(true)
+  }, [])
 
   // Lock body scroll while the gate is up; restore it when it goes away.
   // `ungated` pages never render the gate, so they must never lock scroll.

@@ -7,7 +7,10 @@ import { CategoryTabs } from "@/components/category-tabs";
 import { Hero } from "@/components/hero";
 import { SITE, jsonLdScript, organizationJsonLd, websiteJsonLd } from "@/lib/research/seo";
 
-export const dynamic = "force-dynamic";
+// ISR: prerendered + CDN-cached, revalidated hourly. Catalog edits bust the
+// 'catalog' cache tag on demand via /api/admin/revalidate, so pricing/stock
+// stay fresh without paying the crawl-budget cost of force-dynamic.
+export const revalidate = 3600;
 
 export const metadata: Metadata = {
   alternates: { canonical: "/" },

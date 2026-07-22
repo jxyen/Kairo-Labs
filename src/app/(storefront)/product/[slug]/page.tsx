@@ -1,12 +1,22 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getProductBySlug, getRelated, getAccessories } from "@/lib/catalog/queries";
-import { productDetail } from "@/lib/products";
+import { getProductBySlug, getRelated, getAccessories, getCatalog } from "@/lib/catalog/queries";
+import { productDetail, productSlug } from "@/lib/products";
 import { ProductDetailView } from "@/components/product-detail-view";
 import { jsonLdScript, productJsonLd, breadcrumbJsonLd, SITE } from "@/lib/research/seo";
 import { articleForProduct } from "@/lib/research/articles";
 
-export const dynamic = "force-dynamic";
+// ISR: CDN-cached, revalidated hourly; catalog edits bust the cache tag.
+// Unknown slugs still render on demand (and cache) or 404 via notFound().
+export const revalidate = 3600;
+
+// Prerender every known product at build so the PDPs ship as static HTML
+// (● SSG) instead of rendering on demand. New/unknown slugs still render
+// on first request and cache, thanks to the default dynamicParams = true.
+export async function generateStaticParams() {
+  const catalog = await getCatalog();
+  return catalog.map((p) => ({ slug: productSlug(p) }));
+}
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
