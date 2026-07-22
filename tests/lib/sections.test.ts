@@ -2,10 +2,10 @@ import { describe, it, expect } from 'vitest'
 import { ADMIN_SECTIONS } from '../../src/lib/admin/sections'
 
 describe('admin sections', () => {
-  it('defines all nine feature sections', () => {
+  it('defines all ten feature sections', () => {
     const slugs = ADMIN_SECTIONS.map((s) => s.slug)
     expect(slugs).toEqual([
-      'dashboard', 'orders', 'products', 'inventory', 'affiliates', 'shipping', 'staff', 'payment-accounts', 'payments-review',
+      'dashboard', 'orders', 'products', 'inventory', 'affiliates', 'affiliate-applications', 'shipping', 'staff', 'payment-accounts', 'payments-review',
     ])
   })
   it('marks payments-review as visible to all staff', () => {
