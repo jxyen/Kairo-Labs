@@ -46,8 +46,14 @@ export interface GscQueryParams {
   rowLimit?: number
   /** Exact-page filter (full URL). */
   page?: string
+  /** Drop brand queries (anything containing "kairo") — non-brand SEO view. */
+  excludeBrand?: boolean
   searchType?: 'web' | 'image' | 'video' | 'news' | 'discover'
 }
+
+// RE2 (GSC's regex engine), case-insensitive. Catches kairo / kairo labs /
+// kairolabs and misspellings that start with the brand stem.
+const BRAND_REGEX = '(?i)kairo'
 
 export function gscConfigured(): boolean {
   return Boolean(
@@ -107,9 +113,14 @@ export async function gscQuery(
   const site = process.env.GSC_SITE_URL
   if (!site) throw new GscError('GSC_SITE_URL is not set', 500)
 
-  const filters = params.page
-    ? [{ groupType: 'and', filters: [{ dimension: 'page', operator: 'equals', expression: params.page }] }]
-    : undefined
+  const filterList: { dimension: string; operator: string; expression: string }[] = []
+  if (params.excludeBrand) {
+    filterList.push({ dimension: 'query', operator: 'excludingRegex', expression: BRAND_REGEX })
+  }
+  if (params.page) {
+    filterList.push({ dimension: 'page', operator: 'equals', expression: params.page })
+  }
+  const filters = filterList.length ? [{ groupType: 'and', filters: filterList }] : undefined
 
   const body = {
     startDate: params.startDate,

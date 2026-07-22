@@ -17,11 +17,13 @@ const pos = (n: number) => (n ? n.toFixed(1) : '—')
 export function SeoDashboard({ initial }: { initial: SeoSnapshot }) {
   const [snap, setSnap] = useState(initial)
   const [days, setDays] = useState(initial.range.days)
+  const [excludeBrand, setExcludeBrand] = useState(false)
   const [pending, startTransition] = useTransition()
 
-  function pick(d: number) {
+  function refresh(d: number, xb: boolean) {
     setDays(d)
-    startTransition(async () => setSnap(await loadSeoSnapshot(d)))
+    setExcludeBrand(xb)
+    startTransition(async () => setSnap(await loadSeoSnapshot(d, xb)))
   }
 
   return (
@@ -31,21 +33,42 @@ export function SeoDashboard({ initial }: { initial: SeoSnapshot }) {
           <h1 className="text-lg font-semibold tracking-tight">Search Console</h1>
           <p className="text-sm text-black/50">
             Organic search performance for kairolabs.org · {snap.range.startDate} → {snap.range.endDate}
+            {excludeBrand && ' · non-brand only'}
           </p>
         </div>
-        <div className="flex overflow-hidden rounded-lg border border-black/15 text-sm">
-          {RANGES.map((r) => (
-            <button
-              key={r.days}
-              onClick={() => pick(r.days)}
-              disabled={pending}
-              className={`px-3 py-1.5 ${
-                days === r.days ? 'bg-black text-white' : 'bg-white hover:bg-black/5'
-              } disabled:opacity-50`}
-            >
-              {r.label}
-            </button>
-          ))}
+        <div className="flex flex-wrap items-center gap-3">
+          <button
+            type="button"
+            onClick={() => refresh(days, !excludeBrand)}
+            disabled={pending}
+            role="switch"
+            aria-checked={excludeBrand}
+            className={`flex items-center gap-2 rounded-lg border px-3 py-1.5 text-sm disabled:opacity-50 ${
+              excludeBrand ? 'border-black bg-black text-white' : 'border-black/15 bg-white hover:bg-black/5'
+            }`}
+            title='Hide any query containing "kairo" — shows only non-brand organic search'
+          >
+            <span
+              className={`inline-block h-3.5 w-3.5 rounded-full border ${
+                excludeBrand ? 'border-white bg-white' : 'border-black/30'
+              }`}
+            />
+            Exclude brand
+          </button>
+          <div className="flex overflow-hidden rounded-lg border border-black/15 text-sm">
+            {RANGES.map((r) => (
+              <button
+                key={r.days}
+                onClick={() => refresh(r.days, excludeBrand)}
+                disabled={pending}
+                className={`px-3 py-1.5 ${
+                  days === r.days ? 'bg-black text-white' : 'bg-white hover:bg-black/5'
+                } disabled:opacity-50`}
+              >
+                {r.label}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 

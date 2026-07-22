@@ -24,7 +24,7 @@ function isoDaysAgo(days: number): string {
  * top queries + pages for the selected window. GSC finalizes data ~2-3 days
  * late, so the window ends 3 days ago to avoid a false tail-off.
  */
-export async function loadSeoSnapshot(days = 28): Promise<SeoSnapshot> {
+export async function loadSeoSnapshot(days = 28, excludeBrand = false): Promise<SeoSnapshot> {
   await requireStaff()
 
   const endDate = isoDaysAgo(3)
@@ -46,10 +46,10 @@ export async function loadSeoSnapshot(days = 28): Promise<SeoSnapshot> {
 
   try {
     const [overview, byDate, queries, pages] = await Promise.all([
-      gscQuery({ startDate, endDate, dimensions: [] }),
-      gscQuery({ startDate, endDate, dimensions: ['date'], rowLimit: 500 }),
-      gscQuery({ startDate, endDate, dimensions: ['query'], rowLimit: 100 }),
-      gscQuery({ startDate, endDate, dimensions: ['page'], rowLimit: 100 }),
+      gscQuery({ startDate, endDate, dimensions: [], excludeBrand }),
+      gscQuery({ startDate, endDate, dimensions: ['date'], rowLimit: 500, excludeBrand }),
+      gscQuery({ startDate, endDate, dimensions: ['query'], rowLimit: 100, excludeBrand }),
+      gscQuery({ startDate, endDate, dimensions: ['page'], rowLimit: 100, excludeBrand }),
     ])
 
     return {
