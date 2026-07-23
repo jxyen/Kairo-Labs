@@ -10,7 +10,7 @@ import { Logo } from '@/components/logo'
 // blocks the SEO/conversion job they exist to do (Googlebot can't attest age
 // either). The gate still guards the commercial surface — catalog, product,
 // cart, checkout — where an add-to-cart intent actually forms.
-const UNGATED_PREFIXES = ['/research', '/tools']
+const UNGATED_PREFIXES = ['/research', '/tools', '/verify']
 
 const FOCUSABLE =
   'a[href], button:not([disabled]), input, [tabindex]:not([tabindex="-1"])'
