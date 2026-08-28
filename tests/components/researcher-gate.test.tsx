@@ -1,9 +1,13 @@
 // @vitest-environment jsdom
-import { describe, it, expect, beforeEach, afterEach } from 'vitest'
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest'
 import { render, screen, cleanup } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { ResearcherGate } from '@/components/researcher-gate'
 import { GATE_COOKIE } from '@/lib/gate'
+
+// The gate reads usePathname() to decide whether the route is ungated; outside
+// a Next router it returns null, so pin it to a gated storefront route.
+vi.mock('next/navigation', () => ({ usePathname: () => '/' }))
 
 function clearCookies() {
   for (const c of document.cookie.split(';')) {
