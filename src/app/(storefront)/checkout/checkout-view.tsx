@@ -1,11 +1,12 @@
 "use client";
 
-import { useActionState, useEffect, useState } from "react";
+import { useActionState, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCart } from "@/components/cart-context";
 import { orderTotals, shippingCost, type ShippingMethod } from "@/lib/cart/cart";
 import { placeOrder } from "@/lib/orders/place-order";
+import { identify, track } from "@/lib/analytics/track";
 import type { PlaceOrderState } from "@/lib/orders/place-order-schema";
 import { StepShipping } from "./steps/step-shipping";
 import { StepDelivery } from "./steps/step-delivery";
@@ -36,12 +37,6 @@ export function CheckoutView({ accounts }: { accounts: AccountLite[] }) {
   // cart hydrates from localStorage (same hydration concern as cart-context).
   // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => setMounted(true), []);
-  useEffect(() => {
-    if (state.ok) {
-      clear();
-      router.push(`/order/${state.orderNumber}`);
-    }
-  }, [state, clear, router]);
 
   const statusOf = (key: StepKey): StepStatus => {
     if (current === key) return "active";
@@ -58,6 +53,26 @@ export function CheckoutView({ accounts }: { accounts: AccountLite[] }) {
 
   const t = orderTotals(items);
   const total = Math.round((t.merch + shippingCost(delivery as ShippingMethod, t.merch)) * 100) / 100;
+
+  // On a successful place_order: record the conversion, then clear the cart
+  // and move to the pay page. `placedRef` makes this fire exactly once per
+  // order even though the deps (items → [] after clear()) change underneath it.
+  const placedRef = useRef<string | null>(null);
+  useEffect(() => {
+    if (!state.ok || placedRef.current === state.orderNumber) return;
+    placedRef.current = state.orderNumber;
+    identify(shipping.email.toLowerCase(), { email: shipping.email, name: shipping.name });
+    track("order_placed", {
+      order_number: state.orderNumber,
+      total,
+      items_count: items.reduce((n, i) => n + i.quantity, 0),
+      products: items.map((i) => `${i.productName} ${i.mg}`),
+      payment_method: payment,
+      shipping_method: delivery,
+    });
+    clear();
+    router.push(`/order/${state.orderNumber}`);
+  }, [state, clear, router, items, shipping, payment, delivery, total]);
   const rpcItems = items.map((x) => ({ size_id: x.sizeId, quantity: x.quantity }));
 
   if (mounted && items.length === 0) {

@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { usePathname } from 'next/navigation'
 import { gateCookieString, readVerifiedCookie } from '@/lib/gate'
+import { track } from '@/lib/analytics/track'
 import { Logo } from '@/components/logo'
 
 // Routes left ungated: educational, Research-Use-Only content that pulls cold
@@ -33,6 +34,7 @@ export function ResearcherGate() {
   // they've already passed. A returning verified visitor may see it for one
   // frame before it clears — harmless, since they're already verified.
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (readVerifiedCookie()) setDismissed(true)
   }, [])
 
@@ -103,6 +105,12 @@ export function ResearcherGate() {
   function accept() {
     document.cookie = gateCookieString()
     setDismissed(true)
+    track('researcher_gate_accepted', { path: pathname })
+  }
+
+  function exit() {
+    setExited(true)
+    track('researcher_gate_exited', { path: pathname })
   }
 
   const canEnter = age && researcher
@@ -237,7 +245,7 @@ export function ResearcherGate() {
               Not a researcher?{' '}
               <button
                 type="button"
-                onClick={() => setExited(true)}
+                onClick={exit}
                 className="font-semibold underline underline-offset-4"
                 style={{ color: 'var(--paper)' }}
               >
