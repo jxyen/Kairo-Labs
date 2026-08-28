@@ -53,6 +53,24 @@ describe('resolvePosthogHosts', () => {
     })
   })
 
+  it.each(['/ingest', '/ingest/', 'ingest', 'https:///ingest', '/'])(
+    'treats a proxy path or dot-less value (%s) as "no host" → US Cloud, never a bogus self-host',
+    (value) => {
+      // Regression: prod had NEXT_PUBLIC_POSTHOG_HOST="/ingest" (PostHog's own
+      // Next.js proxy docs suggest that) and the rewrite pointed at https://ingest → DNS error.
+      expect(resolvePosthogHosts(value)).toEqual(US)
+    },
+  )
+
+  it('still allows localhost as a self-hosted origin', () => {
+    expect(resolvePosthogHosts('http://localhost:8000')).toEqual({
+      region: 'us',
+      apiHost: 'http://localhost:8000',
+      assetsHost: 'http://localhost:8000',
+      uiHost: 'http://localhost:8000',
+    })
+  })
+
   it('does not throw on garbage and falls back to US', () => {
     expect(resolvePosthogHosts('http://')).toEqual(US)
     expect(resolvePosthogHosts('not a url at all')).toEqual(US)

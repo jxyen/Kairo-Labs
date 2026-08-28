@@ -35,12 +35,21 @@ function parse(raw: string): URL | null {
   }
 }
 
+function looksLikeHostname(hostname: string): boolean {
+  return hostname === 'localhost' || hostname.includes('.')
+}
+
 export function resolvePosthogHosts(envHost?: string | null): PosthogHosts {
-  const url = parse((envHost ?? '').trim())
+  const raw = (envHost ?? '').trim()
+  // PostHog's own Next.js proxy guide has people set NEXT_PUBLIC_POSTHOG_HOST
+  // to the proxy PATH ("/ingest") — that is what's on Vercel prod. A path is
+  // not a host: ignore it (and anything else without a real hostname) and use
+  // the cloud default rather than proxying to a domain that doesn't exist.
+  const url = raw.startsWith('/') ? null : parse(raw)
   const hostname = url?.hostname.toLowerCase() ?? ''
 
   // Self-hosted / unknown host: forward everything to that origin as-is.
-  if (url && hostname && !isPosthogCloud(hostname)) {
+  if (url && looksLikeHostname(hostname) && !isPosthogCloud(hostname)) {
     const origin = url.origin
     return { region: 'us', apiHost: origin, assetsHost: origin, uiHost: origin }
   }
