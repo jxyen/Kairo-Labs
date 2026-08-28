@@ -22,3 +22,15 @@ Line items are pulled from `product_sizes` (SKU, price). Each order tracks a
 - [ ] RLS respected (no service-role client in request paths)
 - [ ] Tests under `tests/` cover the data-access functions
 - [ ] Types regenerated if schema changed
+
+## Status (2026-08-28, `feat/orders-admin`)
+
+Shipped: list (`/admin/orders`, bucket filter), detail (`/admin/orders/[id]`),
+mark-paid via `mark_order_paid` (staff pick the method actually used + optional
+reference), status workflow (`order-utils.ts` → `STATUS_TRANSITIONS`), tracking
+number saved as a `shipments` row on ship, internal notes. Screenshots in
+`screenshots/`.
+
+Not built yet: creating orders / editing line items by hand, and the
+`inventory_movements` decrement on paid (the RPC deliberately leaves that for
+the fulfillment feature — see the FUTURE note in `0010_payment_events.sql`).
