@@ -275,15 +275,43 @@ export function relatedProducts(list: Product[], p: Product, n = 3): Product[] {
 /** Free US shipping above this order subtotal (USD). */
 export const FREE_SHIP_THRESHOLD = 150;
 
-/** "Buy more, save more" — fraction off by unit quantity. */
+/**
+ * "Buy more, save more" — fraction off by unit quantity.
+ *
+ * Deliberately shallower than the size ladder. Sizing up costs us only more API
+ * powder — the vial, lyo slot, label, COA and pick/pack are unchanged — while each
+ * extra UNIT carries a full unit of fixed cost. The old ladder (2/10%, 3/15%,
+ * 5/20%) was buy-4-get-1-free at the top, applied retroactively, and undercut the
+ * size ladder it competes with. A flat % also bites hardest on the low-ASP SKUs,
+ * where fixed cost is the biggest share of price. The ceiling now sits at 10 so
+ * the discount buys incremental units instead of repricing a basket the customer
+ * was already going to buy.
+ *
+ * MUST stay in sync with public.place_order (supabase/migrations/0013_*.sql).
+ */
 export const VOLUME_TIERS: { min: number; off: number }[] = [
-  { min: 5, off: 0.2 },
-  { min: 3, off: 0.15 },
-  { min: 2, off: 0.1 },
+  { min: 10, off: 0.15 },
+  { min: 5, off: 0.1 },
+  { min: 3, off: 0.05 },
 ];
 export function volumeDiscount(qty: number): number {
   for (const t of VOLUME_TIERS) if (qty >= t.min) return t.off;
   return 0;
+}
+
+/** Deepest tier — drives "save up to X%" copy so it cannot go stale. */
+export const MAX_VOLUME_DISCOUNT = Math.max(...VOLUME_TIERS.map((t) => t.off));
+
+/**
+ * Blends/stacks are sold at a standing discount to their component value
+ * (`compareAt`, the same field behind bundleSavings and the catalog "Save $X"
+ * badge), so they do not also receive the volume tier — stacking both put a
+ * 5-pack ~39% under component value.
+ *
+ * MUST stay in sync with the `compare_at is not null` test in public.place_order.
+ */
+export function isBundleProduct(p: Pick<Product, "compareAt">): boolean {
+  return p.compareAt != null;
 }
 
 /** The next volume tier above the current unit count — drives "add N more, save X%". */

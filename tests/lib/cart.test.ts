@@ -21,13 +21,53 @@ describe('cart', () => {
     expect(orderTotals([mk('a', 50, 1)]).shipping).toBeCloseTo(9.99, 2) // 50 < 150
     expect(orderTotals([mk('a', 160, 1)]).shipping).toBe(0)             // merch 160 >= 150 -> free (see report: brief's mk('a',80,2) merch=144 contradicts test 4)
   })
-  it('applies a 10% volume discount at qty 2 and recomputes merch/total', () => {
-    const t = orderTotals([mk('a', 80, 2)]) // subtotal 160, disc 16, merch 144 -> under 150
+  it('gives no volume discount at qty 2 (the 2-unit tier was retired)', () => {
+    const t = orderTotals([mk('a', 80, 2)])
     expect(t.subtotal).toBeCloseTo(160, 2)
-    expect(t.discount).toBeCloseTo(16, 2)
-    expect(t.merch).toBeCloseTo(144, 2)
+    expect(t.discount).toBeCloseTo(0, 2)
+    expect(t.merch).toBeCloseTo(160, 2)
+    expect(t.shipping).toBe(0)              // merch 160 >= 150 -> free
+    expect(t.total).toBeCloseTo(160, 2)
+  })
+  it('applies 5% at qty 3 and recomputes merch/total', () => {
+    const t = orderTotals([mk('a', 50, 3)]) // subtotal 150, disc 7.50, merch 142.50 -> under 150
+    expect(t.subtotal).toBeCloseTo(150, 2)
+    expect(t.discount).toBeCloseTo(7.5, 2)
+    expect(t.merch).toBeCloseTo(142.5, 2)
     expect(t.shipping).toBeCloseTo(9.99, 2)
-    expect(t.total).toBeCloseTo(153.99, 2)
+    expect(t.total).toBeCloseTo(152.49, 2)
+  })
+  it('steps to 10% at qty 5 and 15% at qty 10', () => {
+    expect(orderTotals([mk('a', 100, 5)]).discount).toBeCloseTo(50, 2)   // 10% of 500
+    expect(orderTotals([mk('a', 100, 9)]).discount).toBeCloseTo(90, 2)   // still 10%
+    expect(orderTotals([mk('a', 100, 10)]).discount).toBeCloseTo(150, 2) // 15% of 1000
+  })
+  it('excludes blends from the volume discount at every quantity', () => {
+    const blend = (qty: number): CartItem => ({ ...mk('g', 87.99, qty), isBundle: true })
+    for (const q of [3, 5, 10]) {
+      const t = orderTotals([blend(q)])
+      expect(t.discount).toBeCloseTo(0, 2)
+      expect(t.subtotal).toBeCloseTo(87.99 * q, 2)  // still counts toward subtotal
+    }
+    // ...and toward free shipping
+    expect(orderTotals([blend(3)]).shipping).toBe(0)
+  })
+  it('discounts peptide lines alongside an undiscounted blend line', () => {
+    const t = orderTotals([mk('a', 50, 3), { ...mk('g', 87.99, 5), isBundle: true }])
+    expect(t.subtotal).toBeCloseTo(589.95, 2)
+    expect(t.discount).toBeCloseTo(7.5, 2)   // 5% of the 150 peptide line only
+  })
+  it('itemFromProduct tags a blend via compareAt so the cart excludes it', () => {
+    const base = {
+      code: 'GLOW', name: 'GLOW Stack', sub: '', category: 'x', image: '/img/glow.png',
+      mechanism: '', tagline: '', purity: '', rating: 0, reviews: 0,
+      bestseller: false, featured: false, blurb: '',
+      sizes: [{ id: 's9', mg: '70 mg', price: 87.99 }],
+    }
+    const blend = { ...base, compareAt: 114.99 } as unknown as import('../../src/lib/products').Product
+    const plain = base as unknown as import('../../src/lib/products').Product
+    expect(itemFromProduct(blend, 0).isBundle).toBe(true)
+    expect(itemFromProduct(plain, 0).isBundle).toBe(false)
   })
   it('itemFromProduct snapshots the product image onto the line', () => {
     const product = {

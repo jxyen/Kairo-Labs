@@ -1,4 +1,4 @@
-import { FREE_SHIP_THRESHOLD, volumeDiscount, type Product } from '@/lib/products'
+import { FREE_SHIP_THRESHOLD, volumeDiscount, isBundleProduct, type Product } from '@/lib/products'
 
 export interface CartItem {
   sizeId: string
@@ -8,6 +8,12 @@ export interface CartItem {
   unitPrice: number
   quantity: number
   image?: string | null
+  /**
+   * Blends/stacks — already sold at a standing discount to component value, so
+   * they are excluded from the volume discount. Set from `product.compareAt` in
+   * itemFromProduct; they still count toward subtotal and free shipping.
+   */
+  isBundle?: boolean
 }
 
 const round2 = (n: number) => Math.round(n * 100) / 100
@@ -46,7 +52,8 @@ export const lineTotal = (x: CartItem) => round2(x.unitPrice * x.quantity)
 
 export function orderTotals(items: CartItem[], method: ShippingMethod = 'standard') {
   const subtotal = round2(items.reduce((s, x) => s + x.unitPrice * x.quantity, 0))
-  const discount = round2(items.reduce((s, x) => s + round2(round2(x.unitPrice * x.quantity) * volumeDiscount(x.quantity)), 0))
+  // Blend lines are skipped: they already carry a standing discount to component value.
+  const discount = round2(items.reduce((s, x) => s + (x.isBundle ? 0 : round2(round2(x.unitPrice * x.quantity) * volumeDiscount(x.quantity))), 0))
   const merch = round2(subtotal - discount)
   const shipping = shippingCost(method, merch)
   return { subtotal, discount, merch, shipping, total: round2(merch + shipping) }
@@ -55,5 +62,5 @@ export function orderTotals(items: CartItem[], method: ShippingMethod = 'standar
 export function itemFromProduct(p: Product, sizeIdx: number, quantity = 1): CartItem {
   const s = p.sizes[sizeIdx]
   if (!s?.id) throw new Error(`size ${sizeIdx} of ${p.code} has no id`)
-  return { sizeId: s.id, productCode: p.code, productName: p.name, mg: s.mg, unitPrice: s.price, quantity, image: p.image }
+  return { sizeId: s.id, productCode: p.code, productName: p.name, mg: s.mg, unitPrice: s.price, quantity, image: p.image, isBundle: isBundleProduct(p) }
 }

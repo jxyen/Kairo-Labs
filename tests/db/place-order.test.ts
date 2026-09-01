@@ -12,10 +12,13 @@ let cheapPrice: number
 beforeAll(async () => {
   // Ensure catalog data exists so this file passes in isolation (matches catalog.test.ts).
   execSync('npm run db:seed', { stdio: 'inherit' })
+  // Must not be a blend: blends carry a standing discount and are excluded from
+  // the volume tier, which would break the discount assertions below.
   const { data } = await admin
     .from('product_sizes')
-    .select('id, price, products!inner(active)')
+    .select('id, price, products!inner(active, compare_at)')
     .eq('products.active', true)
+    .is('products.compare_at', null)
     .order('price', { ascending: true })
     .limit(1)
     .single()
@@ -58,11 +61,35 @@ describe('place_order', () => {
     expect(/^KL-\d{8}-[ABCDEFGHJKLMNPQRSTUVWXYZ23456789]{4}$/.test(order!.order_number)).toBe(true)
   })
 
-  it('applies a volume discount at qty 3 (15%)', async () => {
+  it('applies a volume discount at qty 3 (5%)', async () => {
     const { data } = await place([{ size_id: cheapId, quantity: 3 }])
     made.push(data.order_number)
     const { data: order } = await admin.from('orders').select('*').eq('order_number', data.order_number).single()
-    expect(Number(order!.discount_total)).toBeCloseTo(cheapPrice * 3 * 0.15, 2)
+    expect(Number(order!.discount_total)).toBeCloseTo(cheapPrice * 3 * 0.05, 2)
+  })
+
+  it('gives no volume discount at qty 2', async () => {
+    const { data } = await place([{ size_id: cheapId, quantity: 2 }])
+    made.push(data.order_number)
+    const { data: order } = await admin.from('orders').select('*').eq('order_number', data.order_number).single()
+    expect(Number(order!.discount_total)).toBeCloseTo(0, 2)
+  })
+
+  it('does not discount a blend (compare_at set) at any quantity', async () => {
+    const { data: blend } = await admin
+      .from('product_sizes')
+      .select('id, price, products!inner(compare_at, active)')
+      .eq('products.active', true)
+      .not('products.compare_at', 'is', null)
+      .limit(1)
+      .single()
+    expect(blend).not.toBeNull()
+
+    const { data } = await place([{ size_id: blend!.id, quantity: 5 }])
+    made.push(data.order_number)
+    const { data: order } = await admin.from('orders').select('*').eq('order_number', data.order_number).single()
+    expect(Number(order!.subtotal)).toBeCloseTo(Number(blend!.price) * 5, 2)
+    expect(Number(order!.discount_total)).toBeCloseTo(0, 2)
   })
 
   it('rejects an empty cart and an unknown size', async () => {

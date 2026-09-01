@@ -11,6 +11,8 @@ import {
   sizeSavingsPct,
   volumeDiscount,
   nextVolumeTier,
+  isBundleProduct,
+  MAX_VOLUME_DISCOUNT,
   FREE_SHIP_THRESHOLD,
   type AccessoryIcon,
   type Product,
@@ -77,8 +79,11 @@ export function ProductDetailView({
   const added = justAdded === product.code;
   const bestIdx = bestValueSizeIndex(product);
 
-  const disc = volumeDiscount(qty);
-  const volNext = nextVolumeTier(qty);
+  // Blends already carry a standing discount to component value, so they neither
+  // earn nor receive the volume tier. Suppress every volume claim on their PDP.
+  const isBundle = isBundleProduct(product);
+  const disc = isBundle ? 0 : volumeDiscount(qty);
+  const volNext = isBundle ? null : nextVolumeTier(qty);
   const subtotal = size.price * qty;
   const total = subtotal * (1 - disc);
   const qualifies = total >= FREE_SHIP_THRESHOLD;
@@ -180,11 +185,11 @@ export function ProductDetailView({
             <div className="pdp-bundles">
               {[
                 { qty: 1, label: "1 Bottle" },
-                { qty: 2, label: "2 Bottles", badge: "Most Popular" as const },
-                { qty: 3, label: "3+ Bottles", badge: "Best Value" as const },
+                { qty: 3, label: "3 Bottles", badge: "Most Popular" as const },
+                { qty: 5, label: "5+ Bottles", badge: "Best Value" as const },
               ].map((b) => {
-                const off = volumeDiscount(b.qty);
-                const active = b.qty === 3 ? qty >= 3 : qty === b.qty;
+                const off = isBundle ? 0 : volumeDiscount(b.qty);
+                const active = b.qty === 5 ? qty >= 5 : qty === b.qty;
                 return (
                   <button
                     key={b.qty}
@@ -193,10 +198,10 @@ export function ProductDetailView({
                     data-active={active}
                     onClick={() => setQty(b.qty)}
                   >
-                    {b.badge && (
-                      <span className={`pdp-bundle-flag ${b.qty === 3 ? "best" : "pop"}`}>{b.badge}</span>
+                    {b.badge && !isBundle && (
+                      <span className={`pdp-bundle-flag ${b.qty === 5 ? "best" : "pop"}`}>{b.badge}</span>
                     )}
-                    <span className="pdp-bundle-vials" aria-hidden>
+                    <span className="pdp-bundle-vials" data-n={b.qty} aria-hidden>
                       {Array.from({ length: b.qty }).map((_, i) => (
                         <i
                           key={i}
@@ -232,7 +237,7 @@ export function ProductDetailView({
               {disc > 0 ? (
                 <>✓ Saving {formatUSD(subtotal - total)} ({Math.round(disc * 100)}% off){volNext && ` — add ${volNext.need} more for ${Math.round(volNext.off * 100)}%`}</>
               ) : (
-                <>Buy more, save up to 20%{volNext && ` — add ${volNext.need} more for ${Math.round(volNext.off * 100)}%`}</>
+                <>Buy more, save up to {Math.round(MAX_VOLUME_DISCOUNT * 100)}%{volNext && ` — add ${volNext.need} more for ${Math.round(volNext.off * 100)}%`}</>
               )}
             </div>
           )}

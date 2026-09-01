@@ -1095,6 +1095,8 @@ h1, h2 { font-family: var(--font-display); font-weight: 700; letter-spacing: -0.
   mix-blend-mode: multiply;
 }
 .pdp-bundle-vial + .pdp-bundle-vial { margin-left: -12px; }
+/* Tighten the overlap as the stack grows so 5 vials occupy the same 102px as 3. */
+.pdp-bundle-vials[data-n="5"] .pdp-bundle-vial + .pdp-bundle-vial { margin-left: -27px; }
 .pdp-bundle-meta { display: flex; flex-direction: column; gap: 2px; }
 .pdp-bundle-qty { font-family: var(--font-display); font-weight: 700; font-size: 13.5px; letter-spacing: -.01em; color: var(--ink); }
 .pdp-bundle-off { font-family: var(--font-mono), monospace; font-size: 10.5px; font-weight: 600; letter-spacing: .03em; }
