@@ -57,6 +57,30 @@ describe('cart', () => {
     expect(t.subtotal).toBeCloseTo(589.95, 2)
     expect(t.discount).toBeCloseTo(7.5, 2)   // 5% of the 150 peptide line only
   })
+  it('gives accessories the SAME volume tier as peptides', () => {
+    // Deliberate: consumables ride the same ladder. `compareAt` (blends) is the only
+    // exclusion -- do not reintroduce an isAccessory carve-out here without a decision.
+    const syringes = (qty: number): CartItem => mk('SYRINGES', 19.99, qty)
+    expect(orderTotals([syringes(2)]).discount).toBeCloseTo(0, 2)
+    expect(orderTotals([syringes(3)]).discount).toBeCloseTo(3.0, 2)    // 5%  of 59.97
+    expect(orderTotals([syringes(5)]).discount).toBeCloseTo(10.0, 2)   // 10% of 99.95
+    expect(orderTotals([syringes(10)]).discount).toBeCloseTo(29.99, 2) // 15% of 199.90
+  })
+  it('an accessory and a peptide at the same qty get the same rate', () => {
+    const a = orderTotals([mk('SYRINGES', 50, 5)]).discount
+    const p = orderTotals([mk('BPC', 50, 5)]).discount
+    expect(a).toBeCloseTo(p, 2)
+    expect(a).toBeCloseTo(25, 2)
+  })
+  it('itemFromProduct leaves an accessory tier-eligible (isBundle false)', () => {
+    const acc = {
+      code: 'SYRINGES', name: 'Insulin Syringes', sub: '', category: 'Supplies', image: null,
+      mechanism: '', tagline: '', purity: '', rating: 0, reviews: 0,
+      bestseller: false, featured: false, blurb: '',
+      sizes: [{ id: 'acc1', mg: 'box of 10', price: 19.99 }],
+    } as unknown as import('../../src/lib/products').Product
+    expect(itemFromProduct(acc, 0).isBundle).toBe(false)
+  })
   it('itemFromProduct tags a blend via compareAt so the cart excludes it', () => {
     const base = {
       code: 'GLOW', name: 'GLOW Stack', sub: '', category: 'x', image: '/img/glow.png',

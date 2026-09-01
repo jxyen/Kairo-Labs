@@ -53,6 +53,8 @@ export const lineTotal = (x: CartItem) => round2(x.unitPrice * x.quantity)
 export function orderTotals(items: CartItem[], method: ShippingMethod = 'standard') {
   const subtotal = round2(items.reduce((s, x) => s + x.unitPrice * x.quantity, 0))
   // Blend lines are skipped: they already carry a standing discount to component value.
+  // Accessories are deliberately NOT excluded -- consumables ride the same ladder as
+  // peptides. `isBundle` is the only carve-out; don't add an isAccessory one.
   const discount = round2(items.reduce((s, x) => s + (x.isBundle ? 0 : round2(round2(x.unitPrice * x.quantity) * volumeDiscount(x.quantity))), 0))
   const merch = round2(subtotal - discount)
   const shipping = shippingCost(method, merch)
